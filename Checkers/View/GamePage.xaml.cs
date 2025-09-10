@@ -10,5 +10,6 @@ public partial class GamePage : ContentPage
 		InitializeComponent();
         viewModel = new BoardViewModel();
         BindingContext = viewModel;
+
     }
 }
