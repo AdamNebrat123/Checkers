@@ -1,4 +1,5 @@
 ﻿using Checkers.Model;
+using Checkers.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Checkers.ViewModel
 {
-    public class BoardViewModel : INotifyPropertyChanged
+    public class BoardViewModel : ViewModelBase
     {
         public ObservableCollection<SquareViewModel> Squares { get; }
 
@@ -39,9 +40,5 @@ namespace Checkers.ViewModel
 
             Squares = new ObservableCollection<SquareViewModel>(temp);
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

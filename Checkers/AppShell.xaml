@@ -7,9 +7,21 @@
     Shell.FlyoutBehavior="Disabled"
     Title="Checkers">
 
+    <!-- Flyout menu items shown before authentication -->
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    Title="Main"
+    ContentTemplate="{DataTemplate views:MainPage}"
+    Route="MainPage" />
+
+    <ShellContent
+    Title="Login"
+    ContentTemplate="{DataTemplate views:LoginPage}"
+    Route="LoginPage" />
+
+    <ShellContent
+    Title="Register"
+    ContentTemplate="{DataTemplate views:RegisterPage}"
+    Route="RegisterPage" />
+
 
 </Shell>

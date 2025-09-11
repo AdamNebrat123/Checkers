@@ -1,4 +1,5 @@
 ﻿using Checkers.Model;
+using Checkers.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace Checkers.ViewModel
 {
-    public class SquareViewModel : INotifyPropertyChanged
+    public class SquareViewModel : ViewModelBase
     {
         private readonly Square square;
 
@@ -56,8 +57,6 @@ namespace Checkers.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        
     }
 }

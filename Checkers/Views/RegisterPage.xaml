@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Checkers.Views.RegisterPage"
+             Title="RegisterPage"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    <AbsoluteLayout>
+
+        <!--  Main Content  -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0.5,0.5,0.9,0.9" AbsoluteLayout.LayoutFlags="All">
+            <VerticalStackLayout
+            Padding="15"
+            BackgroundColor="{StaticResource BackgroundColor}"
+            Spacing="15">
+
+                <!--  Header  -->
+                <Label Style="{StaticResource TitleLabelStyle}" Text="Registration" />
+
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Frame
+                    Padding="5"
+                    BackgroundColor="White"
+                    CornerRadius="10"
+                    HasShadow="False">
+                        <Entry
+                        Placeholder="First Name"
+                        Style="{StaticResource Entry}"
+                        Text="{Binding FirstName, Mode=TwoWay}" />
+                    </Frame>
+                    <Frame
+                    Grid.Column="1"
+                    Padding="5"
+                    BackgroundColor="White"
+                    CornerRadius="10"
+                    HasShadow="False">
+                        <Entry
+                        Placeholder="Last Name"
+                        Style="{StaticResource Entry}"
+                        Text="{Binding LastName, Mode=TwoWay}" />
+                    </Frame>
+                </Grid>
+                <Label
+                IsVisible="{Binding HasError}"
+                Style="{StaticResource ErrorLabelStyle}"
+                Text="{Binding FullNameError}" />
+
+                <Frame
+                Padding="5"
+                BackgroundColor="White"
+                CornerRadius="10"
+                HasShadow="False">
+                    <Entry Placeholder="User Name" Text="{Binding UserName, Mode=TwoWay}" />
+                </Frame>
+                <Label
+                IsVisible="{Binding HasError}"
+                Style="{StaticResource ErrorLabelStyle}"
+                Text="{Binding UserNameError}" />
+
+                <Frame
+                Padding="5"
+                BackgroundColor="White"
+                CornerRadius="10"
+                HasShadow="False">
+                    <Entry Placeholder="Email Address" Text="{Binding Email, Mode=TwoWay}" />
+                </Frame>
+                <Label
+                IsVisible="{Binding HasError}"
+                Style="{StaticResource ErrorLabelStyle}"
+                Text="{Binding EmailError}" />
+
+                <Frame
+                Padding="5"
+                BackgroundColor="White"
+                CornerRadius="10"
+                HasShadow="False">
+                    <Entry
+                    Keyboard="Telephone"
+                    Placeholder="Mobile Number"
+                    Text="{Binding MobileNo, Mode=TwoWay}" />
+                </Frame>
+                <Label
+                IsVisible="{Binding HasError}"
+                Style="{StaticResource ErrorLabelStyle}"
+                Text="{Binding MobileNoError}" />
+
+
+                <Frame
+                Padding="5"
+                BackgroundColor="White"
+                CornerRadius="10"
+                HasShadow="False">
+                    <Entry
+                    IsPassword="True"
+                    Placeholder="Password"
+                    Text="{Binding Password, Mode=TwoWay}" />
+                </Frame>
+                <Label
+                IsVisible="{Binding HasError}"
+                Style="{StaticResource ErrorLabelStyle}"
+                Text="{Binding PasswordError}" />
+
+                <!--  Birth Date and Age  -->
+                <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10"
+                RowDefinitions="Auto,Auto">
+
+                    <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="Age"
+                    VerticalOptions="Center" />
+                    <DatePicker
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Date="{Binding BirthDate, Mode=TwoWay}" />
+                    <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    Text="{Binding Age}"
+                    VerticalOptions="Center" />
+                </Grid>
+                <Label
+                IsVisible="{Binding HasError}"
+                Style="{StaticResource ErrorLabelStyle}"
+                Text="{Binding BirthDateError}" />
+
+                <!--  Register Button  -->
+                <Button
+                Command="{Binding RegisterCommand}"
+                Style="{StaticResource BaseButtonStyle}"
+                Text="Register" />
+
+                <!--  Sign In Link  -->
+                <HorizontalStackLayout
+                Padding="0,15,0,0"
+                HorizontalOptions="Center"
+                Spacing="5">
+                    <Label
+                    Text="Already have an account?"
+                    TextColor="{StaticResource TextColor}"
+                    VerticalOptions="Center" />
+                    <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding NavigateToSignInCommand}"
+                    Style="{StaticResource LinkLabelStyle}"
+                    Text="Sign In" />
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </AbsoluteLayout>
+</ContentPage>

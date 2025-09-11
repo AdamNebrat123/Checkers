@@ -1,6 +1,6 @@
 ﻿using Checkers.View;
 
-namespace Checkers
+namespace Checkers.Views
 {
     public partial class MainPage : ContentPage
     {
