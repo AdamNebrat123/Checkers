@@ -13,26 +13,32 @@
 
     <!-- ריבוע 8x8 בלי רווחים -->
     <Grid RowDefinitions="Auto" ColumnDefinitions="Auto">
-        <CollectionView ItemsSource="{Binding Squares}"
-                Margin="0"
-                HorizontalOptions="Center"
-                VerticalOptions="Center">
+        <CollectionView ItemsSource="{Binding Squares}" Margin="0" HorizontalOptions="Center" VerticalOptions="Center">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                         Span="8"
-                         HorizontalItemSpacing="0"
-                         VerticalItemSpacing="0"/>
+                <GridItemsLayout Orientation="Vertical" Span="8" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ImageButton BackgroundColor="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
-                         Source="{Binding PieceImage}"
-                         Command="{Binding SquareClickedCommand}"
-                         Aspect="AspectFit"
-                         HorizontalOptions="Fill"
-                         VerticalOptions="Fill"
-                         Padding="0"
-                         Margin="0"/>
+                    <Grid>
+                        <ImageButton BackgroundColor="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
+                             Source="{Binding PieceImage}"
+                             Command="{Binding SquareClickedCommand}"
+                             Aspect="AspectFit"
+                             HorizontalOptions="Fill"
+                             VerticalOptions="Fill"
+                             Padding="0"
+                             Margin="0"/>
+                        <Ellipse WidthRequest="12"
+                                 HeightRequest="12"
+                                 Fill="Gray"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 IsVisible="{Binding HasMoveMarker}">
+                            <Ellipse.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
+                            </Ellipse.GestureRecognizers>
+                        </Ellipse>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

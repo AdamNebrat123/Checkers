@@ -21,7 +21,7 @@
         <!--  Label  -->
         <Label
         Grid.Row="0"
-        Text="Welcome to the Shopping app" />
+        Text="Welcome to the Checkers!" />
 
         <Image Grid.Row="1" Source="app_logo.png" />
         <!--  Login Button  -->

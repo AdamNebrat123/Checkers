@@ -14,6 +14,8 @@ namespace Checkers.ViewModel
     public class SquareViewModel : ViewModelBase
     {
         private readonly Square square;
+        private readonly Action<SquareViewModel> onSelected;
+        private bool hasMoveMarker;
 
         public int Row => square.Row;
         public int Column => square.Column;
@@ -33,30 +35,49 @@ namespace Checkers.ViewModel
             }
         }
 
-        public string PieceImage =>
-            Piece == null ? string.Empty :
-            Piece.Color == PieceColor.White ? "white_piece.png" : "black_piece.png";
+        public string PieceImage
+        {
+            get
+            {
+                if (Piece == null) return string.Empty;
+
+                if (Piece.Color == PieceColor.White)
+                    return Piece.IsKing ? "white_piece_king.png" : "white_piece.png";
+                else
+                    return Piece.IsKing ? "black_piece_king.png" : "black_piece.png";
+            }
+        }
+
+        public bool HasMoveMarker
+        {
+            get => hasMoveMarker;
+            set
+            {
+                if (hasMoveMarker != value)
+                {
+                    hasMoveMarker = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public ICommand SquareClickedCommand { get; }
 
-        public SquareViewModel(Square square)
+        public SquareViewModel(Square square, Action<SquareViewModel> onSelected)
         {
             this.square = square;
+            this.onSelected = onSelected;
             SquareClickedCommand = new Command(OnSquareClicked);
         }
 
         private void OnSquareClicked()
         {
-            if (Piece != null)
-            {
-                Application.Current.MainPage.DisplayAlert("לחיצה", $"נבחרה חתיכה {Piece.Color}", "אישור");
-            }
-            else
-            {
-                // ריק – אולי בעתיד נוסיף פונקציונליות
-            }
+            onSelected?.Invoke(this);
         }
 
-        
+        public void RaisePieceImageChanged()
+        {
+            OnPropertyChanged(nameof(PieceImage));
+        }
     }
 }

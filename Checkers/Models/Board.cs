@@ -9,40 +9,48 @@ namespace Checkers.Model
     public class Board
     {
         public const int Size = 8;
-        public Square[,] Squares { get; private set; }
+        public Square[,] Squares { get; }
 
         public Board()
         {
             Squares = new Square[Size, Size];
-            Initialize();
-        }
 
-        private void Initialize()
-        {
             for (int row = 0; row < Size; row++)
             {
                 for (int col = 0; col < Size; col++)
                 {
                     bool isDark = (row + col) % 2 != 0;
-                    var square = new Square
-                    {
-                        Row = row,
-                        Column = col,
-                        IsDark = isDark
-                    };
-
-                    if (isDark && row < 3)
-                    {
-                        square.Piece = new Piece { Color = PieceColor.White };
-                    }
-                    else if (isDark && row > 4)
-                    {
-                        square.Piece = new Piece { Color = PieceColor.Black };
-                    }
-
-                    Squares[row, col] = square;
+                    Squares[row, col] = new Square(row, col, isDark);
                 }
             }
+
+            SetupInitialPieces();
+        }
+
+        private void SetupInitialPieces()
+        {
+            for (int row = 0; row < 3; row++)
+            {
+                for (int col = 0; col < Size; col++)
+                {
+                    if (Squares[row, col].IsDark)
+                        Squares[row, col].Piece = new Piece(PieceColor.Black);
+                }
+            }
+
+            for (int row = Size - 3; row < Size; row++)
+            {
+                for (int col = 0; col < Size; col++)
+                {
+                    if (Squares[row, col].IsDark)
+                        Squares[row, col].Piece = new Piece(PieceColor.White);
+                }
+            }
+        }
+
+        public bool IsInsideBoard(int row, int col)
+        {
+            return row >= 0 && row < Size && col >= 0 && col < Size;
         }
     }
 }

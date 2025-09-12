@@ -14,7 +14,13 @@ namespace Checkers.Model
 
     public class Piece
     {
-        public PieceColor Color { get; set; }
+        public PieceColor Color { get; }
         public bool IsKing { get; set; }
+
+        public Piece(PieceColor color, bool isKing = false)
+        {
+            Color = color;
+            IsKing = isKing;
+        }
     }
 }

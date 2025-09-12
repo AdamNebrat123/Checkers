@@ -8,9 +8,16 @@ namespace Checkers.Model
 {
     public class Square
     {
-        public int Row { get; set; }
-        public int Column { get; set; }
-        public bool IsDark { get; set; }
+        public int Row { get; }
+        public int Column { get; }
+        public bool IsDark { get; }
         public Piece? Piece { get; set; }
+
+        public Square(int row, int col, bool isDark)
+        {
+            Row = row;
+            Column = col;
+            IsDark = isDark;
+        }
     }
 }
