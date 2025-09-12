@@ -8,39 +8,72 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SquareToColorConverter x:Key="SquareToColorConverter"/>
+            <converters:MarkerSizeConverter x:Key="MarkerSizeConverter"/>
+            <converters:CellSizeConverter x:Key="CellSizeConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!-- ריבוע 8x8 בלי רווחים -->
-    <Grid RowDefinitions="Auto" ColumnDefinitions="Auto">
-        <CollectionView ItemsSource="{Binding Squares}" Margin="0" HorizontalOptions="Center" VerticalOptions="Center">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="8" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <ImageButton BackgroundColor="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
-                             Source="{Binding PieceImage}"
-                             Command="{Binding SquareClickedCommand}"
-                             Aspect="AspectFit"
-                             HorizontalOptions="Fill"
-                             VerticalOptions="Fill"
-                             Padding="0"
-                             Margin="0"/>
-                        <Ellipse WidthRequest="12"
-                                 HeightRequest="12"
-                                 Fill="Gray"
-                                 HorizontalOptions="Center"
-                                 VerticalOptions="Center"
-                                 IsVisible="{Binding HasMoveMarker}">
-                            <Ellipse.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
-                            </Ellipse.GestureRecognizers>
-                        </Ellipse>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <Grid x:Name="RootGrid" BackgroundColor="White">
+        <!-- מרכז את הלוח במסך -->
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center"
+              x:Name="BoardGrid"
+              WidthRequest="{Binding BoardSize}"
+              HeightRequest="{Binding BoardSize}">
+
+            <CollectionView ItemsSource="{Binding Squares}"
+                            WidthRequest="{Binding BoardSize}"
+                            HeightRequest="{Binding BoardSize}"
+                            ItemSizingStrategy="MeasureAllItems"
+                            Margin="0">
+                <CollectionView.ItemsLayout>
+                    <!-- לוח 8x8 -->
+                    <GridItemsLayout Orientation="Vertical" Span="8" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <!-- רקע המשבצת -->
+                            <BoxView Color="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
+                                     HorizontalOptions="Fill"
+                                     VerticalOptions="Fill" />
+
+                            <!-- תמונה של הכלי -->
+                            <Image Source="{Binding PieceImage}"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   MinimumWidthRequest="{Binding Source={x:Reference BoardGrid}, Path=Width, Converter={StaticResource CellSizeConverter}}"
+                                   MinimumHeightRequest="{Binding Source={x:Reference BoardGrid}, Path=Height, Converter={StaticResource CellSizeConverter}}">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+
+                            <!-- Marker למהלך -->
+                            <Ellipse WidthRequest="{Binding Source={x:Reference BoardGrid}, Path=Width, Converter={StaticResource MarkerSizeConverter}}"
+                                     HeightRequest="{Binding Source={x:Reference BoardGrid}, Path=Height, Converter={StaticResource MarkerSizeConverter}}"
+                                     Fill="Gray"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     IsVisible="{Binding HasMoveMarker}">
+                                <Ellipse.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
+                                </Ellipse.GestureRecognizers>
+                            </Ellipse>
+                            <!-- כפתור שקוף שמכסה הכל, ללחיצה -->
+                            <Button BackgroundColor="Transparent"
+        Command="{Binding SquareClickedCommand}"
+        HorizontalOptions="Fill"
+        VerticalOptions="Fill"
+        BorderWidth="0"
+        Opacity="0" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
     </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
 ﻿using Checkers.Model;
+using Checkers.Models;
 using Checkers.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -41,10 +42,14 @@ namespace Checkers.ViewModel
             {
                 if (Piece == null) return string.Empty;
 
-                if (Piece.Color == PieceColor.White)
-                    return Piece.IsKing ? "white_piece_king.png" : "white_piece.png";
-                else
-                    return Piece.IsKing ? "black_piece_king.png" : "black_piece.png";
+                return Piece switch
+                {
+                    Man m when m.Color == PieceColor.White => "white_piece.png",
+                    Man m when m.Color == PieceColor.Black => "black_piece.png",
+                    King k when k.Color == PieceColor.White => "white_piece_king.png",
+                    King k when k.Color == PieceColor.Black => "black_piece_king.png",
+                    _ => string.Empty
+                };
             }
         }
 

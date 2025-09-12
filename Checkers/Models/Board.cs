@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Checkers.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,7 @@ namespace Checkers.Model
                 for (int col = 0; col < Size; col++)
                 {
                     if (Squares[row, col].IsDark)
-                        Squares[row, col].Piece = new Piece(PieceColor.Black);
+                        Squares[row, col].Piece = new Man(PieceColor.Black);
                 }
             }
 
@@ -43,7 +44,7 @@ namespace Checkers.Model
                 for (int col = 0; col < Size; col++)
                 {
                     if (Squares[row, col].IsDark)
-                        Squares[row, col].Piece = new Piece(PieceColor.White);
+                        Squares[row, col].Piece = new Man(PieceColor.White);
                 }
             }
         }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Checkers.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,15 +14,15 @@ namespace Checkers.Model
         Black
     }
 
-    public class Piece
+    public abstract class Piece
     {
         public PieceColor Color { get; }
-        public bool IsKing { get; set; }
-
-        public Piece(PieceColor color, bool isKing = false)
+        protected Piece(PieceColor color)
         {
             Color = color;
-            IsKing = isKing;
         }
+
+        // כל Piece חייב לממש את הפונקציה הזו
+        public abstract IEnumerable<Move> GetPossibleMoves(Board board, Square fromSquare);
     }
 }

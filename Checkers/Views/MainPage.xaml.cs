@@ -11,7 +11,6 @@ namespace Checkers.Views
             InitializeComponent();
             BindingContext = vm;
         }
-
         private async void OnGoToGamePage_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new GamePage());

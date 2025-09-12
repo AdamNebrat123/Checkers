@@ -32,12 +32,11 @@ namespace Checkers.ViewModel
         }
 
         private readonly Board board;
-        private readonly GameRules rules;
+        //private readonly GameRules rules;
 
         public BoardViewModel()
         {
             board = new Board();
-            rules = new GameRules(board);
 
             var temp = new List<SquareViewModel>();
 
@@ -55,18 +54,16 @@ namespace Checkers.ViewModel
 
         private void UpdateMoveMarkers()
         {
-            // קודם מסירים את כל הסמנים
             foreach (var sq in Squares)
                 sq.HasMoveMarker = false;
 
             if (SelectedSquare?.Piece == null) return;
 
-            // מחשבים מהלכים אפשריים
-            var moves = rules.GetPossibleMoves(SelectedSquare.Piece);
+            // לוקחים את המהלכים מה־Piece עצמו
+            var moves = SelectedSquare.Piece.GetPossibleMoves(board, board.Squares[SelectedSquare.Row, SelectedSquare.Column]);
 
             foreach (var move in moves)
             {
-                // מוצאים את SquareViewModel המתאים ל־move.To
                 var targetVM = Squares.FirstOrDefault(s => s.Row == move.To.Row && s.Column == move.To.Column);
                 if (targetVM != null)
                     targetVM.HasMoveMarker = true;
@@ -87,9 +84,8 @@ namespace Checkers.ViewModel
 
             var piece = SelectedSquare.Piece;
 
-            // מוצאים את המהלך החוקי שמוביל לריבוע זה
-            var move = rules.GetPossibleMoves(piece)
-                            .FirstOrDefault(m => m.To.Row == targetSquare.Row && m.To.Column == targetSquare.Column);
+            var moves = piece.GetPossibleMoves(board, board.Squares[SelectedSquare.Row, SelectedSquare.Column]);
+            var move = moves.FirstOrDefault(m => m.To.Row == targetSquare.Row && m.To.Column == targetSquare.Column);
 
             if (move == null) return;
 
@@ -108,19 +104,20 @@ namespace Checkers.ViewModel
                     capturedVM.Piece = null;
             }
 
-            // 3. קידום למלך אם הגיע לשורה האחרונה
-            if ((piece.Color == PieceColor.White && targetSquare.Row == 0) ||
-                (piece.Color == PieceColor.Black && targetSquare.Row == Board.Size - 1))
+            // 3. קידום למלך
+            if (piece is Man)
             {
-                piece.IsKing = true;
-                targetSquare.RaisePieceImageChanged();
+                if ((piece.Color == PieceColor.White && targetSquare.Row == 0) ||
+                    (piece.Color == PieceColor.Black && targetSquare.Row == Board.Size - 1))
+                {
+                    targetSquare.Piece = new King(piece.Color);
+                }
             }
 
-            // 4. ניקוי כל הסמנים של מהלכים
+            // 4. ניקוי סמנים
             foreach (var sq in Squares)
                 sq.HasMoveMarker = false;
 
-            // 5. ביטול הבחירה
             SelectedSquare = null;
         }
     }
