@@ -1,18 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Checkers.MainPage">
+             x:Class="Checkers.Views.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            
-            <Button Text="Go to Game Page"
-            x:Name="OnGoToGamePage"
-            Clicked="OnGoToGamePage_Clicked"/>
-            
-        </VerticalStackLayout>
-    </ScrollView>
+    <Grid
+    Padding="30"
+    HorizontalOptions="Center"
+    RowSpacing="20"
+    VerticalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+
+
+        <!--  Label  -->
+        <Label
+        Grid.Row="0"
+        Text="Welcome to the Shopping app" />
+
+        <Image Grid.Row="1" Source="app_logo.png" />
+        <!--  Login Button  -->
+        <Button
+        Grid.Row="2"
+        Command="{Binding GoToLoginCommand}"
+        Text="Login" />
+
+        <!--  Register Button  -->
+        <Button
+        Grid.Row="3"
+        Command="{Binding GoToRegisterCommand}"
+        Text="Register" />
+
+        <Button Grid.Row="4"
+                Text="Go to Game Page"
+                x:Name="OnGoToGamePage"
+                Clicked="OnGoToGamePage_Clicked"/>
+    </Grid>
 
 </ContentPage>

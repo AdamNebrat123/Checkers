@@ -12,7 +12,7 @@ namespace Checkers.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool isDark)
-                return isDark ? Colors.Brown : Colors.RosyBrown;
+                return isDark ? Colors.SaddleBrown : Colors.BurlyWood;
 
             return Colors.Transparent;
         }

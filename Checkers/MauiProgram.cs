@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Checkers.Data;
+using Checkers.ViewModel;
+using Checkers.ViewModels;
+using Checkers.Views;
+using Microsoft.Extensions.Logging;
 
 namespace Checkers
 {
@@ -17,9 +21,40 @@ namespace Checkers
 
 #if DEBUG
     		builder.Logging.AddDebug();
+
+            // Register Services, ViewModels, Pages
+            RegisterServices(builder);
+            RegisterViewModels(builder);
+            RegisterPages(builder);
 #endif
 
             return builder.Build();
+        }
+
+        private static void RegisterViewModels(MauiAppBuilder builder)
+        {
+            
+            builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<BoardViewModel>();
+
+
+
+        }
+
+        private static void RegisterPages(MauiAppBuilder builder)
+        {
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<RegisterPage>();
+        }
+
+        private static void RegisterServices(MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<FirebaseService>();
+            builder.Services.AddSingleton<UserService>();
+
         }
     }
 }

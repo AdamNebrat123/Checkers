@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Checkers.View.GamePage" 
-             xmlns:converters="clr-namespace:Checkers.Converters" 
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Checkers.View.GamePage"
+             xmlns:converters="clr-namespace:Checkers.Converters"
              Title="GamePage">
-
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -11,19 +11,30 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <CollectionView ItemsSource="{Binding Squares}">
-        <CollectionView.ItemsLayout>
-            <GridItemsLayout Orientation="Vertical" Span="8"
-                             HorizontalItemSpacing="0"
-                             VerticalItemSpacing="0"/>
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <ImageButton BackgroundColor="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
-                             Source="{Binding PieceImage}" 
-                             Command="{Binding SquareClickedCommand}"
-                             Aspect="AspectFit" WidthRequest="40" HeightRequest="40"/>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    <!-- ריבוע 8x8 בלי רווחים -->
+    <Grid RowDefinitions="Auto" ColumnDefinitions="Auto">
+        <CollectionView ItemsSource="{Binding Squares}"
+                Margin="0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                         Span="8"
+                         HorizontalItemSpacing="0"
+                         VerticalItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ImageButton BackgroundColor="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
+                         Source="{Binding PieceImage}"
+                         Command="{Binding SquareClickedCommand}"
+                         Aspect="AspectFit"
+                         HorizontalOptions="Fill"
+                         VerticalOptions="Fill"
+                         Padding="0"
+                         Margin="0"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

@@ -241,7 +241,8 @@ namespace Checkers.ViewModels
                         //=================================================================
                         //=================================================================
                         //=================================================================
-                        // Navigate to authenticated page
+                        // Navigate to authenticated page (currently, default main page
+                        await Shell.Current.GoToAsync("//MainPage");
                         // TODO
                         //=================================================================
                         //=================================================================
@@ -264,6 +265,10 @@ namespace Checkers.ViewModels
                     IsLoading = false; // End loading indicator
                 }
             }
+        }
+        private async Task NavigateToMainPage()
+        {
+            await Shell.Current.GoToAsync("//MainPage");
         }
 
         /// <summary>
@@ -290,6 +295,7 @@ namespace Checkers.ViewModels
             Email = string.Empty;
             Password = string.Empty;
             ClearErrors();
+            NavigateToMainPage();
         }
 
         /// <summary>
