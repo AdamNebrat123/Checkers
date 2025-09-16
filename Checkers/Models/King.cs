@@ -45,7 +45,7 @@ namespace Checkers.Models
                         else
                         {
                             // אחרי אויב → קפיצה
-                            moves.Add(new Move(fromSquare, sq, true, enemySquare!));
+                            ///////////////////////////////////////////////////////////////////////////moves.Add(new Move(fromSquare, sq, true, enemySquare!));
                         }
                     }
                     else

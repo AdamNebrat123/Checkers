@@ -11,15 +11,17 @@ namespace Checkers.Models
     {
         public Square From { get; }
         public Square To { get; }
-        public bool IsCapture { get; }
-        public Square? CapturedSquare { get; }
+        public List<(Square Captured, Square Landing)> Captures { get; } // כל קפיצה: איזו חתיכה נאכלה ולאן נחתנו
+        public List<Square> SquaresPath { get; } // כל הצעדים בסדר
 
-        public Move(Square from, Square to, bool isCapture = false, Square? capturedSquare = null)
+        public bool IsCapture => Captures.Any();
+
+        public Move(Square from, Square to, List<(Square Captured, Square Landing)>? captures = null, List<Square>? squaresPath = null)
         {
             From = from;
             To = to;
-            IsCapture = isCapture;
-            CapturedSquare = capturedSquare;
+            Captures = captures ?? new List<(Square, Square)>();
+            SquaresPath = squaresPath ?? new List<Square> { to };
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Checkers.ViewModel
                 SelectedSquare = squareVM;
         }
 
-        private void MovePiece(SquareViewModel targetSquare)
+        private async void MovePiece(SquareViewModel targetSquare)
         {
             if (SelectedSquare?.Piece == null) return;
 
@@ -89,36 +89,45 @@ namespace Checkers.ViewModel
 
             if (move == null) return;
 
-            // Move piece
-            targetSquare.Piece = piece;
-            SelectedSquare.Piece = null;
-
-            // Remove captured piece
-            if (move.IsCapture && move.CapturedSquare != null)
-            {
-                var capturedVM = Squares.FirstOrDefault(s =>
-                    s.Row == move.CapturedSquare.Row &&
-                    s.Column == move.CapturedSquare.Column);
-
-                if (capturedVM != null)
-                    capturedVM.Piece = null;
-            }
-
-            // Promote to king
-            if (piece is Man)
-            {
-                if ((piece.Color == PieceColor.White && targetSquare.Row == 0) ||
-                    (piece.Color == PieceColor.Black && targetSquare.Row == Board.Size - 1))
-                {
-                    targetSquare.Piece = new King(piece.Color);
-                }
-            }
-
-            // Clear markers
+            // הסרת סמני מהלך מיד
             foreach (var sq in Squares)
                 sq.HasMoveMarker = false;
 
             SelectedSquare = null;
+
+            var currentVM = Squares.First(s => s.Row == move.From.Row && s.Column == move.From.Column);
+
+            foreach (var step in move.SquaresPath)
+            {
+                // מחפשים את ה־VM של הצעד הבא
+                var nextVM = Squares.First(s => s.Row == step.Row && s.Column == step.Column);
+
+                // בודקים אם צעד זה עובר מעל חתיכה שנתפסה
+                var capture = move.Captures.FirstOrDefault(c => c.Landing.Row == step.Row && c.Landing.Column == step.Column);
+                if (capture.Captured != null)
+                {
+                    var capturedVM = Squares.First(s => s.Row == capture.Captured.Row && s.Column == capture.Captured.Column);
+                    capturedVM.Piece = null;
+                }
+
+                // הזזת החתיכה
+                currentVM.Piece = null;
+                nextVM.Piece = piece;
+                nextVM.RaisePieceImageChanged();
+                currentVM = nextVM;
+
+                await Task.Delay(700); // דיליי בין כל צעד
+            }
+
+            // קידום למלך
+            if (piece is Man)
+            {
+                if ((piece.Color == PieceColor.White && currentVM.Row == 0) ||
+                    (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
+                {
+                    currentVM.Piece = new King(piece.Color);
+                }
+            }
         }
     }
 }
