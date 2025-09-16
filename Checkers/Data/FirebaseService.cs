@@ -149,6 +149,7 @@ namespace Checkers.Data
                 Console.WriteLine($"Error fetching all documents: {ex.Message}");
                 return null;
             }
+
         }
 
         /// <summary>

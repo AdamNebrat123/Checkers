@@ -8,7 +8,7 @@ public partial class GamePage : ContentPage
     public GamePage()
 	{
 		InitializeComponent();
-        viewModel = new BoardViewModel();
+        viewModel = new BoardViewModel(true);
         BindingContext = viewModel;
 
     }

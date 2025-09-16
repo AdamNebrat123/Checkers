@@ -4,11 +4,8 @@ using Checkers.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Checkers.ViewModel
 {
@@ -32,10 +29,11 @@ namespace Checkers.ViewModel
         }
 
         private readonly Board board;
-        //private readonly GameRules rules;
+        private readonly bool whitePerspective;
 
-        public BoardViewModel()
+        public BoardViewModel(bool whitePerspective = true)
         {
+            this.whitePerspective = whitePerspective;
             board = new Board();
 
             var temp = new List<SquareViewModel>();
@@ -44,7 +42,10 @@ namespace Checkers.ViewModel
             {
                 for (int col = 0; col < Board.Size; col++)
                 {
-                    var squareVM = new SquareViewModel(board.Squares[row, col], SquareSelected);
+                    int displayRow = whitePerspective ? row : Board.Size - 1 - row;
+                    int displayCol = whitePerspective ? col : Board.Size - 1 - col;
+
+                    var squareVM = new SquareViewModel(board.Squares[displayRow, displayCol], SquareSelected);
                     temp.Add(squareVM);
                 }
             }
@@ -59,7 +60,6 @@ namespace Checkers.ViewModel
 
             if (SelectedSquare?.Piece == null) return;
 
-            // לוקחים את המהלכים מה־Piece עצמו
             var moves = SelectedSquare.Piece.GetPossibleMoves(board, board.Squares[SelectedSquare.Row, SelectedSquare.Column]);
 
             foreach (var move in moves)
@@ -69,6 +69,7 @@ namespace Checkers.ViewModel
                     targetVM.HasMoveMarker = true;
             }
         }
+
         public void SquareSelected(SquareViewModel squareVM)
         {
             if (squareVM.HasMoveMarker)
@@ -76,7 +77,6 @@ namespace Checkers.ViewModel
             else
                 SelectedSquare = squareVM;
         }
-
 
         private void MovePiece(SquareViewModel targetSquare)
         {
@@ -89,11 +89,11 @@ namespace Checkers.ViewModel
 
             if (move == null) return;
 
-            // 1. הזזת החתיכה
+            // Move piece
             targetSquare.Piece = piece;
             SelectedSquare.Piece = null;
 
-            // 2. הסרת חתיכה שנתפסה (אם קיימת)
+            // Remove captured piece
             if (move.IsCapture && move.CapturedSquare != null)
             {
                 var capturedVM = Squares.FirstOrDefault(s =>
@@ -104,7 +104,7 @@ namespace Checkers.ViewModel
                     capturedVM.Piece = null;
             }
 
-            // 3. קידום למלך
+            // Promote to king
             if (piece is Man)
             {
                 if ((piece.Color == PieceColor.White && targetSquare.Row == 0) ||
@@ -114,7 +114,7 @@ namespace Checkers.ViewModel
                 }
             }
 
-            // 4. ניקוי סמנים
+            // Clear markers
             foreach (var sq in Squares)
                 sq.HasMoveMarker = false;
 
