@@ -35,8 +35,8 @@ namespace Checkers.Data
         {
             var config = new FirebaseAuthConfig
             {
-                ApiKey = "AIzaSyBcw2qCKC3ghBmCiPholVKOKZ-6BHXqc0A",
-                AuthDomain = "shopmauiapp-bd654.firebaseapp.com",
+                ApiKey = "AIzaSyCqYkZ67XuB62GrPzBrbtPgCtI0QIyTNL4",
+                AuthDomain = "checkers-cc0c6.firebaseapp.com",
                 Providers = new FirebaseAuthProvider[]
                 {
                     new EmailProvider()
@@ -47,7 +47,7 @@ namespace Checkers.Data
             auth = new FirebaseAuthClient(config);
 
             // Initialize Firebase Realtime Database  https://<project-id>-default-rtdb.firebaseio.com/
-            firebaseClient = new FirebaseClient("https://shopmauiapp-bd654-default-rtdb.firebaseio.com/");
+            firebaseClient = new FirebaseClient("https://checkers-cc0c6-default-rtdb.firebaseio.com/");
         }
 
         /// <summary>
