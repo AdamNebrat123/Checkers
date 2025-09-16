@@ -1,6 +1,6 @@
 using Checkers.ViewModel;
 
-namespace Checkers.View;
+namespace Checkers.Views;
 
 public partial class GamePage : ContentPage
 {

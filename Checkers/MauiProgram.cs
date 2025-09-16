@@ -35,6 +35,7 @@ namespace Checkers
         {
             
             builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddTransient<HomePageViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<BoardViewModel>();
@@ -48,6 +49,10 @@ namespace Checkers
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
+            builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<CreateGame>();
+            builder.Services.AddTransient<WaitingRoom>();
+            builder.Services.AddTransient<GamePage>();
         }
 
         private static void RegisterServices(MauiAppBuilder builder)

@@ -12,19 +12,22 @@ namespace Checkers.ViewModels
         public ICommand GoToLoginCommand { get; }
         public ICommand GoToRegisterCommand { get; }
 
+
         public MainViewModel()
         {
             GoToLoginCommand = new Command(async () =>
             {
                 // Absolute route to LoginPage
-                await Shell.Current.GoToAsync("///LoginPage");
+                await Shell.Current.GoToAsync("//LoginPage");
             });
 
             GoToRegisterCommand = new Command(async () =>
             {
                 // Absolute route to RegisterPage
-                await Shell.Current.GoToAsync("///RegisterPage");
+                await Shell.Current.GoToAsync("//RegisterPage");
             });
+
+
         }
     }
 }

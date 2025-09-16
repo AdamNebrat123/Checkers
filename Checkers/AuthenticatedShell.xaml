@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="Checkers.AuthenticatedShell"
+       xmlns:local="clr-namespace:Checkers.Views"
+       Title="Checkers App"
+       FlyoutBehavior="Flyout"
+       FlowDirection="LeftToRight"
+       Shell.TabBarBackgroundColor="#2C3E50"
+       Shell.TabBarForegroundColor="White"
+       Shell.TabBarDisabledColor="Gray"
+       Shell.TabBarTitleColor="White">
+
+    <!-- FlyoutItem Home -->
+    <FlyoutItem Title="Home" Icon="home.png" >
+        <!-- Tab פנימי בתוך Home -->
+        <Tab Title="Pages">
+            <ShellContent Title="Home" ContentTemplate="{DataTemplate local:HomePage}" Route="HomePage"/>
+            <ShellContent Title="Lobby" ContentTemplate="{DataTemplate local:CheckersLobby}" Route="CheckersLobby"/>
+        </Tab>
+    </FlyoutItem>
+
+    <!-- FlyoutItem Profile -->
+    <FlyoutItem Title="Profile" Icon="profile.png">
+        <Tab Title="Profile">
+            <ShellContent Title="Profile" ContentTemplate="{DataTemplate local:ProfilePage}" Route="ProfilePage"/>
+        </Tab>
+    </FlyoutItem>
+
+</Shell>

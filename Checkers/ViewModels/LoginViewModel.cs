@@ -238,15 +238,11 @@ namespace Checkers.ViewModels
                     {
                         // Store username securely for future sessions
                         await SecureStorage.SetAsync("userName", user.UserName);
-                        //=================================================================
-                        //=================================================================
-                        //=================================================================
-                        // Navigate to authenticated page (currently, default main page
-                        await Shell.Current.GoToAsync("//MainPage");
-                        // TODO
-                        //=================================================================
-                        //=================================================================
-                        //=================================================================
+
+
+                        // Navigate to authenticated page
+                        Application.Current.MainPage = new AuthenticatedShell();
+                        await Shell.Current.GoToAsync("///HomePage");
 
 
                     }
