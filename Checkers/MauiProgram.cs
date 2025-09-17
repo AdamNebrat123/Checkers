@@ -38,8 +38,8 @@ namespace Checkers
             builder.Services.AddTransient<HomePageViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
-            builder.Services.AddTransient<BoardViewModel>();
-
+            builder.Services.AddTransient<BoardViewModel>(); 
+            builder.Services.AddTransient<GameManagerViewModel>();
 
 
         }

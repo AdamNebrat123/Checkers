@@ -16,7 +16,7 @@ namespace Checkers.Views
         }
         private async void OnGoToGamePage_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new GamePage());
+            await Shell.Current.GoToAsync(nameof(GamePage));
         }
 
         private async void SkipLogIn_Clicked(object sender, EventArgs e)

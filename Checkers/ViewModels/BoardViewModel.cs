@@ -11,6 +11,7 @@ namespace Checkers.ViewModel
 {
     public class BoardViewModel : ViewModelBase
     {
+        private readonly GameManagerViewModel gameManager;
         public ObservableCollection<SquareViewModel> Squares { get; }
 
         private SquareViewModel? selectedSquare;
@@ -19,20 +20,30 @@ namespace Checkers.ViewModel
             get => selectedSquare;
             set
             {
-                if (selectedSquare != value)
-                {
                     selectedSquare = value;
                     OnPropertyChanged();
+
+                    if (SelectedSquare?.Piece == null)
+                    {
+                        UpdateMoveMarkers();
+                        return;
+                    }
+
+                    var piece = SelectedSquare.Piece;
+
+                    if (!gameManager.CanMove(piece))
+                        return;
+
                     UpdateMoveMarkers();
-                }
             }
         }
 
         private readonly Board board;
         private readonly bool whitePerspective;
 
-        public BoardViewModel(bool whitePerspective = true)
+        public BoardViewModel(GameManagerViewModel gameManager, bool whitePerspective = true)
         {
+            this.gameManager = gameManager;
             this.whitePerspective = whitePerspective;
             board = new Board();
 
@@ -84,6 +95,9 @@ namespace Checkers.ViewModel
 
             var piece = SelectedSquare.Piece;
 
+            if (!gameManager.CanMove(piece))
+                return;
+
             var moves = piece.GetPossibleMoves(board, board.Squares[SelectedSquare.Row, SelectedSquare.Column]);
             var move = moves.FirstOrDefault(m => m.To.Row == targetSquare.Row && m.To.Column == targetSquare.Column);
 
@@ -128,6 +142,9 @@ namespace Checkers.ViewModel
                     currentVM.Piece = new King(piece.Color);
                 }
             }
+
+            // החלפת תור
+            gameManager.SwitchTurn();
         }
     }
 }
