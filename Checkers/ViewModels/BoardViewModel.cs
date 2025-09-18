@@ -238,7 +238,7 @@ namespace Checkers.ViewModel
         }
         private async Task MakeAIMove(AIManager ai)
         {
-            int depth = 6; // אפשר לשחק עם depth גבוה יותר
+            int depth = 5; // אפשר לשחק עם depth גבוה יותר
             var bestMove = await ai.FindBestMoveAsync(board, depth);
 
             if (bestMove == null) return;
