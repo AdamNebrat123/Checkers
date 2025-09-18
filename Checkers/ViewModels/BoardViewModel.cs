@@ -12,6 +12,7 @@ namespace Checkers.ViewModel
     public class BoardViewModel : ViewModelBase
     {
         private readonly GameManagerViewModel gameManager;
+        private AIManager aiManager = new AIManager(PieceColor.Black);
         public ObservableCollection<SquareViewModel> Squares { get; }
 
         private SquareViewModel? selectedSquare;
@@ -143,8 +144,119 @@ namespace Checkers.ViewModel
                 }
             }
 
+            await PlayerMoved();
+        }
+
+        private async Task ExecuteMove(Move move, SquareViewModel fromVM)
+        {
+            var piece = fromVM.Piece!;
+            var currentVM = fromVM;
+
+            // הסרת סמני מהלך
+            foreach (var sq in Squares)
+                sq.HasMoveMarker = false;
+
+            foreach (var step in move.SquaresPath)
+            {
+                var nextVM = Squares.First(s => s.Row == step.Row && s.Column == step.Column);
+
+                var capture = move.Captures.FirstOrDefault(c => c.Landing.Row == step.Row && c.Landing.Column == step.Column);
+                if (capture.Captured != null)
+                {
+                    var capturedVM = Squares.First(s => s.Row == capture.Captured.Row && s.Column == capture.Captured.Column);
+                    capturedVM.Piece = null;
+                }
+
+                currentVM.Piece = null;
+                nextVM.Piece = piece;
+                nextVM.RaisePieceImageChanged();
+                currentVM = nextVM;
+
+                await Task.Delay(700);
+            }
+
+            // קידום למלך
+            if (piece is Man)
+            {
+                if ((piece.Color == PieceColor.White && currentVM.Row == 0) ||
+                    (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
+                {
+                    currentVM.Piece = new King(piece.Color);
+                }
+            }
+
             // החלפת תור
             gameManager.SwitchTurn();
+        }
+
+
+
+
+        public static UndoInfo MakeMove(Board board, Move move)
+        {
+            var fromSquare = move.From;
+            var toSquare = move.To;
+            var piece = fromSquare.Piece!;
+
+            // שומרים מידע על captured pieces
+            var capturedPieces = new List<(Square, Piece)>();
+            foreach (var cap in move.Captures)
+            {
+                if (cap.Captured.Piece != null)
+                    capturedPieces.Add((cap.Captured, cap.Captured.Piece));
+                cap.Captured.Piece = null;
+            }
+
+            // הזזת החתיכה
+            fromSquare.Piece = null;
+            toSquare.Piece = piece;
+
+            // קידום למלך אם צריך
+            if (piece is Man)
+            {
+                if ((piece.Color == PieceColor.White && toSquare.Row == 0) ||
+                    (piece.Color == PieceColor.Black && toSquare.Row == Board.Size - 1))
+                {
+                    toSquare.Piece = new King(piece.Color);
+                }
+            }
+
+            return new UndoInfo(fromSquare, toSquare, piece, capturedPieces);
+        }
+
+        public static void UndoMove(Board board, UndoInfo undo)
+        {
+            // מחזירים את החתיכה למקום המקורי
+            undo.To.Piece = null;
+            undo.From.Piece = undo.MovedPiece;
+
+            // מחזירים את כל החתיכות שנאכלו
+            foreach (var (square, piece) in undo.CapturedPieces)
+            {
+                square.Piece = piece;
+            }
+        }
+        private async Task MakeAIMove(AIManager ai)
+        {
+            int depth = 6; // אפשר לשחק עם depth גבוה יותר
+            var bestMove = await ai.FindBestMoveAsync(board, depth);
+
+            if (bestMove == null) return;
+
+            var fromVM = Squares.First(s => s.Row == bestMove.From.Row && s.Column == bestMove.From.Column);
+            await ExecuteMove(bestMove, fromVM);
+        }
+
+
+        private async Task PlayerMoved()
+        {
+            gameManager.SwitchTurn();
+
+            // אם עכשיו תור ה-AI
+            if (!gameManager.IsWhiteTurn) // נניח שה-AI שחור
+            {
+                await MakeAIMove(aiManager); // aiManager צריך להיות מופע של AIManager
+            }
         }
     }
 }
