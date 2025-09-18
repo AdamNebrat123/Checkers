@@ -11,10 +11,12 @@ namespace Checkers.Models
     public class AIManager
     {
         public PieceColor AIColor { get; }
+        private int depth;
 
-        public AIManager(PieceColor aiColor)
+        public AIManager(PieceColor aiColor, int depth)
         {
             AIColor = aiColor;
+            this.depth = depth;
         }
 
         public List<Move> GetAllMoves(Board board, PieceColor color)
@@ -30,7 +32,7 @@ namespace Checkers.Models
             return moves;
         }
 
-        public async Task<Move?> FindBestMoveAsync(Board board, int depth)
+        public async Task<Move?> FindBestMoveAsync(Board board)
         {
             return await Task.Run(() =>
             {

@@ -12,7 +12,7 @@ namespace Checkers.ViewModel
     public class BoardViewModel : ViewModelBase
     {
         private readonly GameManagerViewModel gameManager;
-        private AIManager aiManager = new AIManager(PieceColor.Black);
+        private AIManager aiManager;
         public ObservableCollection<SquareViewModel> Squares { get; }
 
         private SquareViewModel? selectedSquare;
@@ -42,8 +42,9 @@ namespace Checkers.ViewModel
         private readonly Board board;
         private readonly bool whitePerspective;
 
-        public BoardViewModel(GameManagerViewModel gameManager, bool whitePerspective = true)
+        public BoardViewModel(GameManagerViewModel gameManager, int depth, bool whitePerspective = true )
         {
+            aiManager = new AIManager(PieceColor.Black, depth);
             this.gameManager = gameManager;
             this.whitePerspective = whitePerspective;
             board = new Board();
@@ -239,7 +240,7 @@ namespace Checkers.ViewModel
         private async Task MakeAIMove(AIManager ai)
         {
             int depth = 5; // אפשר לשחק עם depth גבוה יותר
-            var bestMove = await ai.FindBestMoveAsync(board, depth);
+            var bestMove = await ai.FindBestMoveAsync(board);
 
             if (bestMove == null) return;
 

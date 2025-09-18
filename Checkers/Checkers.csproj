@@ -67,6 +67,9 @@
 	  <MauiXaml Update="AuthenticatedShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AIGameSetupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CheckersLobby.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

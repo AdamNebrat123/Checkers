@@ -16,7 +16,8 @@ namespace Checkers.Views
         }
         private async void OnGoToGamePage_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(GamePage));
+            int depth = 6;
+            await Shell.Current.GoToAsync($"{nameof(GamePage)}?depth={depth}");
         }
 
         private async void SkipLogIn_Clicked(object sender, EventArgs e)
