@@ -9,6 +9,7 @@ namespace Checkers
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(GamePage), typeof(GamePage));
+            Routing.RegisterRoute(nameof(AIGameSetupPage), typeof(AIGameSetupPage));
         }
     }
 }

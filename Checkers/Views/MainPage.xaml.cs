@@ -14,10 +14,9 @@ namespace Checkers.Views
             BindingContext = viewModel;
 
         }
-        private async void OnGoToGamePage_Clicked(object sender, EventArgs e)
+        private async void PlayVSai_Clicked(object sender, EventArgs e)
         {
-            int depth = 6;
-            await Shell.Current.GoToAsync($"{nameof(GamePage)}?depth={depth}");
+            await Shell.Current.GoToAsync("AIGameSetupPage");
         }
 
         private async void SkipLogIn_Clicked(object sender, EventArgs e)

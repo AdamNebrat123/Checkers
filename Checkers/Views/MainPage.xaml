@@ -38,9 +38,9 @@
         Text="Register" />
 
         <Button Grid.Row="4"
-                Text="Go to Game Page"
+                Text="Play VS ai"
                 x:Name="OnGoToGamePage"
-                Clicked="OnGoToGamePage_Clicked"/>
+                Clicked="PlayVSai_Clicked"/>
         
         <Button Grid.Row="5"
                 Text="Skip log in"

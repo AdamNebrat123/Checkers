@@ -44,7 +44,9 @@ namespace Checkers.ViewModel
 
         public BoardViewModel(GameManagerViewModel gameManager, int depth, bool whitePerspective = true )
         {
-            aiManager = new AIManager(PieceColor.Black, depth);
+            PieceColor aiColor = whitePerspective ? PieceColor.Black : PieceColor.White;
+
+            aiManager = new AIManager(aiColor, depth);
             this.gameManager = gameManager;
             this.whitePerspective = whitePerspective;
             board = new Board();
@@ -64,6 +66,12 @@ namespace Checkers.ViewModel
             }
 
             Squares = new ObservableCollection<SquareViewModel>(temp);
+
+            // אם ה-AI הוא לבן והוא מתחיל את המשחק, מבצעים את הצעד הראשון
+            if (aiManager.AIColor == PieceColor.White && gameManager.IsWhiteTurn)
+            {
+                _ = MakeAIMove();
+            }
         }
 
         private void UpdateMoveMarkers()
@@ -237,10 +245,9 @@ namespace Checkers.ViewModel
                 square.Piece = piece;
             }
         }
-        private async Task MakeAIMove(AIManager ai)
+        private async Task MakeAIMove()
         {
-            int depth = 5; // אפשר לשחק עם depth גבוה יותר
-            var bestMove = await ai.FindBestMoveAsync(board);
+            var bestMove = await aiManager.FindBestMoveAsync(board);
 
             if (bestMove == null) return;
 
@@ -253,10 +260,10 @@ namespace Checkers.ViewModel
         {
             gameManager.SwitchTurn();
 
-            // אם עכשיו תור ה-AI
-            if (!gameManager.IsWhiteTurn) // נניח שה-AI שחור
+            // אם עכשיו תור ה-AI לפי הצבע שלו
+            if (gameManager.IsWhiteTurn == (aiManager.AIColor == PieceColor.White))
             {
-                await MakeAIMove(aiManager); // aiManager צריך להיות מופע של AIManager
+                await MakeAIMove();
             }
         }
     }
