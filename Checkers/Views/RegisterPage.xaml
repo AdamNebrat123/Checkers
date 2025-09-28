@@ -131,7 +131,6 @@
                 Spacing="5">
                     <Label
                     Text="Already have an account?"
-                    TextColor="{StaticResource TextColor}"
                     VerticalOptions="Center" />
                     <Button
                     BackgroundColor="Transparent"
