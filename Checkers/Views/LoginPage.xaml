@@ -45,6 +45,7 @@
                     HeightRequest="30"
                     HorizontalOptions="End"
                     Source="eye.png"
+
                     VerticalOptions="Center"
                     WidthRequest="30" />
                 </Grid>
@@ -78,7 +79,6 @@
                 Spacing="5">
                     <Label
                     Text="Don't have an account?"
-                    TextColor="{StaticResource TextColor}"
                     VerticalOptions="Center" />
                     <Button
                     BackgroundColor="Transparent"
