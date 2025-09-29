@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Checkers.Views.SettingsPage"
+             Title="SettingsPage">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="בחר מוזיקה" FontSize="Medium" />
+        <Picker x:Name="MusicPicker" Title="בחר מוזיקה" SelectedIndexChanged="OnMusicChanged"/>
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Play" Clicked="OnPlayClicked"/>
+            <Button Text="Pause" Clicked="OnPauseClicked"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

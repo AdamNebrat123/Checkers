@@ -1,4 +1,5 @@
 ﻿using Checkers.Data;
+using Checkers.Services;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
 using Checkers.Views;
@@ -22,6 +23,7 @@ namespace Checkers
 #if DEBUG
     		builder.Logging.AddDebug();
 
+            builder.Services.AddSingleton<IMusicService, MusicService>();
             // Register Services, ViewModels, Pages
             RegisterServices(builder);
             RegisterViewModels(builder);
@@ -53,6 +55,7 @@ namespace Checkers
             builder.Services.AddTransient<CreateGame>();
             builder.Services.AddTransient<WaitingRoom>();
             builder.Services.AddTransient<GamePage>();
+            builder.Services.AddTransient<SettingsPage>();
         }
 
         private static void RegisterServices(MauiAppBuilder builder)
