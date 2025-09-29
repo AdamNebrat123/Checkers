@@ -14,6 +14,7 @@ namespace Checkers.Views
         {
             { "No music", "OFF" },
             { "Music1", "trump" },
+            { "Music2", "bibi" },
         };
 
         public SettingsPage(IMusicService musicService)

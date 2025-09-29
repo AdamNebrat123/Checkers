@@ -54,9 +54,11 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\bibi.mp3" />
 	  <MauiAsset Remove="Resources\Raw\trump.mp3" />
 	</ItemGroup>
 	<ItemGroup>
+	  <AndroidResource Include="Resources\Raw\bibi.mp3" />
 	  <AndroidResource Include="Resources\Raw\trump.mp3" />
 	</ItemGroup>
 
