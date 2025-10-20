@@ -11,7 +11,7 @@ namespace Checkers.ViewModel
 {
     public class BoardViewModel : ViewModelBase
     {
-        private readonly GameManagerViewModel gameManager;
+        public readonly GameManagerViewModel gameManager;
         private AIManager aiManager;
         public ObservableCollection<SquareViewModel> Squares { get; }
 
@@ -265,6 +265,47 @@ namespace Checkers.ViewModel
             {
                 await MakeAIMove();
             }
+        }
+
+        public async Task ApplyMove(GameMove move)
+        {
+            // מאתרים את המשבצות הרלוונטיות
+            var fromVM = Squares.FirstOrDefault(s => s.Row == move.fromRow && s.Column == move.fromCol);
+            var toVM = Squares.FirstOrDefault(s => s.Row == move.fromRow && s.Column == move.fromCol);
+
+            if (fromVM == null || toVM == null || fromVM.Piece == null)
+                return;
+
+            var piece = fromVM.Piece;
+
+            // מחיקה של חתיכות שנאכלו (אם יש)
+            if (move.captures != null)
+            {
+                foreach (var cap in move.captures)
+                {
+                    var capturedVM = Squares.FirstOrDefault(s => s.Row == cap.row && s.Column == cap.col);
+                    if (capturedVM != null)
+                        capturedVM.Piece = null;
+                }
+            }
+
+            // הזזה
+            fromVM.Piece = null;
+            toVM.Piece = piece;
+            toVM.RaisePieceImageChanged();
+
+            // קידום למלך
+            if (piece is Man)
+            {
+                if ((piece.Color == PieceColor.White && toVM.Row == 0) ||
+                    (piece.Color == PieceColor.Black && toVM.Row == Board.Size - 1))
+                {
+                    toVM.Piece = new King(piece.Color);
+                }
+            }
+
+            // החלפת תור
+            gameManager.SwitchTurn();
         }
     }
 }
