@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-
+ 
 namespace Checkers.ViewModel
 {
     public class BoardViewModel : ViewModelBase
@@ -67,7 +67,7 @@ namespace Checkers.ViewModel
 
             Squares = new ObservableCollection<SquareViewModel>(temp);
 
-            // אם ה-AI הוא לבן והוא מתחיל את המשחק, מבצעים את הצעד הראשון
+            // אם ה-AI הוא לבן והוא מתחיל את המשחק, מבצעים את הצעד הראשון.
             if (aiManager.AIColor == PieceColor.White && gameManager.IsWhiteTurn)
             {
                 _ = MakeAIMove();
