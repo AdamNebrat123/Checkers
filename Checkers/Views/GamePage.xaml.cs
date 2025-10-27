@@ -1,3 +1,6 @@
+using Checkers.GameLogic;
+using Checkers.Model;
+using Checkers.Models;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
 
@@ -21,11 +24,21 @@ public partial class GamePage : ContentPage
         _gameManager = gameManager;
     }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
+
         bool isWhite = PlayerColor == "White";
-        viewModel = new BoardViewModel(_gameManager, Depth, isWhite);
-        BindingContext = viewModel;
+        var boardVM = new BoardViewModel(isWhite);
+        var aiColor = isWhite ? PieceColor.Black : PieceColor.White;
+
+        var aiManager = new AIManager(aiColor, Depth);
+        var strategy = new AiGameStrategy(_gameManager, aiManager);
+        var gameVM = new GameViewModel(strategy, _gameManager, boardVM);
+
+        boardVM.SquareClicked += async square => await gameVM.HandleSquareSelectedAsync(square);
+
+        BindingContext = boardVM;
+        await gameVM.InitializeAsync();
     }
 }
