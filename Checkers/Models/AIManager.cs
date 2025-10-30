@@ -1,4 +1,5 @@
-﻿using Checkers.Model;
+﻿using Checkers.GameLogic;
+using Checkers.Model;
 using Checkers.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -41,9 +42,9 @@ namespace Checkers.Models
 
                 foreach (var move in GetAllMoves(board, AIColor))
                 {
-                    var undo = BoardViewModel.MakeMove(board, move);
+                    var undo = AiGameStrategy.MakeMove(board, move);
                     int moveValue = Minimax(board, depth - 1, false, int.MinValue, int.MaxValue, AIColor);
-                    BoardViewModel.UndoMove(board, undo);
+                    AiGameStrategy.UndoMove(board, undo);
 
                     if (moveValue > bestValue)
                     {
@@ -66,9 +67,9 @@ namespace Checkers.Models
                 int maxEval = int.MinValue;
                 foreach (var move in GetAllMoves(board, aiColor))
                 {
-                    var undo = BoardViewModel.MakeMove(board, move);
+                    var undo = AiGameStrategy.MakeMove(board, move);
                     int eval = Minimax(board, depth - 1, false, alpha, beta, aiColor);
-                    BoardViewModel.UndoMove(board, undo);
+                    AiGameStrategy.UndoMove(board, undo);
 
                     maxEval = Math.Max(maxEval, eval);
                     alpha = Math.Max(alpha, eval);
@@ -84,9 +85,9 @@ namespace Checkers.Models
 
                 foreach (var move in GetAllMoves(board, humanColor))
                 {
-                    var undo = BoardViewModel.MakeMove(board, move);
+                    var undo = AiGameStrategy.MakeMove(board, move);
                     int eval = Minimax(board, depth - 1, true, alpha, beta, aiColor);
-                    BoardViewModel.UndoMove(board, undo);
+                    AiGameStrategy.UndoMove(board, undo);
 
                     minEval = Math.Min(minEval, eval);
                     beta = Math.Min(beta, eval);

@@ -21,7 +21,7 @@
               WidthRequest="{Binding BoardSize}"
               HeightRequest="{Binding BoardSize}">
 
-            <CollectionView ItemsSource="{Binding Squares}"
+            <CollectionView ItemsSource="{Binding BoardVM.Squares}"
                             WidthRequest="{Binding BoardSize}"
                             HeightRequest="{Binding BoardSize}"
                             ItemSizingStrategy="MeasureAllItems"

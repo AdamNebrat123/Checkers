@@ -12,16 +12,15 @@ namespace Checkers.Views;
 [QueryProperty(nameof(PlayerColor), "playerColor")]
 public partial class GamePage : ContentPage
 {
-    private BoardViewModel viewModel;
-    private readonly GameManagerViewModel _gameManager;
+    private readonly GameViewModel _gameViewModel;
 
     public int Depth { get; set; }
     public string PlayerColor { get; set; }
 
-    public GamePage(GameManagerViewModel gameManager)
+    public GamePage(GameViewModel gameViewModel)
     {
         InitializeComponent();
-        _gameManager = gameManager;
+        _gameViewModel = gameViewModel;
     }
 
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
@@ -29,16 +28,18 @@ public partial class GamePage : ContentPage
         base.OnNavigatedTo(args);
 
         bool isWhite = PlayerColor == "White";
-        var boardVM = new BoardViewModel(isWhite);
-        var aiColor = isWhite ? PieceColor.Black : PieceColor.White;
 
-        var aiManager = new AIManager(aiColor, Depth);
-        var strategy = new AiGameStrategy(_gameManager, aiManager);
-        var gameVM = new GameViewModel(strategy, _gameManager, boardVM);
+        // Let GameViewModel create the BoardViewModel internally
+        _gameViewModel.InitializeBoard(isWhite);
 
-        boardVM.SquareClicked += async square => await gameVM.HandleSquareSelectedAsync(square);
+        // Create AI strategy and set it on the injected GameViewModel
+        var strategy = new AiGameStrategy(_gameViewModel.GameManager, Depth, isWhite);
+        _gameViewModel.SetStrategy(strategy);
 
-        BindingContext = boardVM;
-        await gameVM.InitializeAsync();
+        _gameViewModel.BoardVM.SquareClicked += async square => await _gameViewModel.HandleSquareSelectedAsync(square);
+
+        // Bind the page to the overall GameViewModel
+        BindingContext = _gameViewModel;
+        await _gameViewModel.InitializeAsync();
     }
 }

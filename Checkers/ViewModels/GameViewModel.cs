@@ -6,24 +6,47 @@ namespace Checkers.ViewModel
 {
     public class GameViewModel : ViewModelBase
     {
-        public BoardViewModel BoardVM { get; }
+        public BoardViewModel BoardVM { get; private set; }
         public GameManagerViewModel GameManager { get; }
-        private readonly IGameStrategy _strategy;
+        private IGameStrategy _strategy;
 
-        public GameViewModel(IGameStrategy strategy, GameManagerViewModel gameManager, BoardViewModel boardVM)
+        // Inject only the GameManager via DI
+        public GameViewModel(GameManagerViewModel gameManager)
+        {
+            GameManager = gameManager;
+        }
+
+        public void SetBoardViewModel(BoardViewModel boardVM)
+        {
+            BoardVM = boardVM;
+            _strategy?.SetBoardViewModel(boardVM);
+        }
+
+        // Create the board internally with the given perspective
+        public void InitializeBoard(bool whitePerspective)
+        {
+            var boardVM = new BoardViewModel(whitePerspective);
+            SetBoardViewModel(boardVM);
+        }
+
+        public void SetStrategy(IGameStrategy strategy)
         {
             _strategy = strategy;
-            GameManager = gameManager;
-            BoardVM = boardVM;
+            if (BoardVM != null)
+                _strategy.SetBoardViewModel(BoardVM);
         }
 
         public async Task InitializeAsync()
         {
-            await _strategy.InitializeAsync(BoardVM);
+            if (_strategy != null && BoardVM != null)
+            {
+                await _strategy.InitializeAsync(BoardVM);
+            }
         }
 
         public async Task HandleSquareSelectedAsync(SquareViewModel square)
         {
+            if (_strategy == null) return;
             await _strategy.HandleSquareSelectedAsync(BoardVM, square);
         }
     }

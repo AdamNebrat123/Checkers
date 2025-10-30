@@ -10,6 +10,7 @@ namespace Checkers.GameLogic
     public interface IGameStrategy
     {
         Task HandleSquareSelectedAsync(BoardViewModel boardVM, SquareViewModel squareVM);
+        void SetBoardViewModel(BoardViewModel boardVM);
         Task InitializeAsync(BoardViewModel boardVM);
     }
 }
