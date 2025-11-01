@@ -9,7 +9,7 @@ namespace Checkers.ViewModels
 {
     public class GameManagerViewModel
     {
-        public bool IsWhiteTurn { get; private set; } = true; // לבן מתחיל
+        public bool IsWhiteTurn { get; set; } = true; // לבן מתחיל
 
         public GameManagerViewModel()
         {

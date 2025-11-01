@@ -84,5 +84,11 @@ namespace Checkers.ViewModel
         {
             OnPropertyChanged(nameof(PieceImage));
         }
+
+        public void UpdateProperty([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(nameof(propertyName));
+        }
+
     }
 }

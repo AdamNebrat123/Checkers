@@ -62,5 +62,15 @@ namespace Checkers.ViewModel
                     targetVM.HasMoveMarker = true;
             }
         }
+        public void RefreshSquares(params SquareViewModel[] changedSquares)
+        {
+            foreach (var square in changedSquares)
+            {
+                square.UpdateProperty(nameof(square.Piece)); // updateproperty is a wrapping function to OnPropertyChanged to make it "public"
+                square.UpdateProperty(nameof(square.PieceImage));
+            }
+        }
+
+
     }
 }

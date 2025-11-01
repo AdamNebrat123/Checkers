@@ -50,6 +50,38 @@ namespace Checkers.Data
         /// </summary>
         private GameModel GetGameFromRawData(Dictionary<string, object> data, string gameId)
         {
+            int[,] boardState = new int[8, 8];
+            if (data.TryGetValue("BoardState", out var stateObj))
+            {
+                try
+                {
+                    if (stateObj is JsonElement jeState && jeState.ValueKind != JsonValueKind.Null)
+                        boardState = JsonSerializer.Deserialize<int[,]>(jeState.GetRawText())!;
+                    else if (stateObj != null)
+                        boardState = JsonSerializer.Deserialize<int[,]>(stateObj.ToString()!)!;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            List<GameMove> moves = new();
+            if (data.TryGetValue("Moves", out var movesObj))
+            {
+                try
+                {
+                    if (movesObj is JsonElement jeMoves && jeMoves.ValueKind != JsonValueKind.Null)
+                        moves = JsonSerializer.Deserialize<List<GameMove>>(jeMoves.GetRawText())!;
+                    else if (movesObj != null)
+                        moves = JsonSerializer.Deserialize<List<GameMove>>(movesObj.ToString()!)!;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
             return new GameModel
             {
                 GameId = data.TryGetValue("GameId", out var id) ? id.ToString()! : gameId,
@@ -58,16 +90,11 @@ namespace Checkers.Data
                 Guest = data.TryGetValue("Guest", out var guest) ? guest.ToString()! : "",
                 GuestColor = data.TryGetValue("GuestColor", out var gColor) ? gColor.ToString()! : "Black",
                 IsWhiteTurn = data.TryGetValue("IsWhiteTurn", out var turn) ? bool.Parse(turn.ToString()!) : true,
-                BoardState = data.TryGetValue("BoardState", out var state)
-                    ? JsonSerializer.Deserialize<int[,]>(state.ToString()!)!
-                    : new int[8, 8],
-                Moves = data.TryGetValue("Moves", out var moves)
-                    ? JsonSerializer.Deserialize<List<GameMove>>(moves.ToString()!)!
-                    : new List<GameMove>(),
-                CreatedAt = data.TryGetValue("CreatedAt", out var created)
-                    ? DateTime.Parse(created.ToString()!)
-                    : DateTime.UtcNow
+                BoardState = boardState,
+                Moves = moves,
+                CreatedAt = data.TryGetValue("CreatedAt", out var created) ? DateTime.Parse(created.ToString()!) : DateTime.UtcNow
             };
         }
+
     }
 }
