@@ -1,45 +1,65 @@
 using Checkers.GameLogic;
-using Checkers.Model;
-using Checkers.Models;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
+using System.Text.Json;
 
-namespace Checkers.Views;
-
-
-
-[QueryProperty(nameof(Depth), "depth")]
-[QueryProperty(nameof(PlayerColor), "playerColor")]
-public partial class GamePage : ContentPage
+namespace Checkers.Views
 {
-    private readonly GameViewModel _gameViewModel;
+    [QueryProperty(nameof(Wrapper), "wrapper")]
 
-    public int Depth { get; set; }
-    public string PlayerColor { get; set; }
-
-    public GamePage(GameViewModel gameViewModel)
+    public partial class GamePage : ContentPage
     {
-        InitializeComponent();
-        _gameViewModel = gameViewModel;
-    }
+        private readonly GameViewModel _gameViewModel;
+        private readonly IGameStrategyFactory _strategyFactory;
 
-    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
+        public ModeParametersWrapper? Wrapper { get; set; }
 
-        bool isWhite = PlayerColor == "White";
+        public GamePage(GameViewModel gameViewModel, IGameStrategyFactory strategyFactory)
+        {
+            InitializeComponent();
+            _gameViewModel = gameViewModel;
+            _strategyFactory = strategyFactory;
+        }
 
-        // Let GameViewModel create the BoardViewModel internally
-        _gameViewModel.InitializeBoard(isWhite);
+        protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+        {
+            base.OnNavigatedTo(args);
 
-        // Create AI strategy and set it on the injected GameViewModel
-        var strategy = new AiGameStrategy(_gameViewModel.GameManager, Depth, isWhite);
-        _gameViewModel.SetStrategy(strategy);
+            if (Wrapper == null)
+                throw new InvalidOperationException("ParametersWrapper is required");
 
-        _gameViewModel.BoardVM.SquareClicked += async square => await _gameViewModel.HandleSquareSelectedAsync(square);
+            // קובע את המוד
+            GameMode mode = Enum.Parse<GameMode>(Wrapper.Mode, ignoreCase: true);
 
-        // Bind the page to the overall GameViewModel
-        BindingContext = _gameViewModel;
-        await _gameViewModel.InitializeAsync();
+            // יוצר Settings לפי JSON
+            object settings = mode switch
+            {
+                GameMode.AI => JsonSerializer.Deserialize<AiSettings>(Wrapper.Parameters.GetRawText())!,
+                GameMode.Online => JsonSerializer.Deserialize<OnlineSettings>(Wrapper.Parameters.GetRawText())!,
+                _ => throw new NotSupportedException($"Unsupported mode: {mode}")
+            };
+
+            // קובע אם הלבן
+            bool isWhite = settings switch
+            {
+                AiSettings ai => ai.IsWhite,
+                OnlineSettings online => online.IsLocalPlayerWhite,
+                _ => true
+            };
+
+            // מאתחל לוח
+            _gameViewModel.InitializeBoard(isWhite);
+
+            // יוצר אסטרטגיה דרך Factory
+            var strategy = _strategyFactory.Create(mode, _gameViewModel.GameManager, settings);
+            _gameViewModel.SetStrategy(strategy);
+
+            // אירוע לחיצה על ריבועים
+            _gameViewModel.BoardVM.SquareClicked += async square =>
+                await _gameViewModel.HandleSquareSelectedAsync(square);
+
+            BindingContext = _gameViewModel;
+            await _gameViewModel.InitializeAsync();
+        }
     }
 }

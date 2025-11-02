@@ -1,3 +1,6 @@
+using Checkers.GameLogic;
+using System.Text.Json;
+
 namespace Checkers.Views;
 
 public partial class AIGameSetupPage : ContentPage
@@ -37,8 +40,25 @@ public partial class AIGameSetupPage : ContentPage
             _ => 3
         };
 
+        AiSettings aiSettings = new AiSettings
+        {
+            Depth = depth,
+            IsWhite = playerColor == "White"
+        };
 
-        await Shell.Current.GoToAsync($"{nameof(GamePage)}?depth={depth}&playerColor={playerColor}");
+
+        var wrapper = new ModeParametersWrapper
+        {
+            Mode = GameMode.AI.ToString(),
+            Parameters = JsonSerializer.SerializeToElement(aiSettings)
+        };
+
+        await Shell.Current.GoToAsync(nameof(GamePage), new Dictionary<string, object>
+        {
+            { "wrapper", wrapper }
+        });
+
+        //await Shell.Current.GoToAsync($"{nameof(GamePage)}?depth={depth}&playerColor={playerColor}");
     }
 
     private async void OnGoToGamePage_Clicked(object sender, EventArgs e)

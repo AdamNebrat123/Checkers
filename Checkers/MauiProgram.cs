@@ -65,7 +65,7 @@ namespace Checkers
         {
             builder.Services.AddSingleton<FirebaseService>();
             builder.Services.AddSingleton<UserService>();
-            builder.Services.AddSingleton<IGameStrategyFactory>();
+            builder.Services.AddSingleton<IGameStrategyFactory, GameStrategyFactory>();
 
         }
     }

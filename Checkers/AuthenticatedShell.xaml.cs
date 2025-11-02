@@ -1,3 +1,4 @@
+using Checkers.GameLogic;
 using Checkers.Views;
 
 namespace Checkers;
