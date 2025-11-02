@@ -37,6 +37,7 @@ public partial class AIGameSetupPage : ContentPage
             _ => 3
         };
 
+
         await Shell.Current.GoToAsync($"{nameof(GamePage)}?depth={depth}&playerColor={playerColor}");
     }
 

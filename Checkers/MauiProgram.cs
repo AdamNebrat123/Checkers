@@ -1,4 +1,5 @@
 ﻿using Checkers.Data;
+using Checkers.GameLogic;
 using Checkers.Services;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
@@ -9,6 +10,7 @@ namespace Checkers
 {
     public static class MauiProgram
     {
+        public static IServiceProvider ServiceProvider { get; private set; }
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -63,6 +65,7 @@ namespace Checkers
         {
             builder.Services.AddSingleton<FirebaseService>();
             builder.Services.AddSingleton<UserService>();
+            builder.Services.AddSingleton<IGameStrategyFactory>();
 
         }
     }
