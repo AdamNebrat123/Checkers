@@ -31,16 +31,27 @@
 
         <!-- Game Code -->
         <Frame BackgroundColor="#FFFFFF"
-               Padding="15"
-               CornerRadius="10"
-               HasShadow="True"
-               HorizontalOptions="Center">
-            <Label x:Name="GameCodeLabel"
-                   Text="GAME1234"
-                   FontSize="22"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   TextColor="#007AFF"/>
+       Padding="15"
+       CornerRadius="10"
+       HasShadow="True"
+       HorizontalOptions="Center">
+
+            <VerticalStackLayout>
+                <Label x:Name="GameCodeLabel"
+               Text="GAME1234"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#007AFF"/>
+
+                <Label x:Name="GameIdLabel"
+               Text="GAME1234"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#007AFF"/>
+            </VerticalStackLayout>
+            
         </Frame>
 
         <!-- Cancel Button -->

@@ -1,6 +1,8 @@
 ﻿using Checkers.Models;
+using Checkers.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -31,6 +33,38 @@ namespace Checkers.Data
                 };
 
                 await SaveDocumentAsync(GamesCollection, game.GameId, data);
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine($"Game {game.GameId} created at path {GamesCollection}");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+                Debug.WriteLine("******************************************************");
+
                 return game.GameId;
             }
             catch (Exception ex)
@@ -82,8 +116,8 @@ namespace Checkers.Data
                     GuestColor = data.TryGetValue("GuestColor", out var gColor) ? gColor.ToString()! : "Black",
                     IsWhiteTurn = data.TryGetValue("IsWhiteTurn", out var turn) ? bool.Parse(turn.ToString()!) : true,
                     BoardState = data.TryGetValue("BoardState", out var state)
-                        ? JsonSerializer.Deserialize<int[,]>(state.ToString()!)!
-                        : new int[8, 8],
+    ? JsonSerializer.Deserialize<int[][]>(state.ToString()!)!
+    : BoardHelper.InitializeEmptyBoard(),
                     Moves = data.TryGetValue("Moves", out var moves)
                         ? JsonSerializer.Deserialize<List<GameMove>>(moves.ToString()!)!
                         : new List<GameMove>(),

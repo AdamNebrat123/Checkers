@@ -17,10 +17,9 @@ namespace Checkers.Data
         /// <summary>
         /// מנוי לשינויים במשחק ספציפי
         /// </summary>
-        public void SubscribeToGame(string gameId, Action<GameModel> onGameChanged)
+        public IDisposable SubscribeToGame(string gameId, Action<GameModel> onGameChanged)
         {
-            // **** the action signature can be changed if i will need to change it ****
-            _subscription = firebaseClient
+            var subscription = firebaseClient
                 .Child("games")
                 .Child(gameId)
                 .AsObservable<Dictionary<string, object>>()
@@ -28,12 +27,12 @@ namespace Checkers.Data
                 {
                     if (d.EventType == FirebaseEventType.InsertOrUpdate)
                     {
-                        // טען מחדש את המשחק מהנתונים
                         var game = GetGameFromRawData(d.Object, gameId);
                         onGameChanged?.Invoke(game);
                     }
-                    // אפשר לטפל גם במקרה של Delete אם רוצים
                 });
+
+            return subscription;
         }
 
         /// <summary>
@@ -50,15 +49,22 @@ namespace Checkers.Data
         /// </summary>
         private GameModel GetGameFromRawData(Dictionary<string, object> data, string gameId)
         {
-            int[,] boardState = new int[8, 8];
+            int[][] boardState = new int[8][];
+            for (int i = 0; i < 8; i++) boardState[i] = new int[8];
+
             if (data.TryGetValue("BoardState", out var stateObj))
             {
                 try
                 {
-                    if (stateObj is JsonElement jeState && jeState.ValueKind != JsonValueKind.Null)
-                        boardState = JsonSerializer.Deserialize<int[,]>(jeState.GetRawText())!;
-                    else if (stateObj != null)
-                        boardState = JsonSerializer.Deserialize<int[,]>(stateObj.ToString()!)!;
+                    string json = stateObj switch
+                    {
+                        JsonElement jeState when jeState.ValueKind != JsonValueKind.Null => jeState.GetRawText(),
+                        not null => stateObj.ToString()!,
+                        _ => "null"
+                    };
+
+                    if (json != "null")
+                        boardState = JsonSerializer.Deserialize<int[][]>(json)!;
                 }
                 catch (Exception e)
                 {
@@ -71,10 +77,15 @@ namespace Checkers.Data
             {
                 try
                 {
-                    if (movesObj is JsonElement jeMoves && jeMoves.ValueKind != JsonValueKind.Null)
-                        moves = JsonSerializer.Deserialize<List<GameMove>>(jeMoves.GetRawText())!;
-                    else if (movesObj != null)
-                        moves = JsonSerializer.Deserialize<List<GameMove>>(movesObj.ToString()!)!;
+                    string json = movesObj switch
+                    {
+                        JsonElement jeMoves when jeMoves.ValueKind != JsonValueKind.Null => jeMoves.GetRawText(),
+                        not null => movesObj.ToString()!,
+                        _ => "null"
+                    };
+
+                    if (json != "null")
+                        moves = JsonSerializer.Deserialize<List<GameMove>>(json)!;
                 }
                 catch (Exception e)
                 {

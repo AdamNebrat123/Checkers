@@ -1,4 +1,8 @@
-﻿namespace Checkers.Views;
+﻿using Checkers.Data;
+using Checkers.Models;
+using Checkers.Utils;
+
+namespace Checkers.Views;
 
 public partial class CreateGame : ContentPage
 {
@@ -7,6 +11,7 @@ public partial class CreateGame : ContentPage
     public CreateGame()
 	{
 		InitializeComponent();
+
 	}
     private void OnSwitchClicked(object sender, EventArgs e)
     {
@@ -30,7 +35,31 @@ public partial class CreateGame : ContentPage
                                .FirstOrDefault(r => r.GroupName == "GameType" && r.IsChecked);
         string gameType = selectedType?.Value?.ToString() ?? "Classic";
 
-        // ניווט עם פרמטרים דרך Shell
-        await Shell.Current.GoToAsync($"WaitingRoom?gameName={gameName}");
+        try
+        {
+            var gameService = new GameService();
+            var newGame = new GameModel
+            {
+                GameId = Guid.NewGuid().ToString(),
+                Host = "ADAM", // HARDCODED NOW!!! MUST BE CHANGED!!!!!!!!!!!!
+                HostColor = playerColor,
+                Guest = "",
+                GuestColor = opponentColor,
+                IsWhiteTurn = true,
+                BoardState = BoardHelper.InitialBoardState(),
+                Moves = new List<GameMove>(),
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await gameService.CreateGameAsync(newGame);
+
+            // ניווט עם פרמטרים דרך Shell (כולל ה-ID כדי ש-WaitingRoom ידע לאיזה משחק להתחבר)
+            await Shell.Current.GoToAsync($"WaitingRoom?gameId={newGame.GameId}&gameName={gameName}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating game: {ex.Message}");
+            await DisplayAlert("Error", "Failed to create game.", "OK");
+        }
     }
 }

@@ -1,30 +1,95 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Checkers.Data;
+using Checkers.GameLogic;
+using Checkers.Models;
+using Microsoft.Maui.Controls;
+using System;
+using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace Checkers.Views;
-
-[QueryProperty(nameof(GameName), "gameName")]
-public partial class WaitingRoom : ContentPage
+namespace Checkers.Views
 {
-    public string GameName { get; set; }
-    public string GameType { get; set; }
-
-    public WaitingRoom()
+    [QueryProperty(nameof(GameName), "gameName")]
+    [QueryProperty(nameof(GameId), "gameId")]
+    public partial class WaitingRoom : ContentPage
     {
-        InitializeComponent();
-    }
+        public string GameName { get; set; }
+        public string GameId { get; set; }
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
+        private readonly GameService _gameService = new GameService();
+        private IDisposable? _gameSubscription;
 
-        // עדכון GameCodeLabel עם הערך שהתקבל
-        GameCodeLabel.Text = GameName ?? "GAME1234";
+        private bool _joined = false;
 
-    }
+        public WaitingRoom()
+        {
+            InitializeComponent();
+        }
 
-    private async void OnCancelWaitingClicked(object sender, EventArgs e)
-    {
-        // חזרה לעמוד הקודם או דף ראשי
-        await Shell.Current.GoToAsync("..");
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            GameCodeLabel.Text = GameName ?? "GAME1234";
+            GameIdLabel.Text = $"Game ID: {GameId}";
+
+            await ListenForGuestAsync();
+        }
+
+        private async Task ListenForGuestAsync()
+        {
+            try
+            {
+                // נשתמש ב־Realtime listener כדי לזהות אם השדה Guest התמלא
+                var realtimeService = new GameRealtimeService();
+                _gameSubscription =  realtimeService.SubscribeToGame(GameId, async (game) =>
+                {
+                    if (game?.Guest != null && game.Guest != "" && !_joined)
+                    {
+                        _joined = true;
+                        await MainThread.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await DisplayAlert("Guest Joined!", $"{game.Guest} joined your game.", "OK");
+
+
+                            var onlineSettings = new OnlineSettings { GameId = game.GameId, IsLocalPlayerWhite = game.HostColor == "White" };
+                            var wrapper = new ModeParametersWrapper
+                            {
+                                Mode = GameMode.Online.ToString(),
+                                Parameters = JsonSerializer.SerializeToElement(onlineSettings)
+                            };
+
+                            // מעבר אוטומטי למסך המשחק
+                            await Shell.Current.GoToAsync(nameof(GamePage), new Dictionary<string, object>
+                            {
+                                { "wrapper", wrapper }
+                            });
+
+                        });
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error listening for guest: {ex.Message}");
+            }
+        }
+
+        private async void OnCancelWaitingClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                _gameSubscription?.Dispose();
+                _gameSubscription = null;
+
+                if (!_joined && !string.IsNullOrEmpty(GameId))
+                    await _gameService.DeleteGameAsync(GameId);
+
+                await Shell.Current.GoToAsync("..");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error cancelling waiting: {ex.Message}");
+            }
+        }
     }
 }

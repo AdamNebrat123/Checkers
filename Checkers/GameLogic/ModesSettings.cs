@@ -14,7 +14,7 @@ namespace Checkers.GameLogic
 
     public class OnlineSettings
     {
-        public string GameId { get; set; } = string.Empty;
+        public string GameId { get; set; }
         public bool IsLocalPlayerWhite { get; set; }
     }
 }

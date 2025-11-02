@@ -15,6 +15,7 @@ namespace Checkers.GameLogic
     public class OnlineGameStrategy : IGameStrategy
     {
         private readonly GameManagerViewModel gameManager;
+        private readonly GameService gameService;
         private readonly GameRealtimeService realtimeService;
         private readonly string gameId;
         private BoardViewModel boardVM;
@@ -25,6 +26,7 @@ namespace Checkers.GameLogic
         {
             this.gameManager = gameManager;
             this.realtimeService = new GameRealtimeService();
+            this.gameService = new GameService();
             this.gameId = gameId;
             this.isLocalPlayerWhite = isLocalPlayerWhite;
         }
@@ -227,7 +229,7 @@ namespace Checkers.GameLogic
 
                 try
                 {
-                    await realtimeService.UpdateGameAsync(existingModel);
+                    await gameService.UpdateGameAsync(existingModel);
                 }
                 catch (Exception ex)
                 {
