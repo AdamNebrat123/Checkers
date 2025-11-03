@@ -3,6 +3,7 @@ using Firebase.Database.Query;
 using Firebase.Database.Streaming;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -12,21 +13,30 @@ namespace Checkers.Data
 {
     public class GameRealtimeService : GameService
     {
+        private const string GamesCollection = "games";
         private IDisposable? _subscription;
 
         /// <summary>
         /// מנוי לשינויים במשחק ספציפי
         /// </summary>
+        /// 
+
+        private static readonly GameRealtimeService _instance = new();
+        private GameRealtimeService() { }
+
+        public static GameRealtimeService GetInstance() { return _instance; }
+
         public IDisposable SubscribeToGame(string gameId, Action<GameModel> onGameChanged)
         {
+
             var subscription = firebaseClient
-                .Child("games")
+                .Child(GamesCollection)
                 .Child(gameId)
                 .AsObservable<Dictionary<string, object>>()
                 .Subscribe(d =>
                 {
                     // לוג בשביל לבדוק מה מגיע
-                    Console.WriteLine($"EventType: {d.EventType}, Data: {JsonSerializer.Serialize(d.Object)}");
+                    Debug.WriteLine($"EventType: {d.EventType}, Data: {JsonSerializer.Serialize(d.Object)}");
 
                     if (d.Object == null) return;
 
@@ -40,7 +50,7 @@ namespace Checkers.Data
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Error converting game data: {ex.Message}");
+                            Debug.WriteLine($"Error converting game data: {ex.Message}");
                         }
                     }
                 });
@@ -81,7 +91,7 @@ namespace Checkers.Data
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Debug.WriteLine(e.Message);
                 }
             }
 
@@ -102,7 +112,7 @@ namespace Checkers.Data
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Debug.WriteLine(e.Message);
                 }
             }
 

@@ -9,17 +9,15 @@ namespace Checkers.Views;
 
 public partial class CheckersLobby : ContentPage
 {
-    private readonly GameRealtimeService _realtimeService;
+    private readonly GameRealtimeService _realtimeService = GameRealtimeService.GetInstance();
     private IDisposable? _subscription;
     public ObservableCollection<GameModel> AvailableGames { get; set; } = new();
 
     public ICommand JoinGameCommand { get; }
 
-    public CheckersLobby(GameRealtimeService gameRealtimeService)
+    public CheckersLobby()
     {
         InitializeComponent();
-        _realtimeService = gameRealtimeService;
-
         BindingContext = this;
 
         JoinGameCommand = new Command<GameModel>(async (game) => await OnJoinGame(game));
@@ -28,15 +26,7 @@ public partial class CheckersLobby : ContentPage
         LoadAvailableGamesAsync();
 
         // מנוי לשינויים עתידיים
-        _subscription = _realtimeService.SubscribeToAvailableGames(games =>
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                AvailableGames.Clear();
-                foreach (var game in games.OrderByDescending(g => g.CreatedAt))
-                    AvailableGames.Add(game);
-            });
-        });
+        
     }
 
     private async void LoadAvailableGamesAsync()
@@ -95,5 +85,20 @@ public partial class CheckersLobby : ContentPage
     {
         base.OnDisappearing();
         _subscription?.Dispose();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _subscription = _realtimeService.SubscribeToAvailableGames(games =>
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                AvailableGames.Clear();
+                foreach (var game in games.OrderByDescending(g => g.CreatedAt))
+                    AvailableGames.Add(game);
+            });
+        });
     }
 }

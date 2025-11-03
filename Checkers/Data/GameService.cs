@@ -15,6 +15,14 @@ namespace Checkers.Data
         /// <summary>
         /// יוצר משחק חדש ושומר בפיירבייס
         /// </summary>
+        /// 
+
+        private static readonly GameService _instance = new GameService();
+
+        protected GameService() { }
+
+        public static GameService GetInstance() { return _instance; }
+
         public async Task<string?> CreateGameAsync(GameModel game)
         {
             try
@@ -34,35 +42,7 @@ namespace Checkers.Data
 
                 await SaveDocumentAsync(GamesCollection, game.GameId, data);
                 Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
                 Debug.WriteLine($"Game {game.GameId} created at path {GamesCollection}");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
-                Debug.WriteLine("******************************************************");
                 Debug.WriteLine("******************************************************");
 
                 return game.GameId;
@@ -83,10 +63,15 @@ namespace Checkers.Data
             {
                 var data = new Dictionary<string, object>
                 {
+                    { "GameId", game.GameId },
+                    { "Host", game.Host },
+                    { "HostColor", game.HostColor },
+                    { "Guest", game.Guest ?? "" },
+                    { "GuestColor", game.GuestColor ?? "" },
                     { "IsWhiteTurn", game.IsWhiteTurn },
                     { "BoardState", JsonSerializer.Serialize(game.BoardState) },
                     { "Moves", JsonSerializer.Serialize(game.Moves) },
-                    { "Guest", game.Guest ?? "" }
+                    { "CreatedAt", game.CreatedAt.ToString("o") },
                 };
 
                 await UpdateDocumentAsync(GamesCollection, game.GameId, data);

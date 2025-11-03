@@ -3,6 +3,7 @@ using Checkers.GameLogic;
 using Checkers.Models;
 using Microsoft.Maui.Controls;
 using System;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -15,16 +16,14 @@ namespace Checkers.Views
         public string GameName { get; set; }
         public string GameId { get; set; }
 
-        private readonly GameService _gameService;
-        private readonly GameRealtimeService _gameRealtimeService;
+        private readonly GameService _gameService = GameService.GetInstance();
+        private readonly GameRealtimeService _realtimeService = GameRealtimeService.GetInstance();
         private IDisposable? _gameSubscription;
 
         private bool _joined = false;
 
-        public WaitingRoom(GameService gameService, GameRealtimeService gameRealtimeService)
+        public WaitingRoom()
         {
-            _gameService = gameService;
-            _gameRealtimeService = gameRealtimeService;
             InitializeComponent();
         }
 
@@ -34,7 +33,6 @@ namespace Checkers.Views
 
             GameCodeLabel.Text = GameName ?? "GAME1234";
             GameIdLabel.Text = $"Game ID: {GameId}";
-
             await ListenForGuestAsync();
         }
 
@@ -43,10 +41,9 @@ namespace Checkers.Views
             try
             {
                 // נשתמש ב־Realtime listener כדי לזהות אם השדה Guest התמלא
-                var realtimeService = new GameRealtimeService();
-                _gameSubscription = realtimeService.SubscribeToGame(GameId, game =>
+                _gameSubscription = _realtimeService.SubscribeToGame(GameId, game =>
                 {
-                    if (game?.Guest != "")
+                    if (game.Guest != "")
                     {
                         _joined = true;
                         MainThread.BeginInvokeOnMainThread(async () =>
@@ -70,7 +67,7 @@ namespace Checkers.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error listening for guest: {ex.Message}");
+                Debug.WriteLine($"Error listening for guest: {ex.Message}");
             }
         }
 

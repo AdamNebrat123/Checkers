@@ -15,8 +15,8 @@ namespace Checkers.GameLogic
     public class OnlineGameStrategy : IGameStrategy
     {
         private readonly GameManagerViewModel gameManager;
-        private readonly GameService gameService;
-        private readonly GameRealtimeService realtimeService;
+        private readonly GameService gameService = GameService.GetInstance();
+        private readonly GameRealtimeService realtimeService = GameRealtimeService.GetInstance();
         private readonly string gameId;
         private BoardViewModel boardVM;
         private bool isSubscribed = false;
@@ -25,8 +25,6 @@ namespace Checkers.GameLogic
         public OnlineGameStrategy(GameManagerViewModel gameManager, string gameId, bool isLocalPlayerWhite)
         {
             this.gameManager = gameManager;
-            this.gameService = new();
-            this.realtimeService = new();
             this.gameId = gameId;
             this.isLocalPlayerWhite = isLocalPlayerWhite;
         }

@@ -8,6 +8,11 @@ public partial class CreateGame : ContentPage
 {
     string playerColor = "White";
     string opponentColor = "Black";
+
+
+    private readonly GameService _gameService = GameService.GetInstance();
+
+
     public CreateGame()
 	{
 		InitializeComponent();
@@ -37,7 +42,6 @@ public partial class CreateGame : ContentPage
 
         try
         {
-            var gameService = new GameService();
             var newGame = new GameModel
             {
                 GameId = Guid.NewGuid().ToString(),
@@ -51,7 +55,7 @@ public partial class CreateGame : ContentPage
                 CreatedAt = DateTime.UtcNow
             };
 
-            await gameService.CreateGameAsync(newGame);
+            await _gameService.CreateGameAsync(newGame);
 
             // ניווט עם פרמטרים דרך Shell (כולל ה-ID כדי ש-WaitingRoom ידע לאיזה משחק להתחבר)
             await Shell.Current.GoToAsync($"WaitingRoom?gameId={newGame.GameId}&gameName={gameName}");
