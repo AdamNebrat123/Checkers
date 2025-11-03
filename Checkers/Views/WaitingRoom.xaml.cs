@@ -15,13 +15,16 @@ namespace Checkers.Views
         public string GameName { get; set; }
         public string GameId { get; set; }
 
-        private readonly GameService _gameService = new GameService();
+        private readonly GameService _gameService;
+        private readonly GameRealtimeService _gameRealtimeService;
         private IDisposable? _gameSubscription;
 
         private bool _joined = false;
 
-        public WaitingRoom()
+        public WaitingRoom(GameService gameService, GameRealtimeService gameRealtimeService)
         {
+            _gameService = gameService;
+            _gameRealtimeService = gameRealtimeService;
             InitializeComponent();
         }
 
@@ -43,7 +46,7 @@ namespace Checkers.Views
                 var realtimeService = new GameRealtimeService();
                 _gameSubscription = realtimeService.SubscribeToGame(GameId, game =>
                 {
-                    if (!string.IsNullOrWhiteSpace(game?.Guest) && !_joined)
+                    if (game?.Guest != "")
                     {
                         _joined = true;
                         MainThread.BeginInvokeOnMainThread(async () =>

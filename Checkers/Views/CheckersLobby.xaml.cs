@@ -15,15 +15,19 @@ public partial class CheckersLobby : ContentPage
 
     public ICommand JoinGameCommand { get; }
 
-    public CheckersLobby()
+    public CheckersLobby(GameRealtimeService gameRealtimeService)
     {
         InitializeComponent();
-        _realtimeService = new GameRealtimeService();
+        _realtimeService = gameRealtimeService;
 
         BindingContext = this;
 
         JoinGameCommand = new Command<GameModel>(async (game) => await OnJoinGame(game));
 
+        // טעינה ראשונית של כל המשחקים
+        LoadAvailableGamesAsync();
+
+        // מנוי לשינויים עתידיים
         _subscription = _realtimeService.SubscribeToAvailableGames(games =>
         {
             MainThread.BeginInvokeOnMainThread(() =>
@@ -33,6 +37,26 @@ public partial class CheckersLobby : ContentPage
                     AvailableGames.Add(game);
             });
         });
+    }
+
+    private async void LoadAvailableGamesAsync()
+    {
+        try
+        {
+            var allGames = await _realtimeService.GetAllGamesAsync();
+            var openGames = allGames.Where(g => string.IsNullOrEmpty(g.Guest)).OrderByDescending(g => g.CreatedAt);
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                AvailableGames.Clear();
+                foreach (var game in openGames)
+                    AvailableGames.Add(game);
+            });
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Failed to load games: {ex.Message}", "OK");
+        }
     }
 
     private async Task OnJoinGame(GameModel game)

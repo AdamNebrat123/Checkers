@@ -25,8 +25,8 @@ namespace Checkers.GameLogic
         public OnlineGameStrategy(GameManagerViewModel gameManager, string gameId, bool isLocalPlayerWhite)
         {
             this.gameManager = gameManager;
-            this.realtimeService = new GameRealtimeService();
-            this.gameService = new GameService();
+            this.gameService = new();
+            this.realtimeService = new();
             this.gameId = gameId;
             this.isLocalPlayerWhite = isLocalPlayerWhite;
         }
