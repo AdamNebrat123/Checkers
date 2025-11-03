@@ -41,7 +41,7 @@ public partial class CreateGame : ContentPage
             var newGame = new GameModel
             {
                 GameId = Guid.NewGuid().ToString(),
-                Host = "ADAM", // HARDCODED NOW!!! MUST BE CHANGED!!!!!!!!!!!!
+                Host = "AVI KAMIL", // HARDCODED NOW!!! MUST BE CHANGED!!!!!!!!!!!!
                 HostColor = playerColor,
                 Guest = "",
                 GuestColor = opponentColor,

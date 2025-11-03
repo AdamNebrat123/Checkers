@@ -147,5 +147,58 @@ namespace Checkers.Data
                 Console.WriteLine($"Error deleting game: {ex.Message}");
             }
         }
+
+
+        public async Task<List<GameModel>> GetAllGamesAsync()
+        {
+            var gamesSnapshot = await firebaseClient
+                .Child("games")
+                .OnceAsync<Dictionary<string, object>>();
+
+            var games = new List<GameModel>();
+
+            foreach (var gameSnap in gamesSnapshot)
+            {
+                try
+                {
+                    var data = gameSnap.Object;
+                    var game = new GameModel
+                    {
+                        GameId = data.TryGetValue("GameId", out var id) ? id.ToString()! : gameSnap.Key,
+                        Host = data.TryGetValue("Host", out var host) ? host.ToString()! : "",
+                        HostColor = data.TryGetValue("HostColor", out var hColor) ? hColor.ToString()! : "White",
+                        Guest = data.TryGetValue("Guest", out var guest) ? guest.ToString()! : "",
+                        GuestColor = data.TryGetValue("GuestColor", out var gColor) ? gColor.ToString()! : "Black",
+                        IsWhiteTurn = data.TryGetValue("IsWhiteTurn", out var turn) ? bool.Parse(turn.ToString()!) : true,
+                        CreatedAt = data.TryGetValue("CreatedAt", out var created) ? DateTime.Parse(created.ToString()!) : DateTime.UtcNow
+                    };
+
+                    // ננסה לפרש את ה־BoardState אם קיים
+                    if (data.TryGetValue("BoardState", out var stateObj))
+                    {
+                        try
+                        {
+                            string json = stateObj switch
+                            {
+                                JsonElement jeState when jeState.ValueKind != JsonValueKind.Null => jeState.GetRawText(),
+                                not null => stateObj.ToString()!,
+                                _ => "null"
+                            };
+                            if (json != "null")
+                                game.BoardState = JsonSerializer.Deserialize<int[][]>(json)!;
+                        }
+                        catch { }
+                    }
+
+                    games.Add(game);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error parsing game: {ex.Message}");
+                }
+            }
+
+            return games;
+        }
     }
 }

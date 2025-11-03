@@ -25,10 +25,23 @@ namespace Checkers.Data
                 .AsObservable<Dictionary<string, object>>()
                 .Subscribe(d =>
                 {
+                    // לוג בשביל לבדוק מה מגיע
+                    Console.WriteLine($"EventType: {d.EventType}, Data: {JsonSerializer.Serialize(d.Object)}");
+
+                    if (d.Object == null) return;
+
+                    // אנחנו מתעניינים ב־InsertOrUpdate בלבד
                     if (d.EventType == FirebaseEventType.InsertOrUpdate)
                     {
-                        var game = GetGameFromRawData(d.Object, gameId);
-                        onGameChanged?.Invoke(game);
+                        try
+                        {
+                            var game = GetGameFromRawData(d.Object, gameId);
+                            onGameChanged?.Invoke(game);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error converting game data: {ex.Message}");
+                        }
                     }
                 });
 
@@ -105,6 +118,27 @@ namespace Checkers.Data
                 Moves = moves,
                 CreatedAt = data.TryGetValue("CreatedAt", out var created) ? DateTime.Parse(created.ToString()!) : DateTime.UtcNow
             };
+        }
+
+        public IDisposable SubscribeToAvailableGames(Action<List<GameModel>> onGamesUpdated)
+        {
+            var subscription = firebaseClient
+                .Child("games")
+                .AsObservable<Dictionary<string, object>>()
+                .Subscribe(d =>
+                {
+                    if (d.EventType == FirebaseEventType.InsertOrUpdate || d.EventType == FirebaseEventType.Delete)
+                    {
+                        Task.Run(async () =>
+                        {
+                            var allGames = await GetAllGamesAsync();
+                            var available = allGames.Where(g => string.IsNullOrEmpty(g.Guest)).ToList();
+                            MainThread.BeginInvokeOnMainThread(() => onGamesUpdated(available));
+                        });
+                    }
+                });
+
+            return subscription;
         }
 
     }

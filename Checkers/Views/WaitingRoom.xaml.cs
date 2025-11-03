@@ -41,15 +41,14 @@ namespace Checkers.Views
             {
                 // נשתמש ב־Realtime listener כדי לזהות אם השדה Guest התמלא
                 var realtimeService = new GameRealtimeService();
-                _gameSubscription =  realtimeService.SubscribeToGame(GameId, async (game) =>
+                _gameSubscription = realtimeService.SubscribeToGame(GameId, game =>
                 {
-                    if (game?.Guest != null && game.Guest != "" && !_joined)
+                    if (!string.IsNullOrWhiteSpace(game?.Guest) && !_joined)
                     {
                         _joined = true;
-                        await MainThread.InvokeOnMainThreadAsync(async () =>
+                        MainThread.BeginInvokeOnMainThread(async () =>
                         {
                             await DisplayAlert("Guest Joined!", $"{game.Guest} joined your game.", "OK");
-
 
                             var onlineSettings = new OnlineSettings { GameId = game.GameId, IsLocalPlayerWhite = game.HostColor == "White" };
                             var wrapper = new ModeParametersWrapper
@@ -58,12 +57,10 @@ namespace Checkers.Views
                                 Parameters = JsonSerializer.SerializeToElement(onlineSettings)
                             };
 
-                            // מעבר אוטומטי למסך המשחק
                             await Shell.Current.GoToAsync(nameof(GamePage), new Dictionary<string, object>
                             {
                                 { "wrapper", wrapper }
                             });
-
                         });
                     }
                 });
