@@ -88,5 +88,11 @@ namespace Checkers.Views
                 Console.WriteLine($"Error cancelling waiting: {ex.Message}");
             }
         }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _gameSubscription?.Dispose();
+            _gameSubscription = null;
+        }
     }
 }

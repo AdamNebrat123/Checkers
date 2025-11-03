@@ -17,6 +17,7 @@ namespace Checkers.GameLogic
         private readonly GameManagerViewModel gameManager;
         private readonly GameService gameService = GameService.GetInstance();
         private readonly GameRealtimeService realtimeService = GameRealtimeService.GetInstance();
+        private IDisposable? _gameSubscription;
         private readonly string gameId;
         private BoardViewModel boardVM;
         private bool isSubscribed = false;
@@ -56,7 +57,7 @@ namespace Checkers.GameLogic
         {
             try
             {
-                realtimeService.SubscribeToGame(gameId, async (gameModel) =>
+                _gameSubscription = realtimeService.SubscribeToGame(gameId, async (gameModel) =>
                 {
                     try
                     {

@@ -31,7 +31,6 @@ namespace Checkers.Data
 
             var subscription = firebaseClient
                 .Child(GamesCollection)
-                .Child(gameId)
                 .AsObservable<Dictionary<string, object>>()
                 .Subscribe(d =>
                 {
@@ -40,6 +39,13 @@ namespace Checkers.Data
 
                     if (d.Object == null) return;
 
+
+                    d.Object.TryGetValue("GameId", out object objId);
+                    string id = objId as string;
+                    if (id == null) return ;
+                    Debug.WriteLine($"{id}");
+
+                    if (id != gameId) return;
                     // אנחנו מתעניינים ב־InsertOrUpdate בלבד
                     if (d.EventType == FirebaseEventType.InsertOrUpdate)
                     {

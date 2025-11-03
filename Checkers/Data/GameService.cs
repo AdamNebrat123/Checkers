@@ -73,8 +73,11 @@ namespace Checkers.Data
                     { "Moves", JsonSerializer.Serialize(game.Moves) },
                     { "CreatedAt", game.CreatedAt.ToString("o") },
                 };
+                await DeleteGameAsync(game.GameId);
+                await Task.Delay(3000);
 
-                await UpdateDocumentAsync(GamesCollection, game.GameId, data);
+                await CreateGameAsync(game);
+                //await UpdateDocumentAsync(GamesCollection, game.GameId, data);
             }
             catch (Exception ex)
             {
