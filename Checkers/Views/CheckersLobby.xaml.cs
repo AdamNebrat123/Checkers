@@ -26,7 +26,16 @@ public partial class CheckersLobby : ContentPage
         LoadAvailableGamesAsync();
 
         // מנוי לשינויים עתידיים
-        
+        _subscription = _realtimeService.SubscribeToAvailableGames(games =>
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                AvailableGames.Clear();
+                foreach (var game in games.OrderByDescending(g => g.CreatedAt))
+                    AvailableGames.Add(game);
+            });
+        });
+
     }
 
     private async void LoadAvailableGamesAsync()
@@ -91,14 +100,6 @@ public partial class CheckersLobby : ContentPage
     {
         base.OnAppearing();
 
-        _subscription = _realtimeService.SubscribeToAvailableGames(games =>
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                AvailableGames.Clear();
-                foreach (var game in games.OrderByDescending(g => g.CreatedAt))
-                    AvailableGames.Add(game);
-            });
-        });
+        
     }
 }

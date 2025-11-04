@@ -240,6 +240,7 @@ namespace Checkers.GameLogic
             {
                 gameManager.SwitchTurn();
 
+                var lastCapture = move.Captures.LastOrDefault();
                 var gameMove = new GameMove
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -247,6 +248,8 @@ namespace Checkers.GameLogic
                     FromCol = move.From.Column,
                     ToRow = move.To.Row,
                     ToCol = move.To.Column,
+                    EatenCol = lastCapture != default ? lastCapture.Captured.Column : (int?)null,
+                    EatenRow = lastCapture != default ? lastCapture.Captured.Row : (int?)null,
                     WasWhite = isLocalPlayerWhite
                 };
 
