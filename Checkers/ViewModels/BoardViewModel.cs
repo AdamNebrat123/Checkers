@@ -29,17 +29,17 @@ namespace Checkers.ViewModel
         // Event raised when a square is clicked
         public event Action<SquareViewModel>? SquareClicked;
 
-        public BoardViewModel(bool whitePerspective = true)
+        public BoardViewModel(bool whitePerspective = true, bool buttonsInverted = true)
         {
             this.whitePerspective = whitePerspective;
-            Board = new Board();
+            Board = new Board(whitePerspective);
             var temp = new List<SquareViewModel>();
             for (int row = 0; row < Board.Size; row++)
             {
                 for (int col = 0; col < Board.Size; col++)
                 {
-                    int displayRow = whitePerspective ? row : Board.Size - 1 - row;
-                    int displayCol = whitePerspective ? col : Board.Size - 1 - col;
+                    int displayRow = !buttonsInverted ? row : Board.Size - 1 - row;
+                    int displayCol = !buttonsInverted ? col : Board.Size - 1 - col;
                     // Pass a callback so SquareViewModel can notify when clicked
                     var squareVM = new SquareViewModel(Board.Squares[displayRow, displayCol], sv => SquareClicked?.Invoke(sv));
                     temp.Add(squareVM);
@@ -47,6 +47,7 @@ namespace Checkers.ViewModel
             }
             Squares = new ObservableCollection<SquareViewModel>(temp);
         }
+
 
         public void UpdateMoveMarkers()
         {

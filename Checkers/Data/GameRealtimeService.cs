@@ -52,6 +52,7 @@ namespace Checkers.Data
                         try
                         {
                             var game = GetGameFromRawData(d.Object, gameId);
+                            Debug.WriteLine("invoking function!!!!!!!");
                             onGameChanged?.Invoke(game);
                         }
                         catch (Exception ex)
@@ -121,6 +122,7 @@ namespace Checkers.Data
                     Debug.WriteLine(e.Message);
                 }
             }
+            Debug.WriteLine("print from GetGameFromRawData");
 
             return new GameModel
             {

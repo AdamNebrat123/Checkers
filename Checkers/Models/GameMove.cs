@@ -8,6 +8,8 @@ namespace Checkers.Models
 {
     public class GameMove
     {
+        public string Id { get; set; }
+
         public int FromRow { get; set; }
         public int FromCol { get; set; }
 

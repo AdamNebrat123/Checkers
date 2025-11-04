@@ -12,7 +12,7 @@ namespace Checkers.Model
         public const int Size = 8;
         public Square[,] Squares { get; }
 
-        public Board()
+        public Board(bool isWhitePerspective = true)
         {
             Squares = new Square[Size, Size];
 
@@ -25,10 +25,11 @@ namespace Checkers.Model
                 }
             }
 
-            SetupInitialPieces();
+            if (isWhitePerspective) SetupInitialPiecesWhtitePerspective();
+            else SetupInitialPiecesBlackPerspective();
         }
 
-        private void SetupInitialPieces()
+        private void SetupInitialPiecesWhtitePerspective()
         {
             for (int row = 0; row < 3; row++)
             {
@@ -45,6 +46,28 @@ namespace Checkers.Model
                 {
                     if (Squares[row, col].IsDark)
                         Squares[row, col].Piece = new Man(PieceColor.White);
+                }
+            }
+        }
+        private void SetupInitialPiecesBlackPerspective()
+        {
+            // White pieces at the top
+            for (int row = 0; row < 3; row++)
+            {
+                for (int col = 0; col < Size; col++)
+                {
+                    if (Squares[row, col].IsDark)
+                        Squares[row, col].Piece = new Man(PieceColor.White);
+                }
+            }
+
+            // Black pieces at the bottom
+            for (int row = Size - 3; row < Size; row++)
+            {
+                for (int col = 0; col < Size; col++)
+                {
+                    if (Squares[row, col].IsDark)
+                        Squares[row, col].Piece = new Man(PieceColor.Black);
                 }
             }
         }

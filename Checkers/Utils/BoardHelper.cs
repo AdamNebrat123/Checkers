@@ -10,7 +10,14 @@ namespace Checkers.Utils
 {
     public static class BoardHelper
     {
-        public static int[][] ConvertBoardToState(Board board)
+        public static int[][] ConvertBoardToState(Board board, bool isWhitePerspective)
+        {
+            if (isWhitePerspective)
+                return ConvertBoardToStateWhitePerspective(board);
+            return ConvertBoardToStateBlackPerspective(board);
+        }
+
+        public static int[][] ConvertBoardToStateWhitePerspective(Board board)
         {
             int[][] state = new int[Board.Size][];
             for (int row = 0; row < Board.Size; row++)
@@ -19,43 +26,67 @@ namespace Checkers.Utils
                 for (int col = 0; col < Board.Size; col++)
                 {
                     var piece = board.Squares[row, col].Piece;
-
-                    if (piece == null)
-                        state[row][col] = 0;
-                    else if (piece.Color == PieceColor.White)
-                        state[row][col] = piece is King ? 3 : 1;
-                    else
-                        state[row][col] = piece is King ? 4 : 2;
+                    state[row][col] = piece switch
+                    {
+                        null => 0,
+                        Man m when m.Color == PieceColor.White => 1,
+                        Man m when m.Color == PieceColor.Black => 2,
+                        King k when k.Color == PieceColor.White => 3,
+                        King k when k.Color == PieceColor.Black => 4,
+                        _ => 0
+                    };
                 }
             }
-
             return state;
         }
 
-        public static void ConvertStateToBoard(int[][] state, Board board)
+        public static int[][] ConvertBoardToStateBlackPerspective(Board board)
         {
+            int[][] state = new int[Board.Size][];
+            for (int row = 0; row < Board.Size; row++)
+            {
+                state[row] = new int[Board.Size];
+                for (int col = 0; col < Board.Size; col++)
+                {
+                    // הפיכה של השורה והעמודה
+                    int targetRow = Board.Size - 1 - row;
+                    int targetCol = Board.Size - 1 - col;
+
+                    var piece = board.Squares[targetRow, targetCol].Piece;
+                    state[row][col] = piece switch
+                    {
+                        null => 0,
+                        Man m when m.Color == PieceColor.White => 1,
+                        Man m when m.Color == PieceColor.Black => 2,
+                        King k when k.Color == PieceColor.White => 3,
+                        King k when k.Color == PieceColor.Black => 4,
+                        _ => 0
+                    };
+                }
+            }
+            return state;
+        }
+
+        public static void ConvertStateToBoard(int[][] state, Board board, bool isWhitePerspective)
+        {
+            bool invert = !isWhitePerspective;
+
             for (int row = 0; row < Board.Size; row++)
             {
                 for (int col = 0; col < Board.Size; col++)
                 {
-                    switch (state[row][col])
+                    int targetRow = invert ? Board.Size - 1 - row : row;
+                    int targetCol = invert ? Board.Size - 1 - col : col;
+
+                    board.Squares[targetRow, targetCol].Piece = state[row][col] switch
                     {
-                        case 0:
-                            board.Squares[row, col].Piece = null;
-                            break;
-                        case 1:
-                            board.Squares[row, col].Piece = new Man(PieceColor.White);
-                            break;
-                        case 2:
-                            board.Squares[row, col].Piece = new Man(PieceColor.Black);
-                            break;
-                        case 3:
-                            board.Squares[row, col].Piece = new King(PieceColor.White);
-                            break;
-                        case 4:
-                            board.Squares[row, col].Piece = new King(PieceColor.Black);
-                            break;
-                    }
+                        0 => null,
+                        1 => new Man(PieceColor.White),
+                        2 => new Man(PieceColor.Black),
+                        3 => new King(PieceColor.White),
+                        4 => new King(PieceColor.Black),
+                        _ => null
+                    };
                 }
             }
         }

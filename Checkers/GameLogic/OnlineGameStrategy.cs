@@ -6,6 +6,7 @@ using Checkers.ViewModel;
 using Checkers.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace Checkers.GameLogic
         private BoardViewModel boardVM;
         private bool isSubscribed = false;
         private bool isLocalPlayerWhite;
+
+        private string? lastSentMoveId = "";
 
         public OnlineGameStrategy(GameManagerViewModel gameManager, string gameId, bool isLocalPlayerWhite)
         {
@@ -63,36 +66,77 @@ namespace Checkers.GameLogic
                     {
                         if (gameModel == null) return;
 
-                        var lastMove = gameModel.Moves?.LastOrDefault();
+                        GameMove? lastMove = gameModel.Moves?.LastOrDefault();
+                        lastMove = MoveHelper.ConvertMoveByPerspective(lastMove, isLocalPlayerWhite);
+
+
                         if (lastMove == null) return;
 
-                        if (lastMove.WasWhite == isLocalPlayerWhite)
-                            return;
+                        // אל תטפל במהלך אם זה המהלך שלך
+                        if (lastMove.Id == lastSentMoveId) return;
 
-                        BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board);
-                        gameManager.IsWhiteTurn = gameModel.IsWhiteTurn;
+                        // אל תטפל במהלך אם הוא מהצד שלך
+                        if (lastMove.WasWhite == isLocalPlayerWhite) return;
 
+                        // קבל את הריבועים המעורבים במהלך
                         var fromSquare = boardVM.Squares[lastMove.FromRow * Board.Size + lastMove.FromCol];
                         var toSquare = boardVM.Squares[lastMove.ToRow * Board.Size + lastMove.ToCol];
 
                         SquareViewModel? eatenSquare = null;
                         if (lastMove.EatenRow.HasValue && lastMove.EatenCol.HasValue)
-                        {
                             eatenSquare = boardVM.Squares[lastMove.EatenRow.Value * Board.Size + lastMove.EatenCol.Value];
-                        }
 
-                        MainThread.BeginInvokeOnMainThread(() =>
+                        var movingPiece = fromSquare.Piece;
+
+                        if (movingPiece == null) return;
+
+                        MainThread.BeginInvokeOnMainThread(async () =>
                         {
                             try
                             {
+                                // איפוס סימני מהלך
+                                foreach (var sq in boardVM.Squares)
+                                    sq.HasMoveMarker = false;
+
+                                // ריקון הריבוע המקורי
+                                fromSquare.Piece = null;
+                                fromSquare.UpdateProperty(nameof(fromSquare.Piece));
+                                fromSquare.UpdateProperty(nameof(fromSquare.PieceImage));
+
+                                // אנימציה של המהלך
+                                var pathSquares = new List<SquareViewModel> { fromSquare, toSquare };
                                 if (eatenSquare != null)
-                                    boardVM.RefreshSquares(fromSquare, toSquare, eatenSquare);
-                                else
-                                    boardVM.RefreshSquares(fromSquare, toSquare);
+                                {
+                                    eatenSquare.Piece = null;
+                                    eatenSquare.UpdateProperty(nameof(eatenSquare.Piece));
+                                    eatenSquare.UpdateProperty(nameof(eatenSquare.PieceImage));
+                                }
+
+                                // תזוזה של הפיס למיקום הסופי
+                                toSquare.Piece = movingPiece;
+                                toSquare.UpdateProperty(nameof(toSquare.Piece));
+                                toSquare.UpdateProperty(nameof(toSquare.PieceImage));
+
+                                // המרה ל־King אם צריך
+                                if (movingPiece is Man)
+                                {
+                                    if ((movingPiece.Color == PieceColor.White && toSquare.Row == 0) ||
+                                        (movingPiece.Color == PieceColor.Black && toSquare.Row == Board.Size - 1))
+                                    {
+                                        toSquare.Piece = new King(movingPiece.Color);
+                                        toSquare.UpdateProperty(nameof(toSquare.Piece));
+                                        toSquare.UpdateProperty(nameof(toSquare.PieceImage));
+                                    }
+                                }
+
+                                // עדכון מצב הלוח
+                                BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, isLocalPlayerWhite);
+                                gameManager.IsWhiteTurn = gameModel.IsWhiteTurn;
+
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"Error refreshing squares: {ex.Message}");
+                                Console.WriteLine($"Error animating opponent move: {ex.Message}");
                             }
                         });
                     }
@@ -198,6 +242,7 @@ namespace Checkers.GameLogic
 
                 var gameMove = new GameMove
                 {
+                    Id = Guid.NewGuid().ToString(),
                     FromRow = move.From.Row,
                     FromCol = move.From.Column,
                     ToRow = move.To.Row,
@@ -205,7 +250,11 @@ namespace Checkers.GameLogic
                     WasWhite = isLocalPlayerWhite
                 };
 
-                var boardState = BoardHelper.ConvertBoardToState(boardVM.Board);
+                gameMove = MoveHelper.ConvertMoveByPerspective(gameMove, isLocalPlayerWhite);
+
+                lastSentMoveId = gameMove.Id;
+
+                var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
 
                 GameModel? existingModel = null;
                 try
@@ -222,6 +271,8 @@ namespace Checkers.GameLogic
 
                 existingModel.Moves ??= new List<GameMove>();
                 existingModel.Moves.Add(gameMove);
+
+
 
                 existingModel.BoardState = boardState;
                 existingModel.IsWhiteTurn = gameManager.IsWhiteTurn;

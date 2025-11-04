@@ -48,7 +48,7 @@ namespace Checkers.Views
             };
 
             // מאתחל לוח
-            _gameViewModel.InitializeBoard(isWhite);
+            _gameViewModel.InitializeBoard(isWhite, false);
 
             // יוצר אסטרטגיה דרך Factory
             var strategy = _strategyFactory.Create(mode, _gameViewModel.GameManager, settings);

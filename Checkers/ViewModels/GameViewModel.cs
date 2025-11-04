@@ -23,9 +23,9 @@ namespace Checkers.ViewModel
         }
 
         // Create the board internally with the given perspective
-        public void InitializeBoard(bool whitePerspective)
+        public void InitializeBoard(bool whitePerspective, bool buttonsInverted)
         {
-            var boardVM = new BoardViewModel(whitePerspective);
+            var boardVM = new BoardViewModel(whitePerspective, buttonsInverted);
             SetBoardViewModel(boardVM);
         }
 
