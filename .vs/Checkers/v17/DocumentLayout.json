@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Savehere\\CheckersAdam\\Checkers\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|c:\\savehere\\checkersadam\\checkers\\checkers\\data\\gamerealtimeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\data\\gamerealtimeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|c:\\savehere\\checkersadam\\checkers\\checkers\\data\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\data\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|c:\\savehere\\checkersadam\\checkers\\checkers\\views\\checkerslobby.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\views\\checkerslobby.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -71,20 +79,8 @@
       "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\views\\gamepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|c:\\savehere\\checkersadam\\checkers\\checkers\\data\\gamerealtimeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\data\\gamerealtimeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|c:\\savehere\\checkersadam\\checkers\\checkers\\data\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\data\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|c:\\savehere\\checkersadam\\checkers\\checkers\\views\\creategame.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\views\\creategame.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|c:\\savehere\\checkersadam\\checkers\\checkers\\data\\firebaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C31E092A-28ED-4EAD-8B76-89DB084E1BBB}|Checkers\\Checkers.csproj|solutionrelative:checkers\\data\\firebaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\Platforms\\Windows\\App.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -294,7 +290,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -306,56 +302,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MoveHelper.cs",
-              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Utils\\MoveHelper.cs",
-              "RelativeDocumentMoniker": "Checkers\\Utils\\MoveHelper.cs",
-              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Utils\\MoveHelper.cs",
-              "RelativeToolTip": "Checkers\\Utils\\MoveHelper.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAhwCQAAABgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T14:15:16.47Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "OnlineGameStrategy.cs",
-              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\OnlineGameStrategy.cs",
-              "RelativeDocumentMoniker": "Checkers\\GameLogic\\OnlineGameStrategy.cs",
-              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\OnlineGameStrategy.cs",
-              "RelativeToolTip": "Checkers\\GameLogic\\OnlineGameStrategy.cs",
-              "ViewState": "AgIAAOMAAAAAAAAAAIAwwPIAAAAQAAAAAAAAAA==",
+              "Title": "GameService.cs",
+              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameService.cs",
+              "RelativeDocumentMoniker": "Checkers\\Data\\GameService.cs",
+              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameService.cs",
+              "RelativeToolTip": "Checkers\\Data\\GameService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T14:53:52.507Z"
+              "WhenOpened": "2025-11-05T10:40:44.942Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "GameViewModel.cs",
-              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\GameViewModel.cs",
-              "RelativeDocumentMoniker": "Checkers\\ViewModels\\GameViewModel.cs",
-              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\GameViewModel.cs",
-              "RelativeToolTip": "Checkers\\ViewModels\\GameViewModel.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAewBsAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T13:29:51.701Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "CheckersLobby.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\CheckersLobby.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\CheckersLobby.xaml.cs",
               "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\CheckersLobby.xaml.cs",
               "RelativeToolTip": "Checkers\\Views\\CheckersLobby.xaml.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAgwBsAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAowEIAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-03T13:05:48.93Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "WaitingRoom.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\WaitingRoom.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\WaitingRoom.xaml.cs",
@@ -363,11 +336,12 @@
               "RelativeToolTip": "Checkers\\Views\\WaitingRoom.xaml.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAmwBQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T18:05:14.536Z"
+              "WhenOpened": "2025-11-03T18:05:14.536Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "IGameStrategy.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\IGameStrategy.cs",
               "RelativeDocumentMoniker": "Checkers\\GameLogic\\IGameStrategy.cs",
@@ -375,23 +349,25 @@
               "RelativeToolTip": "Checkers\\GameLogic\\IGameStrategy.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-02T14:04:20.748Z"
+              "WhenOpened": "2025-11-02T14:04:20.748Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "Board.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\Board.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\Board.cs",
               "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\Board.cs",
               "RelativeToolTip": "Checkers\\Models\\Board.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAsAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwAsAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T11:09:03.324Z"
+              "WhenOpened": "2025-11-01T11:09:03.324Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "BoardHelper.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Utils\\BoardHelper.cs",
               "RelativeDocumentMoniker": "Checkers\\Utils\\BoardHelper.cs",
@@ -399,11 +375,12 @@
               "RelativeToolTip": "Checkers\\Utils\\BoardHelper.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAhwEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T11:23:51.132Z"
+              "WhenOpened": "2025-11-01T11:23:51.132Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "GameMove.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\GameMove.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\GameMove.cs",
@@ -411,11 +388,64 @@
               "RelativeToolTip": "Checkers\\Models\\GameMove.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T11:03:08.889Z"
+              "WhenOpened": "2025-11-01T11:03:08.889Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "GameRealtimeService.cs",
+              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameRealtimeService.cs",
+              "RelativeDocumentMoniker": "Checkers\\Data\\GameRealtimeService.cs",
+              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameRealtimeService.cs",
+              "RelativeToolTip": "Checkers\\Data\\GameRealtimeService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAgwCIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T15:26:37.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "GameViewModel.cs",
+              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\GameViewModel.cs",
+              "RelativeDocumentMoniker": "Checkers\\ViewModels\\GameViewModel.cs",
+              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\GameViewModel.cs",
+              "RelativeToolTip": "Checkers\\ViewModels\\GameViewModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAIA0wBsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T13:29:51.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OnlineGameStrategy.cs",
+              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\OnlineGameStrategy.cs",
+              "RelativeDocumentMoniker": "Checkers\\GameLogic\\OnlineGameStrategy.cs",
+              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\OnlineGameStrategy.cs",
+              "RelativeToolTip": "Checkers\\GameLogic\\OnlineGameStrategy.cs",
+              "ViewState": "AgIAAOMAAAAAAAAAAIAwwPIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T14:53:52.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MoveHelper.cs",
+              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Utils\\MoveHelper.cs",
+              "RelativeDocumentMoniker": "Checkers\\Utils\\MoveHelper.cs",
+              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Utils\\MoveHelper.cs",
+              "RelativeToolTip": "Checkers\\Utils\\MoveHelper.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAhwCQAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:15:16.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "GameModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\GameModel.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\GameModel.cs",
@@ -423,11 +453,12 @@
               "RelativeToolTip": "Checkers\\Models\\GameModel.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAqwB4AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T11:02:45.434Z"
+              "WhenOpened": "2025-11-01T11:02:45.434Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Move.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\Move.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\Move.cs",
@@ -435,11 +466,12 @@
               "RelativeToolTip": "Checkers\\Models\\Move.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAABxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T09:21:37.551Z"
+              "WhenOpened": "2025-09-12T09:21:37.551Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "GamePage.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\GamePage.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\GamePage.xaml.cs",
@@ -447,23 +479,25 @@
               "RelativeToolTip": "Checkers\\Views\\GamePage.xaml.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAWwDIAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T18:06:00.014Z"
+              "WhenOpened": "2025-09-12T18:06:00.014Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "SquareViewModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\SquareViewModel.cs",
               "RelativeDocumentMoniker": "Checkers\\ViewModels\\SquareViewModel.cs",
               "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\SquareViewModel.cs",
               "RelativeToolTip": "Checkers\\ViewModels\\SquareViewModel.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAxwEYAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAABRwEYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T09:07:04.98Z"
+              "WhenOpened": "2025-09-12T09:07:04.98Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "Constants.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Helpers\\Constants.cs",
               "RelativeDocumentMoniker": "Checkers\\Helpers\\Constants.cs",
@@ -471,23 +505,25 @@
               "RelativeToolTip": "Checkers\\Helpers\\Constants.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T14:16:50.885Z"
+              "WhenOpened": "2025-11-04T14:16:50.885Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "BoardViewModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\BoardViewModel.cs",
               "RelativeDocumentMoniker": "Checkers\\ViewModels\\BoardViewModel.cs",
               "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\BoardViewModel.cs",
               "RelativeToolTip": "Checkers\\ViewModels\\BoardViewModel.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAD4vyIAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAtwCIAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T14:24:56.695Z"
+              "WhenOpened": "2025-10-27T14:24:56.695Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "Square.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\Square.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\Square.cs",
@@ -495,11 +531,12 @@
               "RelativeToolTip": "Checkers\\Models\\Square.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T09:20:43.648Z"
+              "WhenOpened": "2025-09-12T09:20:43.648Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "GamePage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\GamePage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\GamePage.xaml",
@@ -507,23 +544,12 @@
               "RelativeToolTip": "Checkers\\Views\\GamePage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-12T08:49:11.598Z"
+              "WhenOpened": "2025-09-12T08:49:11.598Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "GameRealtimeService.cs",
-              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameRealtimeService.cs",
-              "RelativeDocumentMoniker": "Checkers\\Data\\GameRealtimeService.cs",
-              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameRealtimeService.cs",
-              "RelativeToolTip": "Checkers\\Data\\GameRealtimeService.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAxwBwAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T15:26:37.59Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 26,
               "Title": "AiGameStrategy.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\AiGameStrategy.cs",
               "RelativeDocumentMoniker": "Checkers\\GameLogic\\AiGameStrategy.cs",
@@ -531,7 +557,8 @@
               "RelativeToolTip": "Checkers\\GameLogic\\AiGameStrategy.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T13:19:38.153Z"
+              "WhenOpened": "2025-10-27T13:19:38.153Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -543,23 +570,12 @@
               "RelativeToolTip": "Checkers\\Views\\CreateGame.xaml.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAgwDkAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T11:20:17.379Z"
+              "WhenOpened": "2025-09-16T11:20:17.379Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "GameService.cs",
-              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameService.cs",
-              "RelativeDocumentMoniker": "Checkers\\Data\\GameService.cs",
-              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\GameService.cs",
-              "RelativeToolTip": "Checkers\\Data\\GameService.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAmwFUAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T11:34:29.91Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 20,
               "Title": "App.g.i.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\Platforms\\Windows\\App.g.i.cs",
               "RelativeDocumentMoniker": "Checkers\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\Platforms\\Windows\\App.g.i.cs",
@@ -567,23 +583,12 @@
               "RelativeToolTip": "Checkers\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\Platforms\\Windows\\App.g.i.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAYwEoAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T18:50:01.991Z"
+              "WhenOpened": "2025-11-03T18:50:01.991Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "FirebaseService.cs",
-              "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\FirebaseService.cs",
-              "RelativeDocumentMoniker": "Checkers\\Data\\FirebaseService.cs",
-              "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\FirebaseService.cs",
-              "RelativeToolTip": "Checkers\\Data\\FirebaseService.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAQwGIAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T16:50:06.753Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 24,
               "Title": "WaitingRoom.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\WaitingRoom.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\WaitingRoom.xaml",
@@ -591,11 +596,12 @@
               "RelativeToolTip": "Checkers\\Views\\WaitingRoom.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-03T16:49:44.706Z"
+              "WhenOpened": "2025-11-03T16:49:44.706Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 21,
               "Title": "CheckersLobby.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\CheckersLobby.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\CheckersLobby.xaml",
@@ -603,11 +609,12 @@
               "RelativeToolTip": "Checkers\\Views\\CheckersLobby.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-16T10:19:56.292Z"
+              "WhenOpened": "2025-09-16T10:19:56.292Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 22,
               "Title": "AIGameSetupPage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\AIGameSetupPage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\AIGameSetupPage.xaml",
@@ -615,11 +622,12 @@
               "RelativeToolTip": "Checkers\\Views\\AIGameSetupPage.xaml",
               "ViewState": "AgIAACIAAAAAAAAAAAAowEAAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-18T15:27:00.977Z"
+              "WhenOpened": "2025-09-18T15:27:00.977Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 23,
               "Title": "GameMode.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\GameMode.cs",
               "RelativeDocumentMoniker": "Checkers\\GameLogic\\GameMode.cs",
@@ -627,11 +635,12 @@
               "RelativeToolTip": "Checkers\\GameLogic\\GameMode.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-02T14:10:34.316Z"
+              "WhenOpened": "2025-11-02T14:10:34.316Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 27,
               "Title": "Checkers.csproj",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Checkers.csproj",
               "RelativeDocumentMoniker": "Checkers\\Checkers.csproj",
@@ -639,11 +648,12 @@
               "RelativeToolTip": "Checkers\\Checkers.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-28T20:00:48.687Z"
+              "WhenOpened": "2025-09-28T20:00:48.687Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 31,
               "Title": "Microsoft.NET.EolTargetFrameworks.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
@@ -651,11 +661,12 @@
               "RelativeToolTip": "..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
               "ViewState": "AgIAABAAAAAAAAAAAAAgwCUAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-11-03T13:17:36.093Z"
+              "WhenOpened": "2025-11-03T13:17:36.093Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 25,
               "Title": "CreateGame.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\CreateGame.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\CreateGame.xaml",
@@ -663,23 +674,25 @@
               "RelativeToolTip": "Checkers\\Views\\CreateGame.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-16T11:14:35.093Z"
+              "WhenOpened": "2025-09-16T11:14:35.093Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 28,
               "Title": "GameStrategyFactory.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\GameStrategyFactory.cs",
               "RelativeDocumentMoniker": "Checkers\\GameLogic\\GameStrategyFactory.cs",
               "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\GameStrategyFactory.cs",
               "RelativeToolTip": "Checkers\\GameLogic\\GameStrategyFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAABewB8AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAADwvx8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-02T14:11:36.196Z"
+              "WhenOpened": "2025-11-02T14:11:36.196Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 29,
               "Title": "MauiProgram.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\MauiProgram.cs",
               "RelativeDocumentMoniker": "Checkers\\MauiProgram.cs",
@@ -687,11 +700,12 @@
               "RelativeToolTip": "Checkers\\MauiProgram.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAgwEUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T15:26:27.239Z"
+              "WhenOpened": "2025-11-03T15:26:27.239Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 30,
               "Title": "Man.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\Man.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\Man.cs",
@@ -699,11 +713,12 @@
               "RelativeToolTip": "Checkers\\Models\\Man.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAawC4AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T14:55:12.054Z"
+              "WhenOpened": "2025-11-03T14:55:12.054Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 32,
               "Title": "ModesSettings.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\ModesSettings.cs",
               "RelativeDocumentMoniker": "Checkers\\GameLogic\\ModesSettings.cs",
@@ -711,11 +726,12 @@
               "RelativeToolTip": "Checkers\\GameLogic\\ModesSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-02T14:12:24.804Z"
+              "WhenOpened": "2025-11-02T14:12:24.804Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 33,
               "Title": "AIGameSetupPage.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\AIGameSetupPage.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\AIGameSetupPage.xaml.cs",
@@ -723,11 +739,12 @@
               "RelativeToolTip": "Checkers\\Views\\AIGameSetupPage.xaml.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAuwDwAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-02T14:00:42.379Z"
+              "WhenOpened": "2025-11-02T14:00:42.379Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 38,
               "Title": "AppShell.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\AppShell.xaml",
               "RelativeDocumentMoniker": "Checkers\\AppShell.xaml",
@@ -735,11 +752,12 @@
               "RelativeToolTip": "Checkers\\AppShell.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-12T08:31:35.394Z"
+              "WhenOpened": "2025-09-12T08:31:35.394Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 37,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\App.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\App.xaml.cs",
@@ -747,11 +765,12 @@
               "RelativeToolTip": "Checkers\\App.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T08:31:18.463Z"
+              "WhenOpened": "2025-09-12T08:31:18.463Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 36,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\App.xaml",
               "RelativeDocumentMoniker": "Checkers\\App.xaml",
@@ -759,11 +778,12 @@
               "RelativeToolTip": "Checkers\\App.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-12T08:31:22.961Z"
+              "WhenOpened": "2025-09-12T08:31:22.961Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 35,
               "Title": "AuthenticatedShell.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\AuthenticatedShell.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\AuthenticatedShell.xaml.cs",
@@ -771,11 +791,12 @@
               "RelativeToolTip": "Checkers\\AuthenticatedShell.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T10:32:11.929Z"
+              "WhenOpened": "2025-09-16T10:32:11.929Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 34,
               "Title": "AppShell.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\AppShell.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\AppShell.xaml.cs",
@@ -783,22 +804,25 @@
               "RelativeToolTip": "Checkers\\AppShell.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T08:31:33.357Z"
+              "WhenOpened": "2025-09-12T08:31:33.357Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 39,
               "Title": "Checkers.Views.GamePage_TSettings_.WinRTVtable.g.cs",
               "DocumentMoniker": "C:\\Users\\VS2019\\AppData\\Local\\Temp\\VSGeneratedDocuments\\5116f6f2-74c4-cd7c-0750-a6980ce2e134\\Checkers.Views.GamePage_TSettings_.WinRTVtable.g.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Users\\VS2019\\AppData\\Local\\Temp\\VSGeneratedDocuments\\5116f6f2-74c4-cd7c-0750-a6980ce2e134\\Checkers.Views.GamePage_TSettings_.WinRTVtable.g.cs",
               "ToolTip": "Checkers.Views.GamePage_TSettings_.WinRTVtable.g.cs [generated by Generator.WinRTAotSourceGenerator]",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "OverriddenToolTip": "Checkers.Views.GamePage_TSettings_.WinRTVtable.g.cs [generated by Generator.WinRTAotSourceGenerator]",
-              "WhenOpened": "2025-11-02T14:23:12.512Z"
+              "WhenOpened": "2025-11-02T14:23:12.512Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 40,
               "Title": "IGameStrategyFactory.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\GameLogic\\IGameStrategyFactory.cs",
               "RelativeDocumentMoniker": "Checkers\\GameLogic\\IGameStrategyFactory.cs",
@@ -806,11 +830,12 @@
               "RelativeToolTip": "Checkers\\GameLogic\\IGameStrategyFactory.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-02T14:11:12.626Z"
+              "WhenOpened": "2025-11-02T14:11:12.626Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 41,
               "Title": "GameManagerViewModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\GameManagerViewModel.cs",
               "RelativeDocumentMoniker": "Checkers\\ViewModels\\GameManagerViewModel.cs",
@@ -818,11 +843,12 @@
               "RelativeToolTip": "Checkers\\ViewModels\\GameManagerViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T15:27:59.156Z"
+              "WhenOpened": "2025-09-18T15:27:59.156Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 43,
               "Title": "AIManager.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\AIManager.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\AIManager.cs",
@@ -830,23 +856,25 @@
               "RelativeToolTip": "Checkers\\Models\\AIManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T06:14:43.903Z"
+              "WhenOpened": "2025-09-18T06:14:43.903Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 42,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\UserService.cs",
               "RelativeDocumentMoniker": "Checkers\\Data\\UserService.cs",
               "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Data\\UserService.cs",
               "RelativeToolTip": "Checkers\\Data\\UserService.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAMBywD0AAAArAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAmwD0AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T09:33:53.848Z"
+              "WhenOpened": "2025-09-17T09:33:53.848Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 45,
               "Title": "HomePageViewModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\HomePageViewModel.cs",
               "RelativeDocumentMoniker": "Checkers\\ViewModels\\HomePageViewModel.cs",
@@ -854,11 +882,12 @@
               "RelativeToolTip": "Checkers\\ViewModels\\HomePageViewModel.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAvwBUAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T11:30:44.361Z"
+              "WhenOpened": "2025-09-16T11:30:44.361Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 46,
               "Title": "MusicService.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Services\\MusicService.cs",
               "RelativeDocumentMoniker": "Checkers\\Services\\MusicService.cs",
@@ -866,11 +895,12 @@
               "RelativeToolTip": "Checkers\\Services\\MusicService.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAQwDkAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-29T12:46:35.273Z"
+              "WhenOpened": "2025-09-29T12:46:35.273Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 49,
               "Title": "AuthenticatedShell.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\AuthenticatedShell.xaml",
               "RelativeDocumentMoniker": "Checkers\\AuthenticatedShell.xaml",
@@ -878,11 +908,12 @@
               "RelativeToolTip": "Checkers\\AuthenticatedShell.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-16T10:31:07.817Z"
+              "WhenOpened": "2025-09-16T10:31:07.817Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 48,
               "Title": "SettingsPage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\SettingsPage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\SettingsPage.xaml",
@@ -890,11 +921,12 @@
               "RelativeToolTip": "Checkers\\Views\\SettingsPage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-29T13:03:04.235Z"
+              "WhenOpened": "2025-09-29T13:03:04.235Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 44,
               "Title": "SettingsPage.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\SettingsPage.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\SettingsPage.xaml.cs",
@@ -902,11 +934,12 @@
               "RelativeToolTip": "Checkers\\Views\\SettingsPage.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-29T13:04:02.66Z"
+              "WhenOpened": "2025-09-29T13:04:02.66Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 47,
               "Title": "IMusicService.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Services\\IMusicService.cs",
               "RelativeDocumentMoniker": "Checkers\\Services\\IMusicService.cs",
@@ -914,11 +947,12 @@
               "RelativeToolTip": "Checkers\\Services\\IMusicService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-29T12:52:34.502Z"
+              "WhenOpened": "2025-09-29T12:52:34.502Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 53,
               "Title": "LoginViewModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\LoginViewModel.cs",
               "RelativeDocumentMoniker": "Checkers\\ViewModels\\LoginViewModel.cs",
@@ -926,11 +960,12 @@
               "RelativeToolTip": "Checkers\\ViewModels\\LoginViewModel.cs",
               "ViewState": "AgIAABwBAAAAAAAAAAAAwDEBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T08:53:45.417Z"
+              "WhenOpened": "2025-09-12T08:53:45.417Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 55,
               "Title": "HomePage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\HomePage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\HomePage.xaml",
@@ -938,11 +973,12 @@
               "RelativeToolTip": "Checkers\\Views\\HomePage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-16T10:56:57.741Z"
+              "WhenOpened": "2025-09-16T10:56:57.741Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 51,
               "Title": "LoginPage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\LoginPage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\LoginPage.xaml",
@@ -950,11 +986,12 @@
               "RelativeToolTip": "Checkers\\Views\\LoginPage.xaml",
               "ViewState": "AgIAADIAAAAAAAAAAAAmwEUAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-12T08:43:20.83Z"
+              "WhenOpened": "2025-09-12T08:43:20.83Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 54,
               "Title": "ProfilePage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\ProfilePage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\ProfilePage.xaml",
@@ -962,11 +999,12 @@
               "RelativeToolTip": "Checkers\\Views\\ProfilePage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-16T10:10:31.975Z"
+              "WhenOpened": "2025-09-16T10:10:31.975Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 52,
               "Title": "LoginPage.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\LoginPage.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\LoginPage.xaml.cs",
@@ -974,23 +1012,25 @@
               "RelativeToolTip": "Checkers\\Views\\LoginPage.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T08:52:14.477Z"
+              "WhenOpened": "2025-09-12T08:52:14.477Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 50,
               "Title": "RegisterPage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\RegisterPage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\RegisterPage.xaml",
               "ToolTip": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\RegisterPage.xaml",
               "RelativeToolTip": "Checkers\\Views\\RegisterPage.xaml",
-              "ViewState": "AgIAAGAAAAAAAAAAAIB2wIMAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAIwIMAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-12T08:50:28.514Z"
+              "WhenOpened": "2025-09-12T08:50:28.514Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 56,
               "Title": "MainPage.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\MainPage.xaml",
               "RelativeDocumentMoniker": "Checkers\\Views\\MainPage.xaml",
@@ -998,11 +1038,12 @@
               "RelativeToolTip": "Checkers\\Views\\MainPage.xaml",
               "ViewState": "AgIAAAgAAAAAAAAAAAAowDIAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-12T08:36:32.604Z"
+              "WhenOpened": "2025-09-12T08:36:32.604Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 57,
               "Title": "MainPage.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\MainPage.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\MainPage.xaml.cs",
@@ -1010,11 +1051,12 @@
               "RelativeToolTip": "Checkers\\Views\\MainPage.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T08:42:56.118Z"
+              "WhenOpened": "2025-09-12T08:42:56.118Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 58,
               "Title": "Views_GamePage.xaml.sg.cs",
               "DocumentMoniker": "C:\\Users\\user\\AppData\\Local\\Temp\\VSGeneratedDocuments\\9453dc8e-7663-0454-dc13-91c036df21db\\Views_GamePage.xaml.sg.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Users\\user\\AppData\\Local\\Temp\\VSGeneratedDocuments\\9453dc8e-7663-0454-dc13-91c036df21db\\Views_GamePage.xaml.sg.cs",
@@ -1025,7 +1067,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 59,
               "Title": "MainViewModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\MainViewModel.cs",
               "RelativeDocumentMoniker": "Checkers\\ViewModels\\MainViewModel.cs",
@@ -1033,11 +1075,12 @@
               "RelativeToolTip": "Checkers\\ViewModels\\MainViewModel.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAwwBgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T08:35:37.519Z"
+              "WhenOpened": "2025-09-12T08:35:37.519Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 61,
               "Title": "King.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\King.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\King.cs",
@@ -1045,11 +1088,12 @@
               "RelativeToolTip": "Checkers\\Models\\King.cs",
               "ViewState": "AgIAAF8AAAAAAAAAAAAwwHsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T17:23:51.009Z"
+              "WhenOpened": "2025-09-12T17:23:51.009Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 60,
               "Title": "UndoInfo.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Models\\UndoInfo.cs",
               "RelativeDocumentMoniker": "Checkers\\Models\\UndoInfo.cs",
@@ -1057,11 +1101,12 @@
               "RelativeToolTip": "Checkers\\Models\\UndoInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T06:08:54.103Z"
+              "WhenOpened": "2025-09-18T06:08:54.103Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 62,
               "Title": "Styles.xaml",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Resources\\Styles\\Styles.xaml",
               "RelativeDocumentMoniker": "Checkers\\Resources\\Styles\\Styles.xaml",
@@ -1069,11 +1114,12 @@
               "RelativeToolTip": "Checkers\\Resources\\Styles\\Styles.xaml",
               "ViewState": "AgIAABYAAAAAAAAAAAASwCkAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-16T12:16:32.438Z"
+              "WhenOpened": "2025-09-16T12:16:32.438Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 63,
               "Title": "HomePage.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\HomePage.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\HomePage.xaml.cs",
@@ -1081,11 +1127,12 @@
               "RelativeToolTip": "Checkers\\Views\\HomePage.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T11:33:16.556Z"
+              "WhenOpened": "2025-09-16T11:33:16.556Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 64,
               "Title": "RegisterPage.xaml.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Views\\RegisterPage.xaml.cs",
               "RelativeDocumentMoniker": "Checkers\\Views\\RegisterPage.xaml.cs",
@@ -1093,11 +1140,12 @@
               "RelativeToolTip": "Checkers\\Views\\RegisterPage.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T08:51:25.714Z"
+              "WhenOpened": "2025-09-12T08:51:25.714Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 65,
               "Title": "RegisterViewModel.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\ViewModels\\RegisterViewModel.cs",
               "RelativeDocumentMoniker": "Checkers\\ViewModels\\RegisterViewModel.cs",
@@ -1105,11 +1153,12 @@
               "RelativeToolTip": "Checkers\\ViewModels\\RegisterViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T11:26:57.527Z"
+              "WhenOpened": "2025-09-16T11:26:57.527Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 66,
               "Title": "Views_MainPage.xaml.sg.cs",
               "DocumentMoniker": "C:\\Users\\user\\AppData\\Local\\Temp\\.vsdbgsrc\\d99add102493e4b116a0958af55043784cdd7d5e\\Views_MainPage.xaml.sg.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Users\\user\\AppData\\Local\\Temp\\.vsdbgsrc\\d99add102493e4b116a0958af55043784cdd7d5e\\Views_MainPage.xaml.sg.cs",
@@ -1120,7 +1169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 67,
               "Title": "SquareToColorConverter.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Converters\\SquareToColorConverter.cs",
               "RelativeDocumentMoniker": "Checkers\\Converters\\SquareToColorConverter.cs",
@@ -1128,11 +1177,12 @@
               "RelativeToolTip": "Checkers\\Converters\\SquareToColorConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T09:04:57.464Z"
+              "WhenOpened": "2025-09-12T09:04:57.464Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 69,
               "Title": "MarkerSizeConverter.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Converters\\MarkerSizeConverter.cs",
               "RelativeDocumentMoniker": "Checkers\\Converters\\MarkerSizeConverter.cs",
@@ -1140,11 +1190,12 @@
               "RelativeToolTip": "Checkers\\Converters\\MarkerSizeConverter.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAkwAkAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T19:11:28.589Z"
+              "WhenOpened": "2025-09-12T19:11:28.589Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 68,
               "Title": "CellSizeConverter.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Converters\\CellSizeConverter.cs",
               "RelativeDocumentMoniker": "Checkers\\Converters\\CellSizeConverter.cs",
@@ -1152,11 +1203,12 @@
               "RelativeToolTip": "Checkers\\Converters\\CellSizeConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T20:16:45.363Z"
+              "WhenOpened": "2025-09-12T20:16:45.363Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 70,
               "Title": "PieceToColorConverter.cs",
               "DocumentMoniker": "C:\\Savehere\\CheckersAdam\\Checkers\\Checkers\\Converters\\PieceToColorConverter.cs",
               "RelativeDocumentMoniker": "Checkers\\Converters\\PieceToColorConverter.cs",
@@ -1164,7 +1216,8 @@
               "RelativeToolTip": "Checkers\\Converters\\PieceToColorConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T11:26:31.691Z"
+              "WhenOpened": "2025-09-12T11:26:31.691Z",
+              "EditorCaption": ""
             }
           ]
         }

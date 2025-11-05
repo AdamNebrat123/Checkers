@@ -31,7 +31,6 @@ namespace Checkers.Data
 
             var subscription = firebaseClient
             .Child(GamesCollection)
-            .Child(gameId)
             .AsObservable<GameModel>()
             .Subscribe(d =>
             {
