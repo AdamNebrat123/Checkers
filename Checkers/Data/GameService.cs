@@ -1,5 +1,6 @@
 ﻿using Checkers.Models;
 using Checkers.Utils;
+using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,20 +28,11 @@ namespace Checkers.Data
         {
             try
             {
-                var data = new Dictionary<string, object>
-                {
-                    { "GameId", game.GameId },
-                    { "Host", game.Host },
-                    { "HostColor", game.HostColor },
-                    { "Guest", game.Guest ?? "" },
-                    { "GuestColor", game.GuestColor ?? "" },
-                    { "IsWhiteTurn", game.IsWhiteTurn },
-                    { "BoardState", JsonSerializer.Serialize(game.BoardState) },
-                    { "Moves", JsonSerializer.Serialize(game.Moves) },
-                    { "CreatedAt", game.CreatedAt.ToString("o") }
-                };
+                await firebaseClient
+                    .Child(GamesCollection)
+                    .Child(game.GameId)
+                    .PutAsync(game);
 
-                await SaveDocumentAsync(GamesCollection, game.GameId, data);
                 Debug.WriteLine("******************************************************");
                 Debug.WriteLine($"Game {game.GameId} created at path {GamesCollection}");
                 Debug.WriteLine("******************************************************");
@@ -61,20 +53,8 @@ namespace Checkers.Data
         {
             try
             {
-                var data = new Dictionary<string, object>
-                {
-                    { "GameId", game.GameId },
-                    { "Host", game.Host },
-                    { "HostColor", game.HostColor },
-                    { "Guest", game.Guest ?? "" },
-                    { "GuestColor", game.GuestColor ?? "" },
-                    { "IsWhiteTurn", game.IsWhiteTurn },
-                    { "BoardState", JsonSerializer.Serialize(game.BoardState) },
-                    { "Moves", JsonSerializer.Serialize(game.Moves) },
-                    { "CreatedAt", game.CreatedAt.ToString("o") },
-                };
-                await DeleteGameAsync(game.GameId);
-                await Task.Delay(3000);
+                //await DeleteGameAsync(game.GameId);
+                //await Task.Delay(3000);
 
                 await CreateGameAsync(game);
                 //await UpdateDocumentAsync(GamesCollection, game.GameId, data);
@@ -92,27 +72,12 @@ namespace Checkers.Data
         {
             try
             {
-                var data = await GetDocumentAsync(GamesCollection, gameId);
-                if (data == null) return null;
+                var game = await firebaseClient
+                    .Child(GamesCollection)
+                    .Child(gameId)
+                    .OnceSingleAsync<GameModel>();
 
-                return new GameModel
-                {
-                    GameId = data.TryGetValue("GameId", out var id) ? id.ToString()! : gameId,
-                    Host = data.TryGetValue("Host", out var host) ? host.ToString()! : "",
-                    HostColor = data.TryGetValue("HostColor", out var hColor) ? hColor.ToString()! : "White",
-                    Guest = data.TryGetValue("Guest", out var guest) ? guest.ToString()! : "",
-                    GuestColor = data.TryGetValue("GuestColor", out var gColor) ? gColor.ToString()! : "Black",
-                    IsWhiteTurn = data.TryGetValue("IsWhiteTurn", out var turn) ? bool.Parse(turn.ToString()!) : true,
-                    BoardState = data.TryGetValue("BoardState", out var state)
-    ? JsonSerializer.Deserialize<int[][]>(state.ToString()!)!
-    : BoardHelper.InitializeEmptyBoard(),
-                    Moves = data.TryGetValue("Moves", out var moves)
-                        ? JsonSerializer.Deserialize<List<GameMove>>(moves.ToString()!)!
-                        : new List<GameMove>(),
-                    CreatedAt = data.TryGetValue("CreatedAt", out var created)
-                        ? DateTime.Parse(created.ToString()!)
-                        : DateTime.UtcNow
-                };
+                return game;
             }
             catch (Exception ex)
             {
@@ -120,6 +85,7 @@ namespace Checkers.Data
                 return null;
             }
         }
+
 
         /// <summary>
         /// מוחק משחק
@@ -139,54 +105,20 @@ namespace Checkers.Data
 
         public async Task<List<GameModel>> GetAllGamesAsync()
         {
-            var gamesSnapshot = await firebaseClient
-                .Child("games")
-                .OnceAsync<Dictionary<string, object>>();
-
-            var games = new List<GameModel>();
-
-            foreach (var gameSnap in gamesSnapshot)
+            try
             {
-                try
-                {
-                    var data = gameSnap.Object;
-                    var game = new GameModel
-                    {
-                        GameId = data.TryGetValue("GameId", out var id) ? id.ToString()! : gameSnap.Key,
-                        Host = data.TryGetValue("Host", out var host) ? host.ToString()! : "",
-                        HostColor = data.TryGetValue("HostColor", out var hColor) ? hColor.ToString()! : "White",
-                        Guest = data.TryGetValue("Guest", out var guest) ? guest.ToString()! : "",
-                        GuestColor = data.TryGetValue("GuestColor", out var gColor) ? gColor.ToString()! : "Black",
-                        IsWhiteTurn = data.TryGetValue("IsWhiteTurn", out var turn) ? bool.Parse(turn.ToString()!) : true,
-                        CreatedAt = data.TryGetValue("CreatedAt", out var created) ? DateTime.Parse(created.ToString()!) : DateTime.UtcNow
-                    };
+                var gamesDict = await firebaseClient
+                    .Child("games")
+                    .OnceAsync<GameModel>();
 
-                    // ננסה לפרש את ה־BoardState אם קיים
-                    if (data.TryGetValue("BoardState", out var stateObj))
-                    {
-                        try
-                        {
-                            string json = stateObj switch
-                            {
-                                JsonElement jeState when jeState.ValueKind != JsonValueKind.Null => jeState.GetRawText(),
-                                not null => stateObj.ToString()!,
-                                _ => "null"
-                            };
-                            if (json != "null")
-                                game.BoardState = JsonSerializer.Deserialize<int[][]>(json)!;
-                        }
-                        catch { }
-                    }
-
-                    games.Add(game);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error parsing game: {ex.Message}");
-                }
+                var games = gamesDict.Select(g => g.Object).ToList();
+                return games;
             }
-
-            return games;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading all games: {ex.Message}");
+                return new List<GameModel>();
+            }
         }
     }
 }

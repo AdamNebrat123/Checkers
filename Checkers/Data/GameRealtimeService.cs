@@ -30,37 +30,35 @@ namespace Checkers.Data
         {
 
             var subscription = firebaseClient
-                .Child(GamesCollection)
-                .AsObservable<Dictionary<string, object>>()
-                .Subscribe(d =>
+            .Child(GamesCollection)
+            .Child(gameId)
+            .AsObservable<GameModel>()
+            .Subscribe(d =>
+            {
+                Debug.WriteLine($"EventType: {d.EventType}");
+
+                var game = d.Object;
+                if (game == null)
+                    return;
+
+                // ודא שזה באמת המשחק שאנחנו מאזינים לו
+                if (game.GameId != gameId)
+                    return;
+
+                if (d.EventType == FirebaseEventType.InsertOrUpdate)
                 {
-                    // לוג בשביל לבדוק מה מגיע
-                    Debug.WriteLine($"EventType: {d.EventType}, Data: {JsonSerializer.Serialize(d.Object)}");
-
-                    if (d.Object == null) return;
-
-
-                    d.Object.TryGetValue("GameId", out object objId);
-                    string id = objId as string;
-                    if (id == null) return ;
-                    Debug.WriteLine($"{id}");
-
-                    if (id != gameId) return;
-                    // אנחנו מתעניינים ב־InsertOrUpdate בלבד
-                    if (d.EventType == FirebaseEventType.InsertOrUpdate)
+                    try
                     {
-                        try
-                        {
-                            var game = GetGameFromRawData(d.Object, gameId);
-                            Debug.WriteLine("invoking function!!!!!!!");
-                            onGameChanged?.Invoke(game);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"Error converting game data: {ex.Message}");
-                        }
+                        Debug.WriteLine("invoking function!!!!!!!");
+                        onGameChanged?.Invoke(game);
                     }
-                });
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error invoking game change handler: {ex.Message}");
+                    }
+                }
+            });
+
 
             return subscription;
         }
@@ -142,7 +140,7 @@ namespace Checkers.Data
         {
             var subscription = firebaseClient
                 .Child("games")
-                .AsObservable<Dictionary<string, object>>()
+                .AsObservable<GameModel>()
                 .Subscribe(d =>
                 {
                     if (d.EventType == FirebaseEventType.InsertOrUpdate || d.EventType == FirebaseEventType.Delete)
