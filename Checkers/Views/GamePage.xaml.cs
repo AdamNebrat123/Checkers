@@ -1,4 +1,4 @@
-using Checkers.GameLogic;
+ï»¿using Checkers.GameLogic;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
 using System.Text.Json;
@@ -11,6 +11,8 @@ namespace Checkers.Views
     {
         private readonly GameViewModel _gameViewModel;
         private readonly IGameStrategyFactory _strategyFactory;
+        private bool _initialized;
+
 
         public ModeParametersWrapper? Wrapper { get; set; }
 
@@ -25,13 +27,15 @@ namespace Checkers.Views
         {
             base.OnNavigatedTo(args);
 
+            if (_initialized) return;
+
             if (Wrapper == null)
                 throw new InvalidOperationException("ParametersWrapper is required");
 
-            // ÷åáò àú äîåã
+            // Ã·Ã¥Ã¡Ã² Ã Ãº Ã¤Ã®Ã¥Ã£
             GameMode mode = Enum.Parse<GameMode>(Wrapper.Mode, ignoreCase: true);
 
-            // éåöø Settings ìôé JSON
+            // Ã©Ã¥Ã¶Ã¸ Settings Ã¬Ã´Ã© JSON
             object settings = mode switch
             {
                 GameMode.AI => JsonSerializer.Deserialize<AiSettings>(Wrapper.Parameters.GetRawText())!,
@@ -39,7 +43,7 @@ namespace Checkers.Views
                 _ => throw new NotSupportedException($"Unsupported mode: {mode}")
             };
 
-            // ÷åáò àí äìáï
+            // Ã·Ã¥Ã¡Ã² Ã Ã­ Ã¤Ã¬Ã¡Ã¯
             bool isWhite = settings switch
             {
                 AiSettings ai => ai.IsWhite,
@@ -47,19 +51,29 @@ namespace Checkers.Views
                 _ => true
             };
 
-            // îàúçì ìåç
+            // Ã®Ã ÃºÃ§Ã¬ Ã¬Ã¥Ã§
             _gameViewModel.InitializeBoard(isWhite, false);
 
-            // éåöø àñèøèâéä ãøê Factory
+            // Ã©Ã¥Ã¶Ã¸ Ã Ã±Ã¨Ã¸Ã¨Ã¢Ã©Ã¤ Ã£Ã¸Ãª Factory
             var strategy = _strategyFactory.Create(mode, _gameViewModel.GameManager, settings);
             _gameViewModel.SetStrategy(strategy);
 
-            // àéøåò ìçéöä òì øéáåòéí
+            // Ã Ã©Ã¸Ã¥Ã² Ã¬Ã§Ã©Ã¶Ã¤ Ã²Ã¬ Ã¸Ã©Ã¡Ã¥Ã²Ã©Ã­
             _gameViewModel.BoardVM.SquareClicked += async square =>
                 await _gameViewModel.HandleSquareSelectedAsync(square);
 
             BindingContext = _gameViewModel;
             await _gameViewModel.InitializeAsync();
+
+            _initialized = true; // ×›×›×” ×× ×™ ××•×•×“× ×©×‘×¤×¢× ×”×‘××” ×”×•× ×œ× ×™×¢×©×” ××ª ×”×›×œ ××—×“×© ×•×™×¤×ª×— ×¢×•×“ ×××–×™× ×™× ×•×›×•'
+
+        }
+
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _gameViewModel.UnubFromGame();
         }
     }
 }

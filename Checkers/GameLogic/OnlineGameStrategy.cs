@@ -55,6 +55,11 @@ namespace Checkers.GameLogic
                 }
             }
         }
+        public void UnsubFromGame()
+        {
+            _gameSubscription?.Dispose();
+            _gameSubscription = null;
+        }
 
         private async Task SubscribeToGameUpdates()
         {
@@ -145,6 +150,19 @@ namespace Checkers.GameLogic
                         Console.WriteLine($"Error in game update handler: {ex.Message}");
                     }
                 });
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("Subscribed to Firebase!!!!");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+                Debug.WriteLine("***************************");
+
             }
             catch (Exception ex)
             {

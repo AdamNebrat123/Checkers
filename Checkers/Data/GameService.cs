@@ -53,11 +53,12 @@ namespace Checkers.Data
         {
             try
             {
-                //await DeleteGameAsync(game.GameId);
-                //await Task.Delay(3000);
 
-                await CreateGameAsync(game);
-                //await UpdateDocumentAsync(GamesCollection, game.GameId, data);
+                await firebaseClient
+                    .Child(GamesCollection)
+                    .Child(game.GameId)
+                    .PutAsync(game);
+
             }
             catch (Exception ex)
             {
