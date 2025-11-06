@@ -16,9 +16,8 @@ namespace Checkers.Models
         public int ToRow { get; set; }
         public int ToCol { get; set; }
 
-        // המיקום של החייל שנאכל (null אם אין)
-        public int? EatenRow { get; set; }
-        public int? EatenCol { get; set; }
+        // רשימת אכילות (תומכת בריבוי קפיצות)
+        public List<CaptureStep> Captures { get; set; } = new();
 
         // מי ביצע את המהלך
         public bool WasWhite { get; set; }

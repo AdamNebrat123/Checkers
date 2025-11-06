@@ -71,70 +71,7 @@ namespace Checkers.Data
             _subscription = null;
         }
 
-        /// <summary>
-        /// ממיר את הנתונים הגולמיים מה־Firebase ל-GameModel
-        /// </summary>
-        private GameModel GetGameFromRawData(Dictionary<string, object> data, string gameId)
-        {
-            int[][] boardState = new int[8][];
-            for (int i = 0; i < 8; i++) boardState[i] = new int[8];
-
-            if (data.TryGetValue("BoardState", out var stateObj))
-            {
-                try
-                {
-                    string json = stateObj switch
-                    {
-                        JsonElement jeState when jeState.ValueKind != JsonValueKind.Null => jeState.GetRawText(),
-                        not null => stateObj.ToString()!,
-                        _ => "null"
-                    };
-
-                    if (json != "null")
-                        boardState = JsonSerializer.Deserialize<int[][]>(json)!;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-            }
-
-            List<GameMove> moves = new();
-            if (data.TryGetValue("Moves", out var movesObj))
-            {
-                try
-                {
-                    string json = movesObj switch
-                    {
-                        JsonElement jeMoves when jeMoves.ValueKind != JsonValueKind.Null => jeMoves.GetRawText(),
-                        not null => movesObj.ToString()!,
-                        _ => "null"
-                    };
-
-                    if (json != "null")
-                        moves = JsonSerializer.Deserialize<List<GameMove>>(json)!;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-            }
-            Debug.WriteLine("print from GetGameFromRawData");
-
-            return new GameModel
-            {
-                GameId = data.TryGetValue("GameId", out var id) ? id.ToString()! : gameId,
-                Host = data.TryGetValue("Host", out var host) ? host.ToString()! : "",
-                HostColor = data.TryGetValue("HostColor", out var hColor) ? hColor.ToString()! : "White",
-                Guest = data.TryGetValue("Guest", out var guest) ? guest.ToString()! : "",
-                GuestColor = data.TryGetValue("GuestColor", out var gColor) ? gColor.ToString()! : "Black",
-                IsWhiteTurn = data.TryGetValue("IsWhiteTurn", out var turn) ? bool.Parse(turn.ToString()!) : true,
-                BoardState = boardState,
-                Moves = moves,
-                CreatedAt = data.TryGetValue("CreatedAt", out var created) ? DateTime.Parse(created.ToString()!) : DateTime.UtcNow
-            };
-        }
-
+        
         public IDisposable SubscribeToAvailableGames(Action<List<GameModel>> onGamesUpdated)
         {
             var subscription = firebaseClient

@@ -24,8 +24,7 @@ namespace Checkers.Utils
             if (gameMove == null)
                 return null;
 
-            // השחור צריך להפוך את כל הקואורדינטות
-            return new GameMove
+            var mirroredMove = new GameMove
             {
                 Id = gameMove.Id,
                 WasWhite = gameMove.WasWhite,
@@ -33,10 +32,27 @@ namespace Checkers.Utils
                 FromCol = BoardSize - 1 - gameMove.FromCol,
                 ToRow = BoardSize - 1 - gameMove.ToRow,
                 ToCol = BoardSize - 1 - gameMove.ToCol,
-                EatenRow = gameMove.EatenRow.HasValue ? BoardSize - 1 - gameMove.EatenRow.Value : null,
-                EatenCol = gameMove.EatenCol.HasValue ? BoardSize - 1 - gameMove.EatenCol.Value : null
+                Timestamp = gameMove.Timestamp
             };
+
+            // הפיכת כל שלב אכילה בנפרד
+            if (gameMove.Captures != null && gameMove.Captures.Count > 0)
+            {
+                foreach (var capture in gameMove.Captures)
+                {
+                    mirroredMove.Captures.Add(new CaptureStep
+                    {
+                        CapturedRow = BoardSize - 1 - capture.CapturedRow,
+                        CapturedCol = BoardSize - 1 - capture.CapturedCol,
+                        LandingRow = BoardSize - 1 - capture.LandingRow,
+                        LandingCol = BoardSize - 1 - capture.LandingCol
+                    });
+                }
+            }
+
+            return mirroredMove;
         }
+
 
         public static GameMove? ConvertMoveByPerspective(GameMove gameMove, bool isLocalPlayerWhite)
         {
