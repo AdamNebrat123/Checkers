@@ -16,15 +16,19 @@ namespace Checkers.Views
         public string GameName { get; set; }
         public string GameId { get; set; }
 
+        private readonly GameEventDispatcher gameEventDispatcher;
         private readonly GameService _gameService = GameService.GetInstance();
         private readonly GameRealtimeService _realtimeService = GameRealtimeService.GetInstance();
-        private IDisposable? _gameSubscription;
 
         private bool _joined = false;
+        private bool _subscribed = false;
 
         public WaitingRoom()
         {
             InitializeComponent();
+
+            gameEventDispatcher = GameEventDispatcher.GetInstance();
+
         }
 
         protected override async void OnAppearing()
@@ -33,37 +37,18 @@ namespace Checkers.Views
 
             GameCodeLabel.Text = GameName ?? "GAME1234";
             GameIdLabel.Text = $"Game ID: {GameId}";
-            await ListenForGuestAsync();
+
+            if (!_subscribed && !string.IsNullOrEmpty(GameId))
+                ListenForGuestAsync();
+
         }
 
-        private async Task ListenForGuestAsync()
+        private void ListenForGuestAsync()
         {
             try
             {
-                // נשתמש ב־Realtime listener כדי לזהות אם השדה Guest התמלא
-                _gameSubscription = _realtimeService.SubscribeToGame(GameId, game =>
-                {
-                    if (game.Guest != "")
-                    {
-                        _joined = true;
-                        MainThread.BeginInvokeOnMainThread(async () =>
-                        {
-                            await DisplayAlert("Guest Joined!", $"{game.Guest} joined your game.", "OK");
-
-                            var onlineSettings = new OnlineSettings { GameId = game.GameId, IsLocalPlayerWhite = game.HostColor == "White" };
-                            var wrapper = new ModeParametersWrapper
-                            {
-                                Mode = GameMode.Online.ToString(),
-                                Parameters = JsonSerializer.SerializeToElement(onlineSettings)
-                            };
-
-                            await Shell.Current.GoToAsync(nameof(GamePage), new Dictionary<string, object>
-                            {
-                                { "wrapper", wrapper }
-                            });
-                        });
-                    }
-                });
+                gameEventDispatcher.Subscribe(GameId, OnGuestJoined);
+                _subscribed = true;
             }
             catch (Exception ex)
             {
@@ -71,12 +56,34 @@ namespace Checkers.Views
             }
         }
 
+        private async Task OnGuestJoined(GameModel gameModel)
+        {
+            if (gameModel.Guest != "")
+            {
+                _joined = true;
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+
+                    var onlineSettings = new OnlineSettings { GameId = gameModel.GameId, IsLocalPlayerWhite = gameModel.HostColor == "White" };
+                    var wrapper = new ModeParametersWrapper
+                    {
+                        Mode = GameMode.Online.ToString(),
+                        Parameters = JsonSerializer.SerializeToElement(onlineSettings)
+                    };
+
+                    await Shell.Current.GoToAsync(nameof(GamePage), new Dictionary<string, object>
+                    {
+                        { "wrapper", wrapper }
+                    });
+                });
+            }
+        }
+
         private async void OnCancelWaitingClicked(object sender, EventArgs e)
         {
             try
             {
-                _gameSubscription?.Dispose();
-                _gameSubscription = null;
+                StopListeningForGuest();
 
                 if (!_joined && !string.IsNullOrEmpty(GameId))
                     await _gameService.DeleteGameAsync(GameId);
@@ -91,8 +98,16 @@ namespace Checkers.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            _gameSubscription?.Dispose();
-            _gameSubscription = null;
+            StopListeningForGuest();
+        }
+
+        private void StopListeningForGuest()
+        {
+            if (_subscribed)
+            {
+                gameEventDispatcher.Unsubscribe(GameId, OnGuestJoined);
+                _subscribed = false;
+            }
         }
     }
 }

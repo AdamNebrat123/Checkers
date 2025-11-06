@@ -14,7 +14,6 @@ namespace Checkers.Data
     public class GameRealtimeService : GameService
     {
         private const string GamesCollection = "games";
-        private IDisposable? _subscription;
 
         /// <summary>
         /// מנוי לשינויים במשחק ספציפי
@@ -26,52 +25,6 @@ namespace Checkers.Data
 
         public static GameRealtimeService GetInstance() { return _instance; }
 
-        public IDisposable SubscribeToGame(string gameId, Action<GameModel> onGameChanged)
-        {
-
-            var subscription = firebaseClient
-            .Child(GamesCollection)
-            .AsObservable<GameModel>()
-            .Subscribe(d =>
-            {
-                Debug.WriteLine($"EventType: {d.EventType}");
-
-                var game = d.Object;
-                if (game == null)
-                    return;
-
-                // ודא שזה באמת המשחק שאנחנו מאזינים לו
-                if (game.GameId != gameId)
-                    return;
-
-                if (d.EventType == FirebaseEventType.InsertOrUpdate)
-                {
-                    try
-                    {
-                        Debug.WriteLine("invoking function!!!!!!!");
-                        onGameChanged?.Invoke(game);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"Error invoking game change handler: {ex.Message}");
-                    }
-                }
-            });
-
-
-            return subscription;
-        }
-
-        /// <summary>
-        /// ביטול המנוי
-        /// </summary>
-        public void Unsubscribe()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
-
-        
         public IDisposable SubscribeToAvailableGames(Action<List<GameModel>> onGamesUpdated)
         {
             var subscription = firebaseClient

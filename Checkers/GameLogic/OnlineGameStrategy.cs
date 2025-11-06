@@ -15,13 +15,13 @@ namespace Checkers.GameLogic
 {
     public class OnlineGameStrategy : IGameStrategy
     {
+        private readonly GameEventDispatcher gameEventDispatcher;
         private readonly GameManagerViewModel gameManager;
         private readonly GameService gameService = GameService.GetInstance();
         private readonly GameRealtimeService realtimeService = GameRealtimeService.GetInstance();
-        private IDisposable? _gameSubscription;
         private readonly string gameId;
         private BoardViewModel boardVM;
-        private bool isSubscribed = false;
+        private bool _subscribed = false;
         private bool isLocalPlayerWhite;
 
         private string? lastSentMoveId = "";
@@ -31,6 +31,8 @@ namespace Checkers.GameLogic
             this.gameManager = gameManager;
             this.gameId = gameId;
             this.isLocalPlayerWhite = isLocalPlayerWhite;
+
+            gameEventDispatcher = GameEventDispatcher.GetInstance();
         }
 
         public void SetBoardViewModel(BoardViewModel boardVM)
@@ -42,12 +44,12 @@ namespace Checkers.GameLogic
         {
             this.boardVM = boardVM;
 
-            if (!isSubscribed)
+            if (!_subscribed)
             {
                 try
                 {
-                    await SubscribeToGameUpdates();
-                    isSubscribed = true;
+                    SubscribeToGameUpdates();
+                    _subscribed = true;
                 }
                 catch (Exception ex)
                 {
@@ -55,124 +57,127 @@ namespace Checkers.GameLogic
                 }
             }
         }
-        public void UnsubFromGame()
-        {
-            _gameSubscription?.Dispose();
-            _gameSubscription = null;
-        }
 
-        private async Task SubscribeToGameUpdates()
+        private void SubscribeToGameUpdates()
         {
             try
             {
-                _gameSubscription = realtimeService.SubscribeToGame(gameId, async (gameModel) =>
-                {
-                    try
-                    {
-                        if (gameModel == null) return;
-
-                        GameMove? lastMove = gameModel.Moves?.LastOrDefault();
-                        lastMove = MoveHelper.ConvertMoveByPerspective(lastMove, isLocalPlayerWhite);
-                        if (lastMove == null) return;
-
-                        // אל תטפל במהלך אם זה המהלך שלך
-                        if (lastMove.Id == lastSentMoveId) return;
-
-                        // אל תטפל במהלך אם הוא מהצד שלך
-                        if (lastMove.WasWhite == isLocalPlayerWhite) return;
-
-
-                        // שליפת הריבועים המעורבים
-                        var fromSquare = boardVM.Squares[lastMove.FromRow * Board.Size + lastMove.FromCol];
-                        var toSquare = boardVM.Squares[lastMove.ToRow * Board.Size + lastMove.ToCol];
-                        var movingPiece = fromSquare.Piece;
-                        if (movingPiece == null) return;
-
-                        await MainThread.InvokeOnMainThreadAsync(async () =>
-                        {
-                            try
-                            {
-                                // איפוס סימנים
-                                foreach (var sq in boardVM.Squares)
-                                    sq.HasMoveMarker = false;
-
-                                // ריקון ריבוע המקור
-                                fromSquare.Piece = null;
-                                fromSquare.UpdateProperty(nameof(fromSquare.Piece));
-                                fromSquare.UpdateProperty(nameof(fromSquare.PieceImage));
-
-                                // נניע את החייל שלב-שלב
-                                var currentSquare = fromSquare;
-
-                                // אם יש קפיצות (Captures)
-                                if (lastMove.Captures != null && lastMove.Captures.Any())
-                                {
-                                    foreach (var cap in lastMove.Captures)
-                                    {
-                                        // מחיקת החייל שנאכל
-                                        var eatenSquare = boardVM.Squares[cap.CapturedRow * Board.Size + cap.CapturedCol];
-                                        eatenSquare.Piece = null;
-                                        eatenSquare.UpdateProperty(nameof(eatenSquare.Piece));
-                                        eatenSquare.UpdateProperty(nameof(eatenSquare.PieceImage));
-
-                                        // תזוזת החייל למיקום הנחיתה
-                                        var landingSquare = boardVM.Squares[cap.LandingRow * Board.Size + cap.LandingCol];
-                                        landingSquare.Piece = movingPiece;
-                                        landingSquare.UpdateProperty(nameof(landingSquare.Piece));
-                                        landingSquare.UpdateProperty(nameof(landingSquare.PieceImage));
-
-                                        // ריקון הריבוע הקודם
-                                        currentSquare.Piece = null;
-                                        currentSquare.UpdateProperty(nameof(currentSquare.Piece));
-                                        currentSquare.UpdateProperty(nameof(currentSquare.PieceImage));
-
-                                        currentSquare = landingSquare;
-                                        await Task.Delay(700); // דיליי קטן בין כל אכילה
-                                    }
-                                }
-                                else
-                                {
-                                    // מהלך רגיל (בלי אכילה)
-                                    toSquare.Piece = movingPiece;
-                                    toSquare.UpdateProperty(nameof(toSquare.Piece));
-                                    toSquare.UpdateProperty(nameof(toSquare.PieceImage));
-                                }
-
-                                // בדיקת קידום ל־King
-                                if (movingPiece is Man)
-                                {
-                                    if ((movingPiece.Color == PieceColor.White && currentSquare.Row == 0) ||
-                                        (movingPiece.Color == PieceColor.Black && currentSquare.Row == Board.Size - 1))
-                                    {
-                                        currentSquare.Piece = new King(movingPiece.Color);
-                                        currentSquare.UpdateProperty(nameof(currentSquare.Piece));
-                                        currentSquare.UpdateProperty(nameof(currentSquare.PieceImage));
-                                    }
-                                }
-
-                                // עדכון מצב הלוח לפי ה-state מהפיירבייס
-                                BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, isLocalPlayerWhite);
-                                gameManager.IsWhiteTurn = gameModel.IsWhiteTurn;
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"Error animating opponent move: {ex.Message}");
-                            }
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error in game update handler: {ex.Message}");
-                    }
-                });
-
-
-                Debug.WriteLine("Subscribed to Firebase!!!!");
-
+                gameEventDispatcher.Subscribe(gameId, HandleOnUpdatedBoard);
+                _subscribed = true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error subscribing to Firebase: {ex.Message}");
+            }
+        }
+
+        public void UnsubscribeFromGameUpdates()
+        {
+            if (_subscribed)
+            {
+                gameEventDispatcher.Unsubscribe(gameId, HandleOnUpdatedBoard);
+                _subscribed = false;
+            }
+        }
+
+        private async Task HandleOnUpdatedBoard(GameModel gameModel)
+        {
+            try
+            {
+                if (gameModel == null) return;
+
+                GameMove? lastMove = gameModel.Moves?.LastOrDefault();
+                lastMove = MoveHelper.ConvertMoveByPerspective(lastMove, isLocalPlayerWhite);
+                if (lastMove == null) return;
+
+                // אל תטפל במהלך אם זה המהלך שלך
+                if (lastMove.Id == lastSentMoveId) return;
+
+                // אל תטפל במהלך אם הוא מהצד שלך
+                if (lastMove.WasWhite == isLocalPlayerWhite) return;
+
+
+                // שליפת הריבועים המעורבים
+                var fromSquare = boardVM.Squares[lastMove.FromRow * Board.Size + lastMove.FromCol];
+                var toSquare = boardVM.Squares[lastMove.ToRow * Board.Size + lastMove.ToCol];
+                var movingPiece = fromSquare.Piece;
+                if (movingPiece == null) return;
+
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    try
+                    {
+                        // איפוס סימנים
+                        foreach (var sq in boardVM.Squares)
+                            sq.HasMoveMarker = false;
+
+                        // ריקון ריבוע המקור
+                        fromSquare.Piece = null;
+                        fromSquare.UpdateProperty(nameof(fromSquare.Piece));
+                        fromSquare.UpdateProperty(nameof(fromSquare.PieceImage));
+
+                        // נניע את החייל שלב-שלב
+                        var currentSquare = fromSquare;
+
+                        // אם יש קפיצות (Captures)
+                        if (lastMove.Captures != null && lastMove.Captures.Any())
+                        {
+                            foreach (var cap in lastMove.Captures)
+                            {
+                                // מחיקת החייל שנאכל
+                                var eatenSquare = boardVM.Squares[cap.CapturedRow * Board.Size + cap.CapturedCol];
+                                eatenSquare.Piece = null;
+                                eatenSquare.UpdateProperty(nameof(eatenSquare.Piece));
+                                eatenSquare.UpdateProperty(nameof(eatenSquare.PieceImage));
+
+                                // תזוזת החייל למיקום הנחיתה
+                                var landingSquare = boardVM.Squares[cap.LandingRow * Board.Size + cap.LandingCol];
+                                landingSquare.Piece = movingPiece;
+                                landingSquare.UpdateProperty(nameof(landingSquare.Piece));
+                                landingSquare.UpdateProperty(nameof(landingSquare.PieceImage));
+
+                                // ריקון הריבוע הקודם
+                                currentSquare.Piece = null;
+                                currentSquare.UpdateProperty(nameof(currentSquare.Piece));
+                                currentSquare.UpdateProperty(nameof(currentSquare.PieceImage));
+
+                                currentSquare = landingSquare;
+                                await Task.Delay(700); // דיליי קטן בין כל אכילה
+                            }
+                        }
+                        else
+                        {
+                            // מהלך רגיל (בלי אכילה)
+                            toSquare.Piece = movingPiece;
+                            toSquare.UpdateProperty(nameof(toSquare.Piece));
+                            toSquare.UpdateProperty(nameof(toSquare.PieceImage));
+                        }
+
+                        // בדיקת קידום ל־King
+                        if (movingPiece is Man)
+                        {
+                            if ((movingPiece.Color == PieceColor.White && currentSquare.Row == 0) ||
+                                (movingPiece.Color == PieceColor.Black && currentSquare.Row == Board.Size - 1))
+                            {
+                                currentSquare.Piece = new King(movingPiece.Color);
+                                currentSquare.UpdateProperty(nameof(currentSquare.Piece));
+                                currentSquare.UpdateProperty(nameof(currentSquare.PieceImage));
+                            }
+                        }
+
+                        // עדכון מצב הלוח לפי ה-state מהפיירבייס
+                        BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, isLocalPlayerWhite);
+                        gameManager.IsWhiteTurn = gameModel.IsWhiteTurn;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error animating opponent move: {ex.Message}");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in game update handler: {ex.Message}");
             }
         }
 

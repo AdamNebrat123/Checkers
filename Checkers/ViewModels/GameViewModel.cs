@@ -46,7 +46,7 @@ namespace Checkers.ViewModel
         public void UnubFromGame()
         {
             if (_strategy is OnlineGameStrategy online)
-                online.UnsubFromGame();
+                online.UnsubscribeFromGameUpdates();
         }
 
         public void SetBoardViewModel(BoardViewModel boardVM)
