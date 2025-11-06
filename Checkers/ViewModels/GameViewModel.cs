@@ -10,6 +10,34 @@ namespace Checkers.ViewModel
         public GameManagerViewModel GameManager { get; }
         private IGameStrategy _strategy;
 
+        private string _playerName = "AVI KAMIL";
+        public string PlayerName
+        {
+            get => _playerName;
+            set
+            {
+                if (_playerName != value)
+                {
+                    _playerName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _opponentName = "ITAY GEORGE TZVI";
+        public string OpponentName
+        {
+            get => _opponentName;
+            set
+            {
+                if (_opponentName != value)
+                {
+                    _opponentName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         // Inject only the GameManager via DI
         public GameViewModel(GameManagerViewModel gameManager)
         {

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Checkers.Views.GamePage"
              xmlns:converters="clr-namespace:Checkers.Converters"
-             Title="GamePage">
+             Title="GamePage"
+             BackgroundColor="#3d3e40">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -13,66 +14,109 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid x:Name="RootGrid" BackgroundColor="White">
-        <!-- מרכז את הלוח במסך -->
-        <Grid HorizontalOptions="Center"
-              VerticalOptions="Center"
-              x:Name="BoardGrid"
-              WidthRequest="{Binding BoardSize}"
-              HeightRequest="{Binding BoardSize}">
+    <!-- Gradient background -->
+    <Grid x:Name="RootGrid" Padding="0">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#343536" Offset="0.0" />
+                <GradientStop Color="#343536" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
 
-            <CollectionView ItemsSource="{Binding BoardVM.Squares}"
-                            WidthRequest="{Binding BoardSize}"
-                            HeightRequest="{Binding BoardSize}"
-                            ItemSizingStrategy="MeasureAllItems"
-                            Margin="0">
-                <CollectionView.ItemsLayout>
-                    <!-- לוח 8x8 -->
-                    <GridItemsLayout Orientation="Vertical" Span="8" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
-                </CollectionView.ItemsLayout>
+        <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*">
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <!-- רקע המשבצת -->
-                            <BoxView Color="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
-                                     HorizontalOptions="Fill"
-                                     VerticalOptions="Fill" />
+            <!-- שם השחקן העליון -->
+            <Frame Grid.Row="0"
+                   BackgroundColor="DarkGrey"
+                   CornerRadius="10"
+                   HasShadow="True"
+                   Padding="10,5"
+                   Margin="20,20,20,10"
+                   HorizontalOptions="Center">
+                <Label Text="{Binding OpponentName}"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#333"
+                       HorizontalOptions="Center"/>
+            </Frame>
 
-                            <!-- תמונה של הכלי -->
-                            <Image Source="{Binding PieceImage}"
-                                   Aspect="AspectFit"
-                                   HorizontalOptions="Fill"
-                                   VerticalOptions="Fill"
-                                   MinimumWidthRequest="{Binding Source={x:Reference BoardGrid}, Path=Width, Converter={StaticResource CellSizeConverter}}"
-                                   MinimumHeightRequest="{Binding Source={x:Reference BoardGrid}, Path=Height, Converter={StaticResource CellSizeConverter}}">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
-                                </Image.GestureRecognizers>
-                            </Image>
+            <!-- לוח המשחק במרכז -->
+            <Grid Grid.Row="1"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  x:Name="BoardGrid"
+                  WidthRequest="{Binding BoardSize}"
+                  HeightRequest="{Binding BoardSize}">
 
-                            <!-- Marker למהלך -->
-                            <Ellipse WidthRequest="{Binding Source={x:Reference BoardGrid}, Path=Width, Converter={StaticResource MarkerSizeConverter}}"
-                                     HeightRequest="{Binding Source={x:Reference BoardGrid}, Path=Height, Converter={StaticResource MarkerSizeConverter}}"
-                                     Fill="Gray"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="Center"
-                                     IsVisible="{Binding HasMoveMarker}">
-                                <Ellipse.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
-                                </Ellipse.GestureRecognizers>
-                            </Ellipse>
-                            <!-- כפתור שקוף שמכסה הכל, ללחיצה -->
-                            <Button BackgroundColor="Transparent"
-        Command="{Binding SquareClickedCommand}"
-        HorizontalOptions="Fill"
-        VerticalOptions="Fill"
-        BorderWidth="0"
-        Opacity="0" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <CollectionView ItemsSource="{Binding BoardVM.Squares}"
+                                WidthRequest="{Binding BoardSize}"
+                                HeightRequest="{Binding BoardSize}"
+                                ItemSizingStrategy="MeasureAllItems"
+                                Margin="0">
+                    <CollectionView.ItemsLayout>
+                        <!-- לוח 8x8 -->
+                        <GridItemsLayout Orientation="Vertical" Span="8" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <!-- רקע המשבצת -->
+                                <BoxView Color="{Binding IsDark, Converter={StaticResource SquareToColorConverter}}"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Fill" />
+
+                                <!-- תמונה של הכלי -->
+                                <Image Source="{Binding PieceImage}"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Fill"
+                                       MinimumWidthRequest="{Binding Source={x:Reference BoardGrid}, Path=Width, Converter={StaticResource CellSizeConverter}}"
+                                       MinimumHeightRequest="{Binding Source={x:Reference BoardGrid}, Path=Height, Converter={StaticResource CellSizeConverter}}">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+
+                                <!-- Marker למהלך -->
+                                <Ellipse WidthRequest="{Binding Source={x:Reference BoardGrid}, Path=Width, Converter={StaticResource MarkerSizeConverter}}"
+                                         HeightRequest="{Binding Source={x:Reference BoardGrid}, Path=Height, Converter={StaticResource MarkerSizeConverter}}"
+                                         Fill="Gray"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center"
+                                         IsVisible="{Binding HasMoveMarker}">
+                                    <Ellipse.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SquareClickedCommand}" />
+                                    </Ellipse.GestureRecognizers>
+                                </Ellipse>
+
+                                <!-- כפתור שקוף שמכסה הכל -->
+                                <Button BackgroundColor="Transparent"
+                                        Command="{Binding SquareClickedCommand}"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill"
+                                        BorderWidth="0"
+                                        Opacity="0" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+            <!-- שם השחקן התחתון -->
+            <Frame Grid.Row="2"
+                   BackgroundColor="DarkGrey"
+                   CornerRadius="10"
+                   HasShadow="True"
+                   Padding="10,5"
+                   Margin="20,10,20,20"
+                   HorizontalOptions="Center">
+                <Label Text="{Binding PlayerName}"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#333"
+                       HorizontalOptions="Center"/>
+            </Frame>
 
         </Grid>
     </Grid>
