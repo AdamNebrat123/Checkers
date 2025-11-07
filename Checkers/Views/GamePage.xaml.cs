@@ -1,6 +1,7 @@
 ﻿using Checkers.GameLogic;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
+using System.ComponentModel;
 using System.Text.Json;
 
 namespace Checkers.Views
@@ -32,10 +33,8 @@ namespace Checkers.Views
             if (Wrapper == null)
                 throw new InvalidOperationException("ParametersWrapper is required");
 
-            // ÷åáò àú äîåã
             GameMode mode = Enum.Parse<GameMode>(Wrapper.Mode, ignoreCase: true);
 
-            // éåöø Settings ìôé JSON
             object settings = mode switch
             {
                 GameMode.AI => JsonSerializer.Deserialize<AiSettings>(Wrapper.Parameters.GetRawText())!,
@@ -43,7 +42,6 @@ namespace Checkers.Views
                 _ => throw new NotSupportedException($"Unsupported mode: {mode}")
             };
 
-            // ÷åáò àí äìáï
             bool isWhite = settings switch
             {
                 AiSettings ai => ai.IsWhite,
@@ -51,29 +49,88 @@ namespace Checkers.Views
                 _ => true
             };
 
-            // îàúçì ìåç
+            // אתחול לוח + שמירת פרספקטיבה
             _gameViewModel.InitializeBoard(isWhite, false);
 
-            // éåöø àñèøèâéä ãøê Factory
+            // צור strategy
             var strategy = _strategyFactory.Create(mode, _gameViewModel.GameManager, settings);
             _gameViewModel.SetStrategy(strategy);
 
-            // àéøåò ìçéöä òì øéáåòéí
+            // הרשמת אירוע קליקים
             _gameViewModel.BoardVM.SquareClicked += async square =>
                 await _gameViewModel.HandleSquareSelectedAsync(square);
 
             BindingContext = _gameViewModel;
+
+            // אם זה מצב Online — נרשום גם למצב התור דרך GameViewModel
+            if (settings is OnlineSettings onlineSettings)
+            {
+                // אם יש gameId ב-settings, הירשם לעדכוני התור
+                if (!string.IsNullOrEmpty(onlineSettings.GameId))
+                {
+                    _gameViewModel.SubscribeToTurnUpdates(onlineSettings.GameId);
+                }
+            }
+
+            
+
             await _gameViewModel.InitializeAsync();
 
-            _initialized = true; // ככה אני מוודא שבפעם הבאה הוא לא יעשה את הכל מחדש ויפתח עוד מאזינים וכו'
 
+            // הגדרה ראשונית של ה-highlights (sync UI)
+            UpdateHighlightsInitial();
+
+            // הרשמה לשינויים ב־ViewModel כדי לאנימט
+            if (_gameViewModel is INotifyPropertyChanged inpc)
+            {
+                inpc.PropertyChanged += GameViewModel_PropertyChanged;
+            }
+
+            _initialized = true;
         }
 
+        private void UpdateHighlightsInitial()
+        {
+            // בהתאם ל־IsLocalTurn, נשנה את ה־Opacity הראשוני
+            var localPlayerIsWhite = _gameViewModel.LocalPlayerIsWhite;
+            // local means bottom highlight active
+            // אנימציית מצב מתחלף קצרה
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await BottomHighlight.FadeTo(localPlayerIsWhite ? 1.0 : 0.12, 200);
+                await TopHighlight.FadeTo(localPlayerIsWhite ? 0.12 : 1.0, 200);
+            });
+        }
+
+        private void GameViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GameViewModel.IsLocalTurn))
+            {
+                // ערך חדש
+                var isLocal = _gameViewModel.IsLocalTurn;
+                // אנימציה קצרה של Fade
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    // כשזה שלך נדליק את ה־BottomHighlight, וכשזה לא שלך נדליק את ה־TopHighlight
+                    // נעשה fade לשליטה חלקה
+                    await Task.WhenAll(
+                        BottomHighlight.FadeTo(isLocal ? 1.0 : 0.12, 300),
+                        TopHighlight.FadeTo(isLocal ? 0.12 : 1.0, 300)
+                    );
+                });
+            }
+        }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
+
             _gameViewModel.UnubFromGame();
+
+            if (_gameViewModel is INotifyPropertyChanged inpc)
+            {
+                inpc.PropertyChanged -= GameViewModel_PropertyChanged;
+            }
         }
     }
 }
