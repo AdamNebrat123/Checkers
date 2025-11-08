@@ -156,8 +156,7 @@ namespace Checkers.GameLogic
                         // בדיקת קידום ל־King
                         if (movingPiece is Man)
                         {
-                            if ((movingPiece.Color == PieceColor.White && currentSquare.Row == 0) ||
-                                (movingPiece.Color == PieceColor.Black && currentSquare.Row == Board.Size - 1))
+                            if (toSquare.Row == Board.Size - 1)
                             {
                                 currentSquare.Piece = new King(movingPiece.Color);
                                 currentSquare.UpdateProperty(nameof(currentSquare.Piece));
@@ -248,8 +247,7 @@ namespace Checkers.GameLogic
 
                 if (piece is Man)
                 {
-                    if ((piece.Color == PieceColor.White && currentVM.Row == 0) ||
-                        (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
+                    if (currentVM.Row == 0)
                     {
                         currentVM.Piece = new King(piece.Color);
                     }
