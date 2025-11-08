@@ -9,6 +9,7 @@ namespace Checkers.ViewModels
 {
     public class GameManagerViewModel
     {
+        public event Action TurnSwitched;
         public bool IsWhiteTurn { get; set; } = true; // לבן מתחיל
 
         public GameManagerViewModel()
@@ -19,6 +20,12 @@ namespace Checkers.ViewModels
         public void SwitchTurn()
         {
             IsWhiteTurn = !IsWhiteTurn;
+            InvokeTurnSwitched();
+        }
+
+        private void InvokeTurnSwitched()
+        {
+            TurnSwitched?.Invoke();
         }
 
         public bool CanMove(Piece piece)

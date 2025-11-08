@@ -4,6 +4,7 @@ using Checkers.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Checkers.Model;
 
 namespace Checkers.ViewModel
 {
@@ -74,6 +75,24 @@ namespace Checkers.ViewModel
             }
         }
 
+
+        private int _playerCapturedCount;
+        public int PlayerCapturedCount
+        {
+            get => _playerCapturedCount;
+            set { _playerCapturedCount = value; OnPropertyChanged(); }
+        }
+
+        private int _opponentCapturedCount;
+        public int OpponentCapturedCount
+        {
+            get => _opponentCapturedCount;
+            set { _opponentCapturedCount = value; OnPropertyChanged(); }
+        }
+
+        public string PlayerPieceImage => LocalPlayerIsWhite ? "black_piece.png" : "white_piece.png";
+        public string OpponentPieceImage => LocalPlayerIsWhite ? "white_piece.png" : "black_piece.png";
+
         // --- event dispatcher subscription ---
         private readonly GameEventDispatcher _dispatcher = GameEventDispatcher.GetInstance();
         private Func<Checkers.Models.GameModel, Task>? _dispatcherCallback;
@@ -83,6 +102,8 @@ namespace Checkers.ViewModel
         public GameViewModel(GameManagerViewModel gameManager)
         {
             GameManager = gameManager;
+
+            gameManager.TurnSwitched += UpdateCapturedCounts;
         }
 
         public void UnubFromGame()
@@ -175,6 +196,40 @@ namespace Checkers.ViewModel
                 _dispatcher.Unsubscribe(_subscribedGameId, _dispatcherCallback);
                 _dispatcherCallback = null;
                 _subscribedGameId = null;
+            }
+        }
+
+
+        public void UpdateCapturedCounts()
+        {
+            if (BoardVM?.Squares == null) return;
+
+            int totalWhites = 0;
+            int totalBlacks = 0;
+
+            foreach (var square in BoardVM.Squares)
+            {
+                if (square.Piece == null) continue;
+                if (square.Piece.Color == PieceColor.White)
+                    totalWhites++;
+                else
+                    totalBlacks++;
+            }
+
+            // נניח שהתחלנו עם 12 חיילים מכל צבע
+            int whiteEaten = 12 - totalWhites;
+            int blackEaten = 12 - totalBlacks;
+
+            // אם אני לבן, למטה זה כמה שחורים נאכלו
+            if (LocalPlayerIsWhite)
+            {
+                PlayerCapturedCount = blackEaten;
+                OpponentCapturedCount = whiteEaten;
+            }
+            else
+            {
+                PlayerCapturedCount = whiteEaten;
+                OpponentCapturedCount = blackEaten;
             }
         }
     }

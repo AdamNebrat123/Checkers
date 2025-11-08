@@ -78,7 +78,10 @@ namespace Checkers.Views
 
 
             // הגדרה ראשונית של ה-highlights (sync UI)
-            UpdateHighlightsInitial();
+            if (!(settings is AiSettings))
+            {
+                UpdateHighlightsInitial(); // אם אני נגד הרובוט, לא תהיה אינדיקציה.
+            }
 
             // הרשמה לשינויים ב־ViewModel כדי לאנימט
             if (_gameViewModel is INotifyPropertyChanged inpc)
@@ -91,6 +94,7 @@ namespace Checkers.Views
 
         private void UpdateHighlightsInitial()
         {
+
             // בהתאם ל־IsLocalTurn, נשנה את ה־Opacity הראשוני
             var localPlayerIsWhite = _gameViewModel.LocalPlayerIsWhite;
             // local means bottom highlight active
@@ -101,6 +105,7 @@ namespace Checkers.Views
                 await TopHighlight.FadeTo(localPlayerIsWhite ? 0.12 : 1.0, 200);
             });
         }
+
 
         private void GameViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

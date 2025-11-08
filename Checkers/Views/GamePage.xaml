@@ -27,7 +27,7 @@
             <!-- Top player card -->
             <StackLayout Grid.Row="0"
                          Padding="12,18,12,8"
-                         HorizontalOptions="Center"
+                         HorizontalOptions="End"
                          VerticalOptions="Center">
                 <Frame BackgroundColor="#333538"
                        CornerRadius="12"
@@ -40,8 +40,7 @@
                                FontAttributes="Bold"
                                TextColor="#F0F0F0"
                                HorizontalOptions="Center"/>
-                        <!-- highlight bar -->
-                        <!-- צבע ברירת מחדל: ירוק -->
+
                         <BoxView x:Name="TopHighlight"
                                  HeightRequest="6"
                                  WidthRequest="120"
@@ -112,7 +111,7 @@
             <!-- Bottom player card -->
             <StackLayout Grid.Row="2"
                          Padding="12,8,12,18"
-                         HorizontalOptions="Center"
+                         HorizontalOptions="End"
                          VerticalOptions="Center">
                 <Frame BackgroundColor="#333538"
                        CornerRadius="12"
@@ -125,7 +124,7 @@
                                FontAttributes="Bold"
                                TextColor="#F0F0F0"
                                HorizontalOptions="Center"/>
-                        <!-- highlight bar -->
+
                         <BoxView x:Name="BottomHighlight"
                                  HeightRequest="6"
                                  WidthRequest="120"
@@ -134,7 +133,46 @@
                     </StackLayout>
                 </Frame>
             </StackLayout>
-
         </Grid>
+
+        <!-- Captured indicators on the left -->
+        <StackLayout Orientation="Horizontal"
+                     Spacing="4"
+                     Padding="10"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Start"
+                     Margin="12,18,0,0">
+            <Image Source="{Binding OpponentPieceImage}"
+                   HeightRequest="40"
+                   WidthRequest="40"/>
+            <Label Text="x"
+                   FontSize="24"
+                   TextColor="#CCC"
+                   VerticalOptions="Center"/>
+            <Label Text="{Binding OpponentCapturedCount}"
+                   FontSize="24"
+                   TextColor="#CCC"
+                   VerticalOptions="Center"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal"
+                     Spacing="4"
+                     Padding="10"
+                     HorizontalOptions="Start"
+                     VerticalOptions="End"
+                     Margin="12,0,0,18">
+            <Image Source="{Binding PlayerPieceImage}"
+                   HeightRequest="40"
+                   WidthRequest="40"/>
+            <Label Text="x"
+                   FontSize="24"
+                   TextColor="#CCC"
+                   VerticalOptions="Center"/>
+            <Label Text="{Binding PlayerCapturedCount}"
+                   FontSize="24"
+                   TextColor="#CCC"
+                   VerticalOptions="Center"/>
+        </StackLayout>
+
     </Grid>
 </ContentPage>

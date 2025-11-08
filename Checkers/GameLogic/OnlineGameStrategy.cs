@@ -166,7 +166,7 @@ namespace Checkers.GameLogic
 
                         // עדכון מצב הלוח לפי ה-state מהפיירבייס
                         BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, isLocalPlayerWhite);
-                        gameManager.IsWhiteTurn = gameModel.IsWhiteTurn;
+                        gameManager.SwitchTurn();
                     }
                     catch (Exception ex)
                     {
