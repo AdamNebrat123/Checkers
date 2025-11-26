@@ -1,51 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Checkers.Views.MainPage">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Checkers.Views.MainPage"
+    >
 
-    <Grid
-    Padding="30"
-    HorizontalOptions="Center"
-    RowSpacing="20"
-    VerticalOptions="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <ScrollView>
+        <VerticalStackLayout 
+            Padding="30"
+            Spacing="25"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
 
+            <!-- Title -->
+            <Label
+                Text="Welcome to Checkers"
+                TextColor="#ECDFCC"
+                FontSize="32"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
 
+            <!-- Logo -->
+            <Frame 
+                BackgroundColor="#3C3D37"
+                Padding="20"
+                CornerRadius="20"
+                HasShadow="False"
+                HorizontalOptions="Center">
+                <Image 
+                    Source="app_logo.png"
+                    HeightRequest="120"
+                    WidthRequest="120" />
+            </Frame>
 
-        <!--  Label  -->
-        <Label
-        Grid.Row="0"
-        Text="Welcome to the Checkers!" />
+            <!-- Navigation Buttons -->
+            <VerticalStackLayout Spacing="15" WidthRequest="250">
 
-        <Image Grid.Row="1" Source="app_logo.png" />
-        <!--  Login Button  -->
-        <Button
-        Grid.Row="2"
-        Command="{Binding GoToLoginCommand}"
-        Text="Login" />
+                <Button
+                    Text="Login"
+                    Command="{Binding GoToLoginCommand}"
+                    BackgroundColor="#697565"
+                    TextColor="#ECDFCC"
+                    CornerRadius="12"
+                    HeightRequest="50" />
 
-        <!--  Register Button  -->
-        <Button
-        Grid.Row="3"
-        Command="{Binding GoToRegisterCommand}"
-        Text="Register" />
+                <Button
+                    Text="Register"
+                    Command="{Binding GoToRegisterCommand}"
+                    BackgroundColor="#3C3D37"
+                    TextColor="#ECDFCC"
+                    CornerRadius="12"
+                    HeightRequest="50" />
 
-        <Button Grid.Row="4"
-                Text="Play VS ai"
-                x:Name="OnGoToGamePage"
-                Clicked="PlayVSai_Clicked"/>
-        
-        <Button Grid.Row="5"
-                Text="Skip log in"
-                x:Name="SkipLogIn"
-                Clicked="SkipLogIn_Clicked"/>
-    </Grid>
+                <Button
+                    Text="Play VS AI"
+                    x:Name="OnGoToGamePage"
+                    Clicked="PlayVSai_Clicked"
+                    BackgroundColor="#697565"
+                    TextColor="#ECDFCC"
+                    CornerRadius="12"
+                    HeightRequest="50" />
+
+                <Button
+                    Text="Skip Login"
+                    x:Name="SkipLogIn"
+                    Clicked="SkipLogIn_Clicked"
+                    BackgroundColor="Transparent"
+                    TextColor="#ECDFCC"
+                    BorderWidth="1.5"
+                    BorderColor="#697565"
+                    CornerRadius="12"
+                    HeightRequest="50" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

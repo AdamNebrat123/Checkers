@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- COLORS -->
+    <Color x:Key="PrimaryDark">#1E201E</Color>
+    <Color x:Key="SecondaryDark">#3C3D37</Color>
+    <Color x:Key="AccentGreen">#697565</Color>
+    <Color x:Key="LightText">#ECDFCC</Color>
+
+    <!-- GLOBAL PAGE BACKGROUND -->
+    <Style TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
+    </Style>
+    
+    <Style TargetType="Shell">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryDark}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource LightText}" />
+        <Setter Property="Shell.NavBarHasShadow" Value="False" />
+    </Style>
+
+
+    <!-- LABEL -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource LightText}" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <!-- BUTTON BASE STYLE -->
+    <Style TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentGreen}" />
+        <Setter Property="TextColor" Value="{StaticResource LightText}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <!-- SECONDARY BUTTON (כהה) -->
+    <Style TargetType="Button" x:Key="SecondaryButton">
+        <Setter Property="BackgroundColor" Value="{StaticResource SecondaryDark}" />
+        <Setter Property="TextColor" Value="{StaticResource LightText}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HeightRequest" Value="50" />
+    </Style>
+
+    <!-- OUTLINE BUTTON -->
+    <Style TargetType="Button" x:Key="OutlinedButton">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource LightText}" />
+        <Setter Property="BorderWidth" Value="1.5" />
+        <Setter Property="BorderColor" Value="{StaticResource AccentGreen}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HeightRequest" Value="50" />
+    </Style>
+
+    <!-- FRAME STYLE (ללוגו או כרטיסים) -->
+    <Style TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource SecondaryDark}" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="Padding" Value="20" />
+    </Style>
+
+</ResourceDictionary>

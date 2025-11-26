@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Checkers.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="Checkers">
+    Title="Checkers"
+    >
 
     <!-- Flyout menu items shown before authentication -->
     <ShellContent
