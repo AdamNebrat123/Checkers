@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Checkers.Views.CheckersLobby"
-             x:Name="Page"
-             Title="Checkers Lobby"
-             BackgroundColor="#F5F5F5"
-             FlowDirection="LeftToRight">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Checkers.Views.CheckersLobby"
+    x:Name="Page"
+    BackgroundColor="#1E201E"
+    Title="Checkers Lobby">
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
         <!-- Header -->
-        <Label Text="Available Games"
-               FontSize="28"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#333"/>
+        <Label 
+            Text="Available Games"
+            FontSize="28"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            TextColor="#ECDFCC" />
 
-        <!-- Collection of Games -->
-        <CollectionView ItemsSource="{Binding AvailableGames}"
-                SelectionMode="None"
-                HeightRequest="500">
+        <!-- List of Games -->
+        <CollectionView 
+            ItemsSource="{Binding AvailableGames}"
+            SelectionMode="None"
+            HeightRequest="500">
+
             <CollectionView.ItemTemplate>
-                
+
                 <DataTemplate>
-                    <Frame CornerRadius="10"
-                       Padding="15"
-                       Margin="0,5"
-                       HasShadow="True"
-                       BackgroundColor="White">
 
-                        <VerticalStackLayout Spacing="5">
+                    <Frame 
+                        CornerRadius="12"
+                        Padding="15"
+                        Margin="0,5"
+                        HasShadow="False"
+                        BackgroundColor="#4F4D46">
 
-                            <Label Text="{Binding GameId}"
-                               FontSize="20"
-                               FontAttributes="Bold"
-                               TextColor="#333"/>
-                            <Label Text="{Binding Host, StringFormat='Created by: {0}'}"
-                               FontSize="14"
-                               TextColor="Gray"/>
-                            <Button Text="Join"
-                                BackgroundColor="#4CAF50"
-                                TextColor="White"
-                                CornerRadius="10"
-                                Padding="10,5"
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label 
+                                Text="{Binding GameId}"
+                                FontSize="20"
+                                FontAttributes="Bold"
+/>
+
+                            <Label 
+                                Text="{Binding Host, StringFormat='Created by: {0}'}"
+                                FontSize="14"
+/>
+
+                            <Button 
+                                Text="Join"
+                                Style="{StaticResource SecondaryButton}"
                                 HorizontalOptions="End"
+                                TextColor="#4F4D46"
+                                BackgroundColor="#C9C5B1"
                                 Command="{Binding Source={x:Reference Page}, Path=JoinGameCommand}"
                                 CommandParameter="{Binding .}" />
 
-
                         </VerticalStackLayout>
-                        
+
                     </Frame>
+
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
+
         </CollectionView>
 
     </VerticalStackLayout>

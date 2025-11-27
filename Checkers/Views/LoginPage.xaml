@@ -1,95 +1,69 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Checkers.Views.LoginPage"
-             Title="LoginPage">
-    <AbsoluteLayout>
-        <!--  Main Content  -->
-        <ScrollView AbsoluteLayout.LayoutBounds="0.5,0.5,0.9,0.9" AbsoluteLayout.LayoutFlags="All">
-            <VerticalStackLayout
-            Padding="20"
-            Spacing="15">
+             Title="LoginPage"
+             BackgroundColor="{StaticResource PrimaryDark}">
 
-                <!--  Header  -->
-                <Label Text="Login" />
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-                <!--  Email Entry  -->
-                <Frame
-                Padding="10"
-                BackgroundColor="White"
-                CornerRadius="10"
-                HasShadow="False">
-                    <Entry
-                    Placeholder="Email"
-                    Text="{Binding Email}" />
-                </Frame>
-                <Label
-                IsVisible="{Binding HasError}"
-                Text="{Binding UsernameError}" />
+            <!-- Header -->
+            <Label Text="Login"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-                <!--  Password Entry with Toggle  -->
-                <Grid>
-                    <Frame
-                    Padding="10"
-                    BackgroundColor="White"
-                    CornerRadius="10"
-                    HasShadow="False">
-                        <Entry
-                        IsPassword="{Binding IsPasswordHidden}"
-                        Placeholder="Password"
-                        Text="{Binding Password, Mode=TwoWay}" />
-                    </Frame>
-                    <ImageButton
-                    BackgroundColor="Transparent"
-                    Command="{Binding TogglePasswordVisibilityCommand}"
-                    HeightRequest="30"
-                    HorizontalOptions="End"
-                    Source="eye.png"
+            <!-- Email Entry -->
+            <Entry Placeholder="Email"
+                   Text="{Binding Email}" />
 
-                    VerticalOptions="Center"
-                    WidthRequest="30" />
-                </Grid>
-                <Label
-                IsVisible="{Binding HasError}"
-                Text="{Binding PasswordError}" />
+            <Label IsVisible="{Binding HasError}"
+                   Text="{Binding UsernameError}" />
 
-                <!--  Activity Indicator  -->
-                <ActivityIndicator
-                HorizontalOptions="Center"
-                IsRunning="{Binding IsLoading}"
-                IsVisible="{Binding IsLoading}"
-                VerticalOptions="Center" />
+            <!-- Password Entry -->
+            <Grid>
+                <Entry IsPassword="{Binding IsPasswordHidden}"
+                       Placeholder="Password"
+                       Text="{Binding Password, Mode=TwoWay}" />
+                <ImageButton BackgroundColor="Transparent"
+                             Command="{Binding TogglePasswordVisibilityCommand}"
+                             HeightRequest="30"
+                             WidthRequest="30"
+                             Source="eye.png"
+                             HorizontalOptions="End"
+                             VerticalOptions="Center" />
+            </Grid>
 
-                <!--  Buttons  -->
-                <HorizontalStackLayout Spacing="10">
-                    <Button
-                    Command="{Binding CancelCommand}"
-                    IsEnabled="{Binding IsCancelEnabled}"
-                    Text="Cancel" />
-                    <Button
-                    Command="{Binding LoginCommand}"
-                    IsEnabled="{Binding IsLoginEnabled}"
-                    Text="Login" />
-                </HorizontalStackLayout>
+            <Label IsVisible="{Binding HasError}"
+                   Text="{Binding PasswordError}" />
 
-                <!--  Sign Up Link  -->
-                <HorizontalStackLayout
-                Padding="0,20,0,0"
-                HorizontalOptions="Center"
-                Spacing="5">
-                    <Label
-                    Text="Don't have an account?"
-                    VerticalOptions="Center" />
-                    <Button
-                    BackgroundColor="Transparent"
-                    Command="{Binding NavigateToSignUpCommand}"
-                    Text="Sign Up" />
+            <!-- Activity Indicator -->
+            <ActivityIndicator HorizontalOptions="Center"
+                               IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}" />
 
+            <!-- Buttons -->
+            <HorizontalStackLayout Spacing="10">
+                <Button Command="{Binding CancelCommand}"
+                        IsEnabled="{Binding IsCancelEnabled}"
+                        Style="{StaticResource SecondaryButton}"
+                        Text="Cancel" />
+                <Button Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding IsLoginEnabled}"
+                        Text="Login" />
+            </HorizontalStackLayout>
 
-                </HorizontalStackLayout>
+            <!-- Sign Up Link -->
+            <HorizontalStackLayout Padding="0,20,0,0"
+                                   HorizontalOptions="Center"
+                                   Spacing="5">
+                <Label Text="Don't have an account?"
+                       VerticalOptions="Center" />
+                <Button Command="{Binding NavigateToSignUpCommand}"
+                        Style="{StaticResource OutlinedButton}"
+                        Text="Sign Up" />
+            </HorizontalStackLayout>
 
-            </VerticalStackLayout>
-        </ScrollView>
-
-    </AbsoluteLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

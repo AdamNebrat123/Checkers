@@ -1,76 +1,89 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Checkers.Views.CreateGame"
-             Title="CreateGame">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Checkers.Views.CreateGame"
+    Title="Create Game">
+
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="25" VerticalOptions="Center">
 
             <!-- Game Name -->
-            <Label Text="Game Name"
-                   FontSize="28"
-                   HorizontalOptions="Center"
-                   TextColor="#333" />
-            <Entry x:Name="GameNameEntry"
-                   Placeholder="Enter game name"
-                   FontSize="18"
-                   HorizontalOptions="Fill"
-                   BackgroundColor="White"
-                   TextColor="#333"
-                   HeightRequest="50"
-                   Margin="0,0,0,10"/>
+            <Label 
+                Text="Game Name"
+                FontSize="28"
+                HorizontalOptions="Center" />
 
-            <!-- Optional: Game Type -->
-            <Label Text="Game Type"
-                   FontSize="24"
-                   HorizontalOptions="Center"
-                   TextColor="#333" />
+            <Entry 
+                x:Name="GameNameEntry"
+                Placeholder="Enter game name"
+                HorizontalOptions="Fill" 
+                BackgroundColor="Transparent"
+                PlaceholderColor="{StaticResource LightText}"/>
+
+            <!-- Game Type -->
+            <Label 
+                Text="Game Type"
+                FontSize="24"
+                HorizontalOptions="Center" />
 
             <!-- Choose Colors -->
-            <Label Text="Choose Colors"
-                   FontSize="24"
-                   HorizontalOptions="Center"
-                   TextColor="#333" />
+            <Label 
+                Text="Choose Colors"
+                FontSize="24"
+                HorizontalOptions="Center" />
 
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Label Text="You" FontSize="20" HorizontalOptions="Center" />
-                    <ImageButton x:Name="PlayerImage"
-                                 Source="white_piece.png"
-                                 WidthRequest="80"
-                                 HeightRequest="80"
-                                 BackgroundColor="Transparent"/>
-                </VerticalStackLayout>
-
-                <Button Text="SWITCH"
-                        FontSize="18"
-                        BackgroundColor="#2196F3"
-                        TextColor="White"
-                        CornerRadius="10"
-                        Padding="15,10"
-                        Clicked="OnSwitchClicked"
-                        VerticalOptions="Center" />
 
                 <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Label Text="Opponent" FontSize="20" HorizontalOptions="Center" />
-                    <ImageButton x:Name="OpponentImage"
-                                 Source="black_piece.png"
-                                 WidthRequest="80"
-                                 HeightRequest="80"
-                                 BackgroundColor="Transparent"/>
+                    <Label 
+                        Text="You"
+                        FontSize="20"
+                        HorizontalOptions="Center" />
+
+                    <ImageButton 
+                        x:Name="PlayerImage"
+                        Source="white_piece.png"
+                        WidthRequest="80"
+                        HeightRequest="80"
+                        BackgroundColor="Transparent" />
                 </VerticalStackLayout>
+
+                <Button 
+                    Text="SWITCH"
+                    FontSize="18"
+                    Style="{StaticResource SecondaryButton}"
+                    Padding="15,10"
+                    Clicked="OnSwitchClicked"
+                    VerticalOptions="Center" />
+
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label 
+                        Text="Opponent"
+                        FontSize="20"
+                        HorizontalOptions="Center" />
+
+                    <ImageButton 
+                        x:Name="OpponentImage"
+                        Source="black_piece.png"
+                        WidthRequest="80"
+                        HeightRequest="80"
+                        BackgroundColor="Transparent" />
+                </VerticalStackLayout>
+
             </HorizontalStackLayout>
 
             <!-- Create Button -->
-            <Button Text="CREATE GAME"
-                    FontSize="26"
-                    TextColor="White"
-                    BackgroundColor="#4CAF50"
-                    CornerRadius="15"
-                    HeightRequest="60"
-                    WidthRequest="220"
-                    HorizontalOptions="Center"
-                    Clicked="OnCreateGameClicked"/>
+            <Button 
+                Text="CREATE GAME"
+                FontSize="26"
+                WidthRequest="220"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                Style="{StaticResource SecondaryButton}"
+                Clicked="OnCreateGameClicked" />
+
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

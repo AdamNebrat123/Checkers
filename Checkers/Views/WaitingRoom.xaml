@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Checkers.Views.WaitingRoom"
              Title="Waiting Room"
-             BackgroundColor="#F5F5F5">
+             BackgroundColor="{StaticResource PrimaryDark}">
 
-    <VerticalStackLayout Padding="30" Spacing="30" VerticalOptions="Center" HorizontalOptions="Center">
+    <VerticalStackLayout Padding="30" Spacing="30"
+                         VerticalOptions="Center" HorizontalOptions="Center">
 
         <!-- Header -->
         <Label Text="Waiting for an opponent..."
                FontSize="28"
                FontAttributes="Bold"
                HorizontalOptions="Center"
-               TextColor="#333"/>
+               TextColor="{StaticResource LightText}"/>
 
-        <!-- Optional: Animated loader -->
+        <!-- Animated loader -->
         <ActivityIndicator x:Name="LoadingIndicator"
                            IsRunning="True"
-                           Color="#4CAF50"
+                           Color="{StaticResource AccentGreen}"
                            WidthRequest="60"
                            HeightRequest="60"
                            HorizontalOptions="Center"/>
@@ -26,41 +26,38 @@
         <Label Text="Share the game code with your friend to join!"
                FontSize="18"
                HorizontalOptions="Center"
-               TextColor="#666"
+               TextColor="{StaticResource LightText}"
                HorizontalTextAlignment="Center"/>
 
         <!-- Game Code -->
-        <Frame BackgroundColor="#FFFFFF"
-       Padding="15"
-       CornerRadius="10"
-       HasShadow="True"
-       HorizontalOptions="Center">
+        <Frame BackgroundColor="{StaticResource SecondaryDark}"
+               Padding="15"
+               CornerRadius="10"
+               HasShadow="False"
+               HorizontalOptions="Center">
 
             <VerticalStackLayout>
                 <Label x:Name="GameCodeLabel"
-               Text="GAME1234"
-               FontSize="22"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#007AFF"/>
+                       Text="GAME1234"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource AccentGreen}"/>
 
                 <Label x:Name="GameIdLabel"
-               Text="GAME1234"
-               FontSize="22"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#007AFF"/>
+                       Text="GAME1234"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource AccentGreen}"/>
             </VerticalStackLayout>
-            
+
         </Frame>
 
         <!-- Cancel Button -->
         <Button Text="Cancel Waiting"
                 FontSize="20"
-                BackgroundColor="#FF3B30"
-                TextColor="White"
-                CornerRadius="10"
-                Padding="15,10"
+                Style="{StaticResource OutlinedButton}"
                 WidthRequest="200"
                 HorizontalOptions="Center"
                 Clicked="OnCancelWaitingClicked"/>

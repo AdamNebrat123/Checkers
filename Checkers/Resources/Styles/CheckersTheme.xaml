@@ -8,24 +8,39 @@
     <Color x:Key="SecondaryDark">#3C3D37</Color>
     <Color x:Key="AccentGreen">#697565</Color>
     <Color x:Key="LightText">#ECDFCC</Color>
+    <Color x:Key="Test">#ff0000</Color>
 
-    <!-- GLOBAL PAGE BACKGROUND -->
-    <Style TargetType="ContentPage">
-        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
-    </Style>
+    <Color x:Key="Light">#ECDFCC</Color>
+
+
     
-    <Style TargetType="Shell">
-        <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryDark}" />
-        <Setter Property="Shell.ForegroundColor" Value="{StaticResource LightText}" />
-        <Setter Property="Shell.NavBarHasShadow" Value="False" />
-    </Style>
-
 
     <!-- LABEL -->
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource LightText}" />
         <Setter Property="FontSize" Value="16" />
     </Style>
+
+    <!-- ENTRY -->
+    <Style TargetType="Entry">
+        <!-- רקע שקוף -->
+        <Setter Property="BackgroundColor" Value="Transparent" />
+
+        <!-- טקסט -->
+        <Setter Property="TextColor" Value="{StaticResource LightText}" />
+
+        <!-- Placeholder -->
+        <Setter Property="PlaceholderColor" Value="{StaticResource LightText}" />
+        
+
+        <!-- רווחים -->
+        <Setter Property="Margin" Value="0,5" />
+
+        <!-- הגדרות מקלדת -->
+        <Setter Property="Keyboard" Value="Default" />
+        <Setter Property="ClearButtonVisibility" Value="WhileEditing" />
+    </Style>
+
 
     <!-- BUTTON BASE STYLE -->
     <Style TargetType="Button">
@@ -61,5 +76,43 @@
         <Setter Property="HasShadow" Value="False" />
         <Setter Property="Padding" Value="20" />
     </Style>
+
+
+
+
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
+    </Style>
+
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource AccentGreen}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource Light}" />
+        <Setter Property="Shell.TitleColor" Value="{StaticResource LightText}" />
+        <Setter Property="Shell.DisabledColor" Value="{StaticResource Light}" />
+        <Setter Property="Shell.UnselectedColor" Value="{StaticResource Light}" />
+        
+        <Setter Property="Shell.NavBarHasShadow" Value="False" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource AccentGreen}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource LightText}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource LightText}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource LightText}" />
+    </Style>
+
+    <Style TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource Test}" />
+        <Setter Property="BarTextColor" Value="{StaticResource Test}" />
+        <Setter Property="IconColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
+    </Style>
+
+    <Style TargetType="TabbedPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource Test}" />
+        <Setter Property="BarTextColor" Value="{StaticResource Test}" />
+        <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+    </Style> 
+    
+
+
 
 </ResourceDictionary>

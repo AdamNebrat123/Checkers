@@ -5,11 +5,7 @@
        xmlns:local="clr-namespace:Checkers.Views"
        Title="Checkers App"
        FlyoutBehavior="Flyout"
-       FlowDirection="LeftToRight"
-       Shell.TabBarBackgroundColor="#2C3E50"
-       Shell.TabBarForegroundColor="White"
-       Shell.TabBarDisabledColor="Gray"
-       Shell.TabBarTitleColor="White">
+       FlowDirection="LeftToRight">
 
     <!-- FlyoutItem Home -->
     <FlyoutItem Title="Home" Icon="home.png" >

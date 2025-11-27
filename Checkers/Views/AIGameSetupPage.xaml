@@ -3,27 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Checkers.Views.AIGameSetupPage"
              Title="AIGameSetupPage">
+
     <VerticalStackLayout Padding="20" Spacing="25"
                          VerticalOptions="Center">
 
+        <!-- Title -->
         <Label Text="Choose Difficulty"
                FontSize="28"
-               HorizontalOptions="Center"
-               TextColor="#333" />
+               HorizontalOptions="Center" />
 
+        <!-- Difficulty Buttons -->
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
             <RadioButton Content="EASY"   GroupName="Difficulty" Value="Easy"/>
             <RadioButton Content="MEDIUM" GroupName="Difficulty" Value="Medium" IsChecked="True"/>
             <RadioButton Content="HARD"   GroupName="Difficulty" Value="Hard"/>
         </HorizontalStackLayout>
 
+        <!-- Colors Title -->
         <Label Text="Choose Colors"
                FontSize="24"
-               HorizontalOptions="Center"
-               TextColor="#333" />
+               HorizontalOptions="Center" />
 
-        <!-- בחירת צבעים עם כפתור SWITCH -->
+        <!-- Color Choice Section -->
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+
+            <!-- Player -->
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Label Text="You" FontSize="20" HorizontalOptions="Center" />
                 <ImageButton x:Name="PlayerImage"
@@ -33,15 +37,16 @@
                              BackgroundColor="Transparent"/>
             </VerticalStackLayout>
 
+            <!-- Switch Button -->
             <Button Text="SWITCH"
                     FontSize="18"
-                    BackgroundColor="#2196F3"
-                    TextColor="White"
-                    CornerRadius="10"
+                    Style="{StaticResource OutlinedButton}"
+                    WidthRequest="120"
                     Padding="15,10"
                     Clicked="OnSwitchClicked"
                     VerticalOptions="Center" />
 
+            <!-- Opponent -->
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Label Text="Opponent" FontSize="20" HorizontalOptions="Center" />
                 <ImageButton x:Name="OpponentImage"
@@ -50,16 +55,16 @@
                              HeightRequest="80"
                              BackgroundColor="Transparent"/>
             </VerticalStackLayout>
+
         </HorizontalStackLayout>
 
+        <!-- Start Button -->
         <Button Text="PLAY"
                 FontSize="26"
-                TextColor="White"
-                BackgroundColor="#4CAF50"
-                CornerRadius="15"
-                HeightRequest="60"
                 WidthRequest="180"
+                HeightRequest="60"
                 HorizontalOptions="Center"
-                Clicked="OnPlayClicked"/>
+                Clicked="OnPlayClicked" />
+
     </VerticalStackLayout>
 </ContentPage>
