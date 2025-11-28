@@ -1,8 +1,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Checkers.Views.RegisterPage"
-             Title="RegisterPage"
-             BackgroundColor="{StaticResource PrimaryDark}">
+             Title="RegisterPage">
 
     <ScrollView>
         <VerticalStackLayout Padding="15" Spacing="15">
@@ -44,7 +43,7 @@
             <Label IsVisible="{Binding HasError}" Text="{Binding BirthDateError}" />
 
             <!-- Register Button -->
-            <Button Command="{Binding RegisterCommand}" Style="{StaticResource Button}" Text="Register" />
+            <Button Command="{Binding RegisterCommand}"  Text="Register" />
 
             <!-- Sign In Link -->
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="5" Padding="0,15,0,0">
