@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Checkers.Views
 {
-    [QueryProperty(nameof(GameName), "gameName")]
+    //[QueryProperty(nameof(GameName), "gameName")]
     [QueryProperty(nameof(GameId), "gameId")]
     public partial class WaitingRoom : ContentPage
     {
-        public string GameName { get; set; }
+        //public string GameName { get; set; }
         public string GameId { get; set; }
 
         private readonly GameEventDispatcher gameEventDispatcher;
@@ -35,7 +35,7 @@ namespace Checkers.Views
         {
             base.OnAppearing();
 
-            GameCodeLabel.Text = GameName ?? "GAME1234";
+            //GameCodeLabel.Text = GameName ?? "GAME1234";
             GameIdLabel.Text = $"Game ID: {GameId}";
 
             if (!_subscribed && !string.IsNullOrEmpty(GameId))

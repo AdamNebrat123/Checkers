@@ -28,18 +28,18 @@ public partial class CreateGame : ContentPage
     }
     private async void OnCreateGameClicked(object sender, EventArgs e)
     {
-        string gameName = GameNameEntry.Text?.Trim();
+        /*string gameName = GameNameEntry.Text?.Trim();
         if (string.IsNullOrEmpty(gameName))
         {
             await DisplayAlert("Error", "Please enter a game name.", "OK");
             return;
         }
-
+        
         var selectedType = this.GetVisualTreeDescendants()
                                .OfType<RadioButton>()
                                .FirstOrDefault(r => r.GroupName == "GameType" && r.IsChecked);
         string gameType = selectedType?.Value?.ToString() ?? "Classic";
-
+        */
         try
         {
             var newGame = new GameModel
@@ -58,7 +58,7 @@ public partial class CreateGame : ContentPage
             await _gameService.CreateGameAsync(newGame);
 
             // ניווט עם פרמטרים דרך Shell (כולל ה-ID כדי ש-WaitingRoom ידע לאיזה משחק להתחבר)
-            await Shell.Current.GoToAsync($"WaitingRoom?gameId={newGame.GameId}&gameName={gameName}");
+            await Shell.Current.GoToAsync($"WaitingRoom?gameId={newGame.GameId}");
         }
         catch (Exception ex)
         {

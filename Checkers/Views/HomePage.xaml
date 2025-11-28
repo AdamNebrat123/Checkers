@@ -1,40 +1,79 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Checkers.Views.HomePage"
-             Title="HomePage">
-    <Grid
-        Padding="30"
-        HorizontalOptions="Center"
-        RowSpacing="20"
-        VerticalOptions="Center">
-        
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Checkers.Views.HomePage"
+    BackgroundColor="{StaticResource PrimaryDark}"
+    Title="Home">
 
+    <Grid RowDefinitions="*,Auto,*" ColumnDefinitions="*">
+        <!-- רווח עליון -->
+        <BoxView Grid.Row="0" BackgroundColor="Transparent"/>
 
+        <!-- תוכן מרכזי -->
+        <VerticalStackLayout 
+            Grid.Row="1"
+            Padding="30"
+            Spacing="25"
+            HorizontalOptions="Center">
 
-        <!--  Label  -->
-        <Label
-            Grid.Row="0"
-            Text="Welcome to the Checkers!" />
+            <Label
+                Text="Welcome to Checkers"
+                TextColor="{StaticResource LightText}"
+                FontSize="32"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
 
-        <Image Grid.Row="1" Source="app_logo.png" />
-        <!--  Login Button  -->
-        <Button
-            Grid.Row="2"
-            Command="{Binding GoToCreateGame}"
-            Text="Create Game" />
+            <Frame 
+                BackgroundColor="{StaticResource SecondaryDark}"
+                Padding="5"
+                CornerRadius="20"
+                HasShadow="False"
+                HorizontalOptions="Center">
+                <Frame
+                    Padding="0"
+                    CornerRadius="20"
+                    HasShadow="False"
+                    BackgroundColor="Transparent"
+                    HeightRequest="150"
+                    WidthRequest="150"
+                    IsClippedToBounds="True">
 
-        <!--  Register Button  -->
-        <Button
-            Grid.Row="3"
-            Command="{Binding JoinRandomGame}"
-            Text="Join Random Game" />
+                    <Image
+                        Source="checkersicon.png"
+                        Aspect="AspectFill" />
+                </Frame>
+            </Frame>
+
+            <VerticalStackLayout Spacing="15" WidthRequest="250">
+                <Button
+                    Text="Play vs AI"
+                    Command="{Binding PlayVsAI}"
+                    BackgroundColor="{StaticResource AccentGreen}"
+                    TextColor="{StaticResource PrimaryDark}"
+                    CornerRadius="12"
+                    HeightRequest="50" />
+
+                <Button
+                    Text="Create Game"
+                    Command="{Binding GoToCreateGame}"
+                    BackgroundColor="{StaticResource SecondaryDark}"
+                    TextColor="{StaticResource LightText}"
+                    CornerRadius="12"
+                    HeightRequest="50" />
+
+                <Button
+                    Text="Join Random Game"
+                    Command="{Binding JoinRandomGame}"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource LightText}"
+                    BorderWidth="1.5"
+                    BorderColor="{StaticResource AccentGreen}"
+                    CornerRadius="12"
+                    HeightRequest="50" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- רווח תחתון -->
+        <BoxView Grid.Row="2" BackgroundColor="Transparent"/>
     </Grid>
 </ContentPage>

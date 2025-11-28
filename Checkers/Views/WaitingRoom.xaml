@@ -37,13 +37,14 @@
                HorizontalOptions="Center">
 
             <VerticalStackLayout>
+                <!--
                 <Label x:Name="GameCodeLabel"
                        Text="GAME1234"
                        FontSize="22"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        TextColor="{StaticResource AccentGreen}"/>
-
+                -->
                 <Label x:Name="GameIdLabel"
                        Text="GAME1234"
                        FontSize="22"

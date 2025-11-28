@@ -9,11 +9,17 @@ namespace Checkers.ViewModels
 {
     public class HomePageViewModel
     {
+        public ICommand PlayVsAI { get; }
         public ICommand GoToCreateGame { get; }
         public ICommand JoinRandomGame { get; }
 
         public HomePageViewModel()
         {
+            PlayVsAI = new Command(async () =>
+            {
+                await Shell.Current.GoToAsync("AIGameSetupPage");
+            });
+
             GoToCreateGame = new Command(async () =>
             {
                 await Shell.Current.GoToAsync("CreateGame");
@@ -23,6 +29,7 @@ namespace Checkers.ViewModels
             {
                 //TODO
             });
+
 
         }
     }

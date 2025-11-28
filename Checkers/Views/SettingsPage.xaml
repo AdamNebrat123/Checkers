@@ -1,15 +1,78 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Checkers.Views.SettingsPage"
-             Title="SettingsPage">
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="בחר מוזיקה" FontSize="Medium" />
-        <Picker x:Name="MusicPicker" Title="בחר מוזיקה" SelectedIndexChanged="OnMusicChanged"/>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Checkers.Views.SettingsPage"
+    Title="Settings">
 
-        <HorizontalStackLayout Spacing="10">
-            <Button Text="Play" Clicked="OnPlayClicked"/>
-            <Button Text="Pause" Clicked="OnPauseClicked"/>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+    <Grid RowDefinitions="*">
+        <!-- מרכז הכל גם אם ScrollView -->
+        <Grid VerticalOptions="Center" HorizontalOptions="Center">
+
+            <ScrollView>
+                <VerticalStackLayout 
+                    Padding="30"
+                    Spacing="25"
+                    HorizontalOptions="Center">
+
+                    <!-- Title -->
+                    <Label 
+                        Text="Music Settings"
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource LightText}"
+                        HorizontalOptions="Center" />
+
+                    <!-- Music picker container -->
+                    <Frame
+                        BackgroundColor="{StaticResource SecondaryDark}"
+                        CornerRadius="12"
+                        Padding="15"
+                        HasShadow="False"
+                        WidthRequest="280">
+
+                        <VerticalStackLayout Spacing="10">
+                            <Label 
+                                Text="Choose Music"
+                                FontSize="18"
+                                TextColor="{StaticResource LightText}" />
+
+                            <Picker 
+                                x:Name="MusicPicker"
+                                Title="Select Track"
+                                TextColor="{StaticResource LightText}"
+                                TitleColor="{StaticResource AccentGreen}"
+                                SelectedIndexChanged="OnMusicChanged" />
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                    <!-- Buttons -->
+                    <HorizontalStackLayout 
+                        Spacing="15"
+                        HorizontalOptions="Center">
+
+                        <Button 
+                            Text="Play"
+                            Clicked="OnPlayClicked"
+                            BackgroundColor="{StaticResource AccentGreen}"
+                            TextColor="{StaticResource PrimaryDark}"
+                            CornerRadius="12"
+                            WidthRequest="120"
+                            HeightRequest="45" />
+
+                        <Button 
+                            Text="Pause"
+                            Clicked="OnPauseClicked"
+                            BackgroundColor="{StaticResource SecondaryDark}"
+                            TextColor="{StaticResource LightText}"
+                            CornerRadius="12"
+                            WidthRequest="120"
+                            HeightRequest="45" />
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Grid>
+    </Grid>
 </ContentPage>

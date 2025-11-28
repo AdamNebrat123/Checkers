@@ -9,6 +9,7 @@
         <VerticalStackLayout Padding="20" Spacing="25" VerticalOptions="Center">
 
             <!-- Game Name -->
+            <!--
             <Label 
                 Text="Game Name"
                 FontSize="28"
@@ -20,13 +21,15 @@
                 HorizontalOptions="Fill" 
                 BackgroundColor="Transparent"
                 PlaceholderColor="{StaticResource LightText}"/>
-
-            <!-- Game Type -->
+            
+            
             <Label 
                 Text="Game Type"
                 FontSize="24"
                 HorizontalOptions="Center" />
 
+            -->
+            
             <!-- Choose Colors -->
             <Label 
                 Text="Choose Colors"

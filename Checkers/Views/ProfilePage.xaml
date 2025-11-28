@@ -2,94 +2,131 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Checkers.Views.ProfilePage"
-             Title="ProfilePage"
+             Title="Profile"
+             BackgroundColor="{StaticResource PrimaryDark}"
              FlowDirection="LeftToRight">
+
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Padding="20" Spacing="25">
 
-            <!-- Header -->
-            <Frame CornerRadius="100" HeightRequest="120" WidthRequest="120" 
-                   HorizontalOptions="Center" BackgroundColor="#E0E0E0" HasShadow="True">
-                <Label Text="👤" FontSize="50" HorizontalOptions="Center" VerticalOptions="Center"/>
-            </Frame>
+            <!-- User Name -->
+            <Label Text="{Binding FullName}"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource LightText}" />
 
-            <Label Text="{Binding FullName}" 
-                   FontSize="24" 
-                   FontAttributes="Bold" 
-                   HorizontalOptions="Center"/>
-
-            <Label Text="{Binding UserName}" 
-                   FontSize="16" 
-                   TextColor="Gray"
-                   HorizontalOptions="Center"/>
+            <Label Text="{Binding UserName}"
+                   FontSize="18"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource LightText}" />
 
             <!-- Profile Details -->
-            <Frame CornerRadius="10" Padding="15" BackgroundColor="White" HasShadow="True">
-                <VerticalStackLayout Spacing="15">
+            <Frame CornerRadius="12"
+                   Padding="20"
+                   BackgroundColor="{StaticResource SecondaryDark}"
+                   HasShadow="False">
 
+                <VerticalStackLayout Spacing="18">
+
+                    <!-- Full Name -->
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.2*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Full Name:" FontAttributes="Bold" />
-                        <Label Text="{Binding FullName}" Grid.Column="1" />
+
+                        <Label Text="Full Name:"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource LightText}" />
+
+                        <Label Text="{Binding FullName}"
+                               Grid.Column="1"
+                               TextColor="{StaticResource LightText}" />
                     </Grid>
 
+                    <!-- Username -->
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.2*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Username:" FontAttributes="Bold" />
-                        <Label Text="{Binding UserName}" Grid.Column="1" />
+
+                        <Label Text="Username:"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource LightText}" />
+
+                        <Label Text="{Binding UserName}"
+                               Grid.Column="1"
+                               TextColor="{StaticResource LightText}" />
                     </Grid>
 
+                    <!-- Email -->
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.2*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Email:" FontAttributes="Bold" />
-                        <Label Text="{Binding Email}" Grid.Column="1" />
+
+                        <Label Text="Email:"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource LightText}" />
+
+                        <Label Text="{Binding Email}"
+                               Grid.Column="1"
+                               TextColor="{StaticResource LightText}" />
                     </Grid>
 
+                    <!-- Mobile -->
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.2*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Mobile:" FontAttributes="Bold" />
-                        <Label Text="{Binding MobileNo}" Grid.Column="1" />
+
+                        <Label Text="Mobile:"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource LightText}" />
+
+                        <Label Text="{Binding MobileNo}"
+                               Grid.Column="1"
+                               TextColor="{StaticResource LightText}" />
                     </Grid>
 
+                    <!-- Password -->
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.2*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Password:" FontAttributes="Bold" />
-                        <Label Text="********" Grid.Column="1" />
+
+                        <Label Text="Password:"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource LightText}" />
+
+                        <Label Text="********"
+                               Grid.Column="1"
+                               TextColor="{StaticResource LightText}" />
                     </Grid>
 
+                    <!-- Birth Date -->
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.2*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Birth Date:" FontAttributes="Bold" />
-                        <Label Text="{Binding BirthDate, StringFormat='{0:dd MMM yyyy}'}" Grid.Column="1" />
+
+                        <Label Text="Birth Date:"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource LightText}" />
+
+                        <Label Text="{Binding BirthDate, StringFormat='{0:dd MMM yyyy}'}"
+                               Grid.Column="1"
+                               TextColor="{StaticResource LightText}" />
                     </Grid>
 
                 </VerticalStackLayout>
             </Frame>
-
-            <!-- Edit Button -->
-            <Button Text="Edit Profile" 
-                    BackgroundColor="#007AFF" 
-                    TextColor="White" 
-                    CornerRadius="10"
-                    HorizontalOptions="Fill" />
 
         </VerticalStackLayout>
     </ScrollView>

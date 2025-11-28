@@ -1,79 +1,65 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+﻿<ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Checkers.Views.MainPage"
-    >
+    BackgroundColor="{StaticResource PrimaryDark}">
 
-    <ScrollView>
-        <VerticalStackLayout 
-            Padding="30"
-            Spacing="25"
+    <Grid>
+        <VerticalStackLayout
             VerticalOptions="Center"
-            HorizontalOptions="Center">
+            HorizontalOptions="Center"
+            Padding="30"
+            Spacing="25">
 
             <!-- Title -->
             <Label
                 Text="Welcome to Checkers"
-                TextColor="#ECDFCC"
+                TextColor="{StaticResource LightText}"
                 FontSize="32"
                 FontAttributes="Bold"
                 HorizontalOptions="Center" />
 
             <!-- Logo -->
             <Frame 
-                BackgroundColor="#3C3D37"
-                Padding="20"
+                BackgroundColor="{StaticResource SecondaryDark}"
+                Padding="5"
                 CornerRadius="20"
                 HasShadow="False"
                 HorizontalOptions="Center">
-                <Image 
-                    Source="app_logo.png"
-                    HeightRequest="120"
-                    WidthRequest="120" />
+                <Frame
+                    Padding="0"
+                    CornerRadius="20"
+                    HasShadow="False"
+                    BackgroundColor="Transparent"
+                    HeightRequest="150"
+                    WidthRequest="150"
+                    IsClippedToBounds="True">
+
+                    <Image
+                        Source="checkersicon.png"
+                        Aspect="AspectFill" />
+                </Frame>
             </Frame>
 
-            <!-- Navigation Buttons -->
+            <!-- Buttons -->
             <VerticalStackLayout Spacing="15" WidthRequest="250">
-
                 <Button
                     Text="Login"
-                    Command="{Binding GoToLoginCommand}"
-                    BackgroundColor="#697565"
-                    TextColor="#ECDFCC"
-                    CornerRadius="12"
-                    HeightRequest="50" />
-
+                    Command="{Binding GoToLoginCommand}" />
                 <Button
                     Text="Register"
-                    Command="{Binding GoToRegisterCommand}"
-                    BackgroundColor="#3C3D37"
-                    TextColor="#ECDFCC"
-                    CornerRadius="12"
-                    HeightRequest="50" />
-
+                    Command="{Binding GoToRegisterCommand}" />
                 <Button
                     Text="Play VS AI"
-                    x:Name="OnGoToGamePage"
-                    Clicked="PlayVSai_Clicked"
-                    BackgroundColor="#697565"
-                    TextColor="#ECDFCC"
-                    CornerRadius="12"
-                    HeightRequest="50" />
-
+                    Clicked="PlayVSai_Clicked" />
                 <Button
                     Text="Skip Login"
-                    x:Name="SkipLogIn"
                     Clicked="SkipLogIn_Clicked"
                     BackgroundColor="Transparent"
-                    TextColor="#ECDFCC"
                     BorderWidth="1.5"
-                    BorderColor="#697565"
-                    CornerRadius="12"
-                    HeightRequest="50" />
+                    BorderColor="{StaticResource AccentGreen}" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>
-    </ScrollView>
-
+    </Grid>
 </ContentPage>
