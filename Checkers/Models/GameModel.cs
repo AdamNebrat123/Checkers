@@ -24,11 +24,12 @@ namespace Checkers.Models
         public bool IsWhiteTurn { get; set; }
 
         // מצב הלוח: 0=ריק, 1=לבן, 2=שחור, 3=לבן מלך, 4=שחור מלך
-        public int[][] BoardState { get; set; } = BoardHelper.InitializeEmptyBoard();
+        //public int[][] BoardState { get; set; } = BoardHelper.InitializeEmptyBoard();
 
 
         // רשימת המהלכים שבוצעו
-        public List<GameMove> Moves { get; set; } = new();
+        //public List<GameMove> Moves { get; set; } = new();
+        public GameMove Move { get; set; } = new();
 
         // תאריך יצירה
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
