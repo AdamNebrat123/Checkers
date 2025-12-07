@@ -237,7 +237,9 @@ namespace Checkers.ViewModels
                     if (user != null)
                     {
                         // Store username securely for future sessions
-                        await SecureStorage.SetAsync("userName", user.UserName);
+                        await SecureStorage.SetAsync("Email", user.Email);
+                        await SecureStorage.SetAsync("Password", user.Password);
+
 
 
                         // Navigate to authenticated page
