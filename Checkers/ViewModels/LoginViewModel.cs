@@ -238,7 +238,7 @@ namespace Checkers.ViewModels
                     {
                         // Store username securely for future sessions
                         await SecureStorage.SetAsync("Email", user.Email);
-                        await SecureStorage.SetAsync("Password", user.Password);
+                        await SecureStorage.SetAsync("Password", Password);
 
 
 
@@ -264,6 +264,20 @@ namespace Checkers.ViewModels
                 }
             }
         }
+
+        public async Task TryAutoLogin(string email, string password)
+        {
+            User user = await usrService.LoginUserAsync(email, password);
+            if (user == null)
+                return;
+
+
+            // Navigate to authenticated page
+            Application.Current.MainPage = new AuthenticatedShell();
+            await Shell.Current.GoToAsync("///HomePage");
+
+        }
+
         private async Task NavigateToMainPage()
         {
             await Shell.Current.GoToAsync("//MainPage");

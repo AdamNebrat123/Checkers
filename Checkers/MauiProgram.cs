@@ -31,6 +31,8 @@ namespace Checkers
             RegisterViewModels(builder);
             RegisterPages(builder);
 #endif
+            builder.Services.AddSingleton<AppShell>();
+            builder.Services.AddSingleton<App>();
 
             return builder.Build();
         }

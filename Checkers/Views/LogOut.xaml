@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Checkers.Views.LogOut"
+             Title="LogOut">
+    <Grid>
+        <!-- התוכן שלך פה -->
+
+        <Grid x:Name="LoadingOverlay"
+          IsVisible="False"
+          VerticalOptions="Center"
+          HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="50">
+                <Label Text="Logging out..."/>
+                <ActivityIndicator IsRunning="True"
+                               WidthRequest="60"
+                               HeightRequest="60" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

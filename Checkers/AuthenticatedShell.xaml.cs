@@ -10,6 +10,7 @@ public partial class AuthenticatedShell : Shell
 		InitializeComponent();
 
         Routing.RegisterRoute("CreateGame", typeof(CreateGame));
-        Routing.RegisterRoute("WaitingRoom", typeof(WaitingRoom));
+        Routing.RegisterRoute("WaitingRoom", typeof(WaitingRoom)); 
+        Routing.RegisterRoute("MainPage", typeof(MainPage));
     }
 }

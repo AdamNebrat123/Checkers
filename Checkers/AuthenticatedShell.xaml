@@ -29,4 +29,10 @@
         </Tab>
     </FlyoutItem>
 
+    <FlyoutItem Title="LogOut">
+        <Tab Title="LogOut">
+            <ShellContent Title="Settings" ContentTemplate="{DataTemplate local:LogOut}" Route="LogOut"/>
+        </Tab>
+    </FlyoutItem>
+
 </Shell>
