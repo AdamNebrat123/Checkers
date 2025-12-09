@@ -14,5 +14,9 @@ namespace Checkers.Models
         illegal,
         move_self,
         promote,
+        what,
+        haredim,
+
+
     }
 }

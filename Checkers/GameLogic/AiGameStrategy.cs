@@ -13,7 +13,7 @@ namespace Checkers.GameLogic
 {
     public class AiGameStrategy : IGameStrategy
     {
-        private readonly IMusicService musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private BoardViewModel boardVM;
         private readonly GameManagerViewModel gameManager;
         private readonly AIManager aiManager;
@@ -52,8 +52,11 @@ namespace Checkers.GameLogic
             var piece = boardVM.SelectedSquare.Piece;
 
             if (!gameManager.CanMove(piece))
-                return;
+            {
+                _musicService.Play(SfxEnum.illegal.ToString(), false);
 
+                return;
+            }
             var moves = piece.GetPossibleMoves(boardVM.Board, boardVM.Board.Squares[boardVM.SelectedSquare.Row, boardVM.SelectedSquare.Column]);
             var move = moves.FirstOrDefault(m => m.To.Row == targetSquare.Row && m.To.Column == targetSquare.Column);
 
@@ -87,11 +90,14 @@ namespace Checkers.GameLogic
                 currentVM = nextVM;
 
 
-                if (boardVM.Squares.Count == 1) 
-                    musicService.Play(SfxEnum.move_self.ToString(), false);
+                if (move.SquaresPath.Count == 1)
+                {
+                    _musicService.Play(SfxEnum.move_self.ToString(), false);
+                }
                 else
-                    musicService.Play(SfxEnum.capture.ToString(), false);
-
+                {
+                    _musicService.Play(SfxEnum.capture.ToString(), false);
+                }
                 await Task.Delay(700); // דיליי בין כל צעד
             }
 
@@ -102,7 +108,7 @@ namespace Checkers.GameLogic
                     (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
                 {
                     currentVM.Piece = new King(piece.Color);
-                    musicService.Play(SfxEnum.promote.ToString(), false);
+                    _musicService.Play(SfxEnum.promote.ToString(), false);
 
                 }
             }
@@ -149,7 +155,7 @@ namespace Checkers.GameLogic
                 if ((piece.Color == PieceColor.White && currentVM.Row == 0) ||
                     (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
                 {
-                    musicService.Play(SfxEnum.promote.ToString(), false);
+                    _musicService.Play(SfxEnum.promote.ToString(), false);
                     currentVM.Piece = new King(piece.Color);
                 }
             }

@@ -151,8 +151,9 @@ namespace Checkers.GameLogic
                             toSquare.Piece = movingPiece;
                             toSquare.UpdateProperty(nameof(toSquare.Piece));
                             toSquare.UpdateProperty(nameof(toSquare.PieceImage));
-                            
-                            _musicService.Play(SfxEnum.move_self.ToString(), false);
+
+                            //_musicService.Play(SfxEnum.move_self.ToString(), false);
+                            _musicService.Play(SfxEnum.haredim.ToString(), false);
                         }
 
                         // בדיקת קידום ל־King
@@ -190,7 +191,8 @@ namespace Checkers.GameLogic
             {
                 if (!CanLocalPlayerMove())
                 {
-                    _musicService.Play(SfxEnum.illegal.ToString(), false);
+                    //_musicService.Play(SfxEnum.illegal.ToString(), false);
+                    _musicService.Play(SfxEnum.what.ToString(), false);
                     return;
                 }
 
@@ -221,7 +223,8 @@ namespace Checkers.GameLogic
 
                 if (!gameManager.CanMove(piece))
                 {
-                    _musicService.Play(SfxEnum.illegal.ToString(), false);
+                    //_musicService.Play(SfxEnum.illegal.ToString(), false);
+                    _musicService.Play(SfxEnum.what.ToString(), false);
                     return;
                 }
 

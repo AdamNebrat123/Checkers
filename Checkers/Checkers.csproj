@@ -72,10 +72,12 @@
 	  <MauiAsset Remove="Resources\Raw\capture.mp3" />
 	  <MauiAsset Remove="Resources\Raw\game_end.mp3" />
 	  <MauiAsset Remove="Resources\Raw\game_start.mp3" />
+	  <MauiAsset Remove="Resources\Raw\haredim.mp3" />
 	  <MauiAsset Remove="Resources\Raw\illegal.mp3" />
 	  <MauiAsset Remove="Resources\Raw\move_self.mp3" />
 	  <MauiAsset Remove="Resources\Raw\promote.mp3" />
 	  <MauiAsset Remove="Resources\Raw\trump.mp3" />
+	  <MauiAsset Remove="Resources\Raw\what.mp3" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Raw\game_start.mp3" />
@@ -85,10 +87,12 @@
 	  <AndroidResource Include="Resources\Raw\capture.mp3" />
 	  <AndroidResource Include="Resources\Raw\game_end.mp3" />
 	  <AndroidResource Include="Resources\Raw\game_start.mp3" />
+	  <AndroidResource Include="Resources\Raw\haredim.mp3" />
 	  <AndroidResource Include="Resources\Raw\illegal.mp3" />
 	  <AndroidResource Include="Resources\Raw\move_self.mp3" />
 	  <AndroidResource Include="Resources\Raw\promote.mp3" />
 	  <AndroidResource Include="Resources\Raw\trump.mp3" />
+	  <AndroidResource Include="Resources\Raw\what.mp3" />
 	</ItemGroup>
 
 	<ItemGroup>
