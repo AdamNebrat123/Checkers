@@ -1,5 +1,6 @@
 ﻿using Checkers.Model;
 using Checkers.Models;
+using Checkers.Services;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
 using System;
@@ -12,6 +13,7 @@ namespace Checkers.GameLogic
 {
     public class AiGameStrategy : IGameStrategy
     {
+        private readonly IMusicService musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private BoardViewModel boardVM;
         private readonly GameManagerViewModel gameManager;
         private readonly AIManager aiManager;
@@ -84,6 +86,12 @@ namespace Checkers.GameLogic
                 nextVM.RaisePieceImageChanged();
                 currentVM = nextVM;
 
+
+                if (boardVM.Squares.Count == 1) 
+                    musicService.Play(SfxEnum.move_self.ToString(), false);
+                else
+                    musicService.Play(SfxEnum.capture.ToString(), false);
+
                 await Task.Delay(700); // דיליי בין כל צעד
             }
 
@@ -94,6 +102,8 @@ namespace Checkers.GameLogic
                     (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
                 {
                     currentVM.Piece = new King(piece.Color);
+                    musicService.Play(SfxEnum.promote.ToString(), false);
+
                 }
             }
 
@@ -139,6 +149,7 @@ namespace Checkers.GameLogic
                 if ((piece.Color == PieceColor.White && currentVM.Row == 0) ||
                     (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
                 {
+                    musicService.Play(SfxEnum.promote.ToString(), false);
                     currentVM.Piece = new King(piece.Color);
                 }
             }

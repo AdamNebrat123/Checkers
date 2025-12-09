@@ -35,7 +35,7 @@ namespace Checkers.Services
             #endif
         }
 
-        public void Play(string musicName)
+        public void Play(string musicName, bool isLooping = true)
         {
             // קודם עצור כל ניגון קודם
             Stop();
@@ -54,7 +54,7 @@ namespace Checkers.Services
             if (resId == 0) return; // הקובץ לא נמצא
 
             _player = MediaPlayer.Create(context, resId);
-            _player.Looping = true;               // לולאה אינסופית
+            _player.Looping = isLooping;               // לולאה אינסופית
             _player.SetVolume(1.0f, 1.0f);       // לוודא שהווליום מקסימלי
             _player.Start();                      // התחלת השמעה
 
@@ -67,7 +67,7 @@ namespace Checkers.Services
     // טעינת הקובץ
     var url = NSUrl.FromFilename(musicName + ".mp3"); // חייב להיות ב-Resources עם Build Action=BundleResource
     _player = AVAudioPlayer.FromUrl(url);
-    _player.NumberOfLoops = -1;  // לולאה אינסופית
+    _player.NumberOfLoops = isLooping ? -1 : 0;  // לולאה אינסופית
     _player.PrepareToPlay();
     _player.Play();
 #endif

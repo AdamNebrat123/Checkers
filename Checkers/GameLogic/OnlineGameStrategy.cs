@@ -10,11 +10,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maui.Media;
+using Checkers.Services;
 
 namespace Checkers.GameLogic
 {
     public class OnlineGameStrategy : IGameStrategy
     {
+        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private readonly GameEventDispatcher gameEventDispatcher;
         private readonly GameManagerViewModel gameManager;
         private readonly GameService gameService = GameService.GetInstance();
@@ -112,6 +115,8 @@ namespace Checkers.GameLogic
                         // נניע את החייל שלב-שלב
                         var currentSquare = fromSquare;
 
+
+
                         // אם יש קפיצות (Captures)
                         if (lastMove.Captures != null && lastMove.Captures.Any())
                         {
@@ -135,6 +140,8 @@ namespace Checkers.GameLogic
                                 currentSquare.UpdateProperty(nameof(currentSquare.PieceImage));
 
                                 currentSquare = landingSquare;
+
+                                _musicService.Play(SfxEnum.capture.ToString(), false);
                                 await Task.Delay(700); // דיליי קטן בין כל אכילה
                             }
                         }
@@ -144,6 +151,8 @@ namespace Checkers.GameLogic
                             toSquare.Piece = movingPiece;
                             toSquare.UpdateProperty(nameof(toSquare.Piece));
                             toSquare.UpdateProperty(nameof(toSquare.PieceImage));
+                            
+                            _musicService.Play(SfxEnum.move_self.ToString(), false);
                         }
 
                         // בדיקת קידום ל־King
@@ -152,6 +161,8 @@ namespace Checkers.GameLogic
                             if (toSquare.Row == Board.Size - 1)
                             {
                                 currentSquare.Piece = new King(movingPiece.Color);
+                                _musicService.Play(SfxEnum.promote.ToString(), false);
+
                                 currentSquare.UpdateProperty(nameof(currentSquare.Piece));
                                 currentSquare.UpdateProperty(nameof(currentSquare.PieceImage));
                             }
@@ -177,7 +188,11 @@ namespace Checkers.GameLogic
         {
             try
             {
-                if (!CanLocalPlayerMove()) return;
+                if (!CanLocalPlayerMove())
+                {
+                    _musicService.Play(SfxEnum.illegal.ToString(), false);
+                    return;
+                }
 
                 if (squareVM.HasMoveMarker)
                     await MovePieceAsync(squareVM);
@@ -204,7 +219,11 @@ namespace Checkers.GameLogic
 
                 var piece = boardVM.SelectedSquare.Piece;
 
-                if (!gameManager.CanMove(piece)) return;
+                if (!gameManager.CanMove(piece))
+                {
+                    _musicService.Play(SfxEnum.illegal.ToString(), false);
+                    return;
+                }
 
                 var moves = piece.GetPossibleMoves(boardVM.Board,
                     boardVM.Board.Squares[boardVM.SelectedSquare.Row, boardVM.SelectedSquare.Column]);

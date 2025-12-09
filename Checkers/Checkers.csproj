@@ -49,6 +49,7 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\**\*" />
+		<MauiImage Include="Resources\Raw\**" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -57,11 +58,36 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 	<ItemGroup>
+	  <AndroidResource Remove="Resources\Raw\sfx\**" />
+	  <Compile Remove="Resources\Raw\sfx\**" />
+	  <EmbeddedResource Remove="Resources\Raw\sfx\**" />
+	  <MauiAsset Remove="Resources\Raw\sfx\**" />
+	  <MauiCss Remove="Resources\Raw\sfx\**" />
+	  <MauiImage Remove="Resources\Raw\sfx\**" />
+	  <MauiXaml Remove="Resources\Raw\sfx\**" />
+	  <None Remove="Resources\Raw\sfx\**" />
+	</ItemGroup>
+	<ItemGroup>
 	  <MauiAsset Remove="Resources\Raw\bibi.mp3" />
+	  <MauiAsset Remove="Resources\Raw\capture.mp3" />
+	  <MauiAsset Remove="Resources\Raw\game_end.mp3" />
+	  <MauiAsset Remove="Resources\Raw\game_start.mp3" />
+	  <MauiAsset Remove="Resources\Raw\illegal.mp3" />
+	  <MauiAsset Remove="Resources\Raw\move_self.mp3" />
+	  <MauiAsset Remove="Resources\Raw\promote.mp3" />
 	  <MauiAsset Remove="Resources\Raw\trump.mp3" />
 	</ItemGroup>
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Raw\game_start.mp3" />
+	</ItemGroup>
+	<ItemGroup>
 	  <AndroidResource Include="Resources\Raw\bibi.mp3" />
+	  <AndroidResource Include="Resources\Raw\capture.mp3" />
+	  <AndroidResource Include="Resources\Raw\game_end.mp3" />
+	  <AndroidResource Include="Resources\Raw\game_start.mp3" />
+	  <AndroidResource Include="Resources\Raw\illegal.mp3" />
+	  <AndroidResource Include="Resources\Raw\move_self.mp3" />
+	  <AndroidResource Include="Resources\Raw\promote.mp3" />
 	  <AndroidResource Include="Resources\Raw\trump.mp3" />
 	</ItemGroup>
 

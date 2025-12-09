@@ -8,7 +8,7 @@ namespace Checkers.Services
 {
     public interface IMusicService
     {
-        void Play(string musicName);
+        void Play(string musicName, bool isLooping = true);
         void Pause();
         void Stop();
         bool IsPlaying { get; }

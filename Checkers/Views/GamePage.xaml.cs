@@ -1,6 +1,7 @@
 ﻿using Checkers.Data;
 using Checkers.GameLogic;
 using Checkers.Models;
+using Checkers.Services;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
 using System.ComponentModel;
@@ -105,6 +106,9 @@ namespace Checkers.Views
             }
 
             _initialized = true;
+
+            var musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+            musicService.Play(SfxEnum.game_start.ToString(), false);
         }
 
         private void UpdateHighlightsInitial()

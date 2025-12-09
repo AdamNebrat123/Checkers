@@ -1,4 +1,5 @@
-﻿using Checkers.ViewModels;
+﻿using Checkers.Services;
+using Checkers.ViewModels;
 using LiteDB.Engine;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Checkers.GameLogic
         {
             if (parameters is not AiSettings ai)
                 throw new ArgumentException("Expected AiSettings for AI mode");
-
+            var musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
             return new AiGameStrategy(manager, ai.Depth, ai.IsWhite);
         }
 
@@ -32,7 +33,6 @@ namespace Checkers.GameLogic
         {
             if (parameters is not OnlineSettings online)
                 throw new ArgumentException("Expected OnlineSettings for Online mode");
-
             return new OnlineGameStrategy(manager, online.GameId, online.IsLocalPlayerWhite);
         }
     }
