@@ -29,7 +29,9 @@ public partial class LogOut : ContentPage
         {
             SecureStorage.Remove("Email");
             SecureStorage.Remove("Password");
+            Preferences.Remove("UserName");
 
+            await Task.Delay(50);
             // îòáø ìîñê ääúçáøåú
             Application.Current.MainPage = IPlatformApplication.Current.Services.GetRequiredService<AppShell>();
             await Shell.Current.GoToAsync("///MainPage");

@@ -15,7 +15,12 @@
             Padding="30"
             Spacing="25"
             HorizontalOptions="Center">
-
+            
+            <Label
+                Text="{Binding CurrentUserName, StringFormat='Hello {0}'}"
+                TextColor="{StaticResource LightText}"
+                FontSize="24"
+                HorizontalOptions="Center" />
             <Label
                 Text="Welcome to Checkers"
                 TextColor="{StaticResource LightText}"

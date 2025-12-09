@@ -1,4 +1,6 @@
-﻿using Checkers.GameLogic;
+﻿using Checkers.Data;
+using Checkers.GameLogic;
+using Checkers.Models;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
 using System.ComponentModel;
@@ -69,10 +71,23 @@ namespace Checkers.Views
                 if (!string.IsNullOrEmpty(onlineSettings.GameId))
                 {
                     _gameViewModel.SubscribeToTurnUpdates(onlineSettings.GameId);
+                    GameModel? existingModel = null;
+                    existingModel = await GameRealtimeService.GetInstance().GetGameAsync(onlineSettings.GameId);
+                    string userName = Preferences.Get("UserName", "Guest");
+                    if (existingModel != null) {
+                        _gameViewModel.PlayerName = userName;
+                        _gameViewModel.OpponentName = userName != existingModel.Guest ? existingModel.Guest : existingModel.Host;
+                    }
                 }
             }
-
+            else
+            {
+                _gameViewModel.PlayerName = Preferences.Get("UserName", "Guest");
+                _gameViewModel.OpponentName = "BOT";
+            }
             
+
+
 
             await _gameViewModel.InitializeAsync();
 

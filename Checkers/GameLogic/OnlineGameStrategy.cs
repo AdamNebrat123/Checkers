@@ -265,7 +265,7 @@ namespace Checkers.GameLogic
                 lastSentMoveId = gameMove.Id;
 
                 // המרת מצב הלוח הנוכחי לשמירה במסד הנתונים
-                var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
+                //var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
 
                 // שליפה של המשחק הקיים
                 GameModel? existingModel = null;

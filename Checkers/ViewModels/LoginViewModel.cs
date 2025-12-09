@@ -240,6 +240,7 @@ namespace Checkers.ViewModels
                         await SecureStorage.SetAsync("Email", user.Email);
                         await SecureStorage.SetAsync("Password", Password);
 
+                        Preferences.Set("UserName", user.UserName);
 
 
                         // Navigate to authenticated page
@@ -274,7 +275,6 @@ namespace Checkers.ViewModels
 
             // Navigate to authenticated page
             Application.Current.MainPage = new AuthenticatedShell();
-            await Shell.Current.GoToAsync("///HomePage");
 
         }
 

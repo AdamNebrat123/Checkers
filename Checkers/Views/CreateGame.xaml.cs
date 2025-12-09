@@ -42,10 +42,11 @@ public partial class CreateGame : ContentPage
         */
         try
         {
+            string currentUserName = Preferences.Get("UserName", "Guest");
             var newGame = new GameModel
             {
                 GameId = Guid.NewGuid().ToString(),
-                Host = "AVI KAMIL", // HARDCODED NOW!!! MUST BE CHANGED!!!!!!!!!!!!
+                Host = currentUserName, // HARDCODED NOW!!! MUST BE CHANGED!!!!!!!!!!!!
                 HostColor = playerColor,
                 Guest = "",
                 GuestColor = opponentColor,

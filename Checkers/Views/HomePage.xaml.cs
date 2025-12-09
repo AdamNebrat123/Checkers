@@ -10,5 +10,6 @@ public partial class HomePage : ContentPage
 		InitializeComponent();
 		this.homePageViewModel = viewModel;
 		BindingContext = homePageViewModel;
-	}
+
+    }
 }

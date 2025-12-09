@@ -14,7 +14,12 @@ namespace Checkers.ViewModel
         public GameManagerViewModel GameManager { get; }
         private IGameStrategy _strategy;
 
-        private string _playerName = "AVI KAMIL";
+        public GameViewModel()
+        {
+            
+        }
+
+        private string _playerName = "";
         public string PlayerName
         {
             get => _playerName;
@@ -28,7 +33,7 @@ namespace Checkers.ViewModel
             }
         }
 
-        private string _opponentName = "ITAY GEORGE TZVI";
+        private string _opponentName = "";
         public string OpponentName
         {
             get => _opponentName;

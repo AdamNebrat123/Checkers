@@ -63,7 +63,8 @@ public partial class CheckersLobby : ContentPage
         try
         {
             // נעדכן את המשחק עם האורח
-            game.Guest = "Guest123"; // אפשר להחליף כשיהיה לך שם משתמש אמיתי
+            string currentUserName = Preferences.Get("UserName", "Guest");
+            game.Guest = currentUserName; 
             await _realtimeService.UpdateGameAsync(game);
 
             // נגדיר את ההגדרות בדיוק כמו ש־Host עושה
