@@ -95,6 +95,25 @@ namespace Checkers.ViewModel
             set { _opponentCapturedCount = value; OnPropertyChanged(); }
         }
 
+
+        private CancellationTokenSource? _whiteTimerCts;
+        private CancellationTokenSource? _blackTimerCts;
+
+        private TimeSpan _whiteTimeLeft;
+        public TimeSpan WhiteTimeLeft
+        {
+            get => _whiteTimeLeft;
+            set { _whiteTimeLeft = value; OnPropertyChanged(); }
+        }
+
+        private TimeSpan _blackTimeLeft;
+        public TimeSpan BlackTimeLeft
+        {
+            get => _blackTimeLeft;
+            set { _blackTimeLeft = value; OnPropertyChanged(); }
+        }
+
+
         public string PlayerPieceImage => LocalPlayerIsWhite ? "black_piece.png" : "white_piece.png";
         public string OpponentPieceImage => LocalPlayerIsWhite ? "white_piece.png" : "black_piece.png";
 
@@ -184,6 +203,9 @@ namespace Checkers.ViewModel
                     {
                         IsLocalTurn = isLocalTurnNow;
                     });
+
+                    UpdateTimer(isWhiteTurn);
+
                 }
                 catch (Exception ex)
                 {
@@ -236,6 +258,60 @@ namespace Checkers.ViewModel
                 PlayerCapturedCount = whiteEaten;
                 OpponentCapturedCount = blackEaten;
             }
+        }
+        private async Task RunTimerAsync(bool isWhite, CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                await Task.Delay(1000);
+
+                if (isWhite)
+                {
+                    WhiteTimeLeft -= TimeSpan.FromSeconds(1);
+                    if (WhiteTimeLeft <= TimeSpan.Zero)
+                    {
+                        WhiteTimeLeft = TimeSpan.Zero;
+                        // כאן תוכל לסמן הפסד או משהו
+                        return;
+                    }
+                }
+                else
+                {
+                    BlackTimeLeft -= TimeSpan.FromSeconds(1);
+                    if (BlackTimeLeft <= TimeSpan.Zero)
+                    {
+                        BlackTimeLeft = TimeSpan.Zero;
+                        return;
+                    }
+                }
+            }
+        }
+        public void InitTimers(int minutes)
+        {
+            WhiteTimeLeft = TimeSpan.FromMinutes(minutes);
+            BlackTimeLeft = TimeSpan.FromMinutes(minutes);
+        }
+
+        private void StartWhiteTimer()
+        {
+            _blackTimerCts?.Cancel();
+            _whiteTimerCts = new CancellationTokenSource();
+            _ = RunTimerAsync(true, _whiteTimerCts.Token);
+        }
+
+        private void StartBlackTimer()
+        {
+            _whiteTimerCts?.Cancel();
+            _blackTimerCts = new CancellationTokenSource();
+            _ = RunTimerAsync(false, _blackTimerCts.Token);
+        }
+
+        public void UpdateTimer(bool nowWhiteTurn)
+        {
+            if (nowWhiteTurn)
+                StartWhiteTimer();
+            else
+                StartBlackTimer();
         }
     }
 }

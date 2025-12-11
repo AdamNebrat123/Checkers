@@ -16,5 +16,6 @@ namespace Checkers.GameLogic
     {
         public string GameId { get; set; }
         public bool IsLocalPlayerWhite { get; set; }
+        public int TimerTimeInMinutes {  get; set; }
     }
 }

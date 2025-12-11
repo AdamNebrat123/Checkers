@@ -71,7 +71,8 @@ public partial class CheckersLobby : ContentPage
             var onlineSettings = new OnlineSettings
             {
                 GameId = game.GameId,
-                IsLocalPlayerWhite = game.GuestColor == "White"
+                IsLocalPlayerWhite = game.GuestColor == "White",
+                TimerTimeInMinutes = game.TimerTimeInMinutes
             };
 
             var wrapper = new ModeParametersWrapper

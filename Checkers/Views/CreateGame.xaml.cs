@@ -16,8 +16,7 @@ public partial class CreateGame : ContentPage
     public CreateGame()
 	{
 		InitializeComponent();
-
-	}
+    }
     private void OnSwitchClicked(object sender, EventArgs e)
     {
         // החלפת צבעים
@@ -28,32 +27,22 @@ public partial class CreateGame : ContentPage
     }
     private async void OnCreateGameClicked(object sender, EventArgs e)
     {
-        /*string gameName = GameNameEntry.Text?.Trim();
-        if (string.IsNullOrEmpty(gameName))
-        {
-            await DisplayAlert("Error", "Please enter a game name.", "OK");
-            return;
-        }
-        
-        var selectedType = this.GetVisualTreeDescendants()
-                               .OfType<RadioButton>()
-                               .FirstOrDefault(r => r.GroupName == "GameType" && r.IsChecked);
-        string gameType = selectedType?.Value?.ToString() ?? "Classic";
-        */
+
         try
         {
             string currentUserName = Preferences.Get("UserName", "Guest");
             var newGame = new GameModel
             {
                 GameId = Guid.NewGuid().ToString(),
-                Host = currentUserName, // HARDCODED NOW!!! MUST BE CHANGED!!!!!!!!!!!!
+                Host = currentUserName,
                 HostColor = playerColor,
                 Guest = "",
                 GuestColor = opponentColor,
                 IsWhiteTurn = true,
                 //BoardState = BoardHelper.InitialBoardState(),
                 Move = new GameMove(),
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                TimerTimeInMinutes = GetSelectedTimerMinutes()
             };
 
             await _gameService.CreateGameAsync(newGame);
@@ -67,4 +56,21 @@ public partial class CreateGame : ContentPage
             await DisplayAlert("Error", "Failed to create game.", "OK");
         }
     }
+    private int GetSelectedTimerMinutes()
+    {
+        if (TimerPicker.SelectedItem == null)
+            return 600; // ברירת מחדל 10 דקות
+
+        string selected = TimerPicker.SelectedItem.ToString();
+        return selected switch
+        {
+            "30 minutes" => 30,
+            "10 minutes" => 10,
+            "5 minutes" => 5,
+            "1 minute" => 1,
+            "10 seconds" => 10/60,
+            _ => 10
+        };
+    }
+
 }

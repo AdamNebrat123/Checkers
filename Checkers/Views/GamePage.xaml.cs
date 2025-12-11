@@ -71,7 +71,6 @@ namespace Checkers.Views
                 // אם יש gameId ב-settings, הירשם לעדכוני התור
                 if (!string.IsNullOrEmpty(onlineSettings.GameId))
                 {
-                    _gameViewModel.SubscribeToTurnUpdates(onlineSettings.GameId);
                     GameModel? existingModel = null;
                     existingModel = await GameRealtimeService.GetInstance().GetGameAsync(onlineSettings.GameId);
                     string userName = Preferences.Get("UserName", "Guest");
@@ -79,6 +78,14 @@ namespace Checkers.Views
                         _gameViewModel.PlayerName = userName;
                         _gameViewModel.OpponentName = userName != existingModel.Guest ? existingModel.Guest : existingModel.Host;
                     }
+
+                    // TIMERS
+                    _gameViewModel.InitTimers(onlineSettings.TimerTimeInMinutes);
+                    SetupTimersUI();
+
+                    // Sub To Turn Updates
+                    _gameViewModel.SubscribeToTurnUpdates(onlineSettings.GameId);
+
                 }
             }
             else
@@ -154,6 +161,46 @@ namespace Checkers.Views
             if (_gameViewModel is INotifyPropertyChanged inpc)
             {
                 inpc.PropertyChanged -= GameViewModel_PropertyChanged;
+            }
+        }
+
+        private void SetupTimersUI()
+        {
+            bool iAmWhite = _gameViewModel.LocalPlayerIsWhite;
+
+
+            PlayerTimerLabel.IsVisible = true;
+            OpponentTimerLabel.IsVisible = true;
+
+            // 2. Binding לפי צבע השחקן
+            if (iAmWhite)
+            {
+                // Player - white
+                // Opponent - black
+                PlayerTimerLabel.SetBinding(Label.TextProperty,
+                    new Binding(nameof(GameViewModel.WhiteTimeLeft),
+                                mode: BindingMode.OneWay,
+                                stringFormat: "{0:mm\\:ss}"));
+
+                OpponentTimerLabel.SetBinding(Label.TextProperty,
+                    new Binding(nameof(GameViewModel.BlackTimeLeft),
+                                mode: BindingMode.OneWay,
+                                stringFormat: "{0:mm\\:ss}"));
+            }
+            else
+            {
+                // Player - black
+                // Opponent - white
+
+                PlayerTimerLabel.SetBinding(Label.TextProperty,
+                    new Binding(nameof(GameViewModel.BlackTimeLeft),
+                                mode: BindingMode.OneWay,
+                                stringFormat: "{0:mm\\:ss}"));
+
+                OpponentTimerLabel.SetBinding(Label.TextProperty,
+                    new Binding(nameof(GameViewModel.WhiteTimeLeft),
+                                mode: BindingMode.OneWay,
+                                stringFormat: "{0:mm\\:ss}"));
             }
         }
     }

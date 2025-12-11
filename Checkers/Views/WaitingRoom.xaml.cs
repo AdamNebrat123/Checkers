@@ -64,7 +64,7 @@ namespace Checkers.Views
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
 
-                    var onlineSettings = new OnlineSettings { GameId = gameModel.GameId, IsLocalPlayerWhite = gameModel.HostColor == "White" };
+                    var onlineSettings = new OnlineSettings { GameId = gameModel.GameId, IsLocalPlayerWhite = gameModel.HostColor == "White", TimerTimeInMinutes = gameModel.TimerTimeInMinutes };
                     var wrapper = new ModeParametersWrapper
                     {
                         Mode = GameMode.Online.ToString(),

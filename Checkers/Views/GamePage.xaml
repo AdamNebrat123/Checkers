@@ -34,6 +34,7 @@
                        HasShadow="True"
                        Padding="10"
                        HorizontalOptions="Center">
+                    <VerticalStackLayout>
                     <StackLayout Spacing="6" HorizontalOptions="Center">
                         <Label Text="{Binding OpponentName}"
                                FontSize="18"
@@ -46,9 +47,19 @@
                                  WidthRequest="120"
                                  BackgroundColor="#4CAF50"
                                  Opacity="0.15" />
+                        
                     </StackLayout>
+                    
+                    <!-- Opponent timer -->
+                        <Label x:Name="OpponentTimerLabel"
+                        TextColor="{StaticResource LightText}"
+                        FontSize="22"
+                        HorizontalOptions="Center" 
+                        IsVisible="False"/>
+                    </VerticalStackLayout>
                 </Frame>
             </StackLayout>
+
 
             <!-- Board center -->
             <Grid Grid.Row="1"
@@ -118,19 +129,28 @@
                        HasShadow="True"
                        Padding="10"
                        HorizontalOptions="Center">
-                    <StackLayout Spacing="6" HorizontalOptions="Center">
-                        <Label Text="{Binding PlayerName}"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="#F0F0F0"
-                               HorizontalOptions="Center"/>
+                    <VerticalStackLayout>
+                        <StackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="{Binding PlayerName}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="#F0F0F0"
+                                    HorizontalOptions="Center"/>
 
-                        <BoxView x:Name="BottomHighlight"
-                                 HeightRequest="6"
-                                 WidthRequest="120"
-                                 BackgroundColor="#4CAF50"
-                                 Opacity="0.15" />
-                    </StackLayout>
+                            <BoxView x:Name="BottomHighlight"
+                                        HeightRequest="6"
+                                        WidthRequest="120"
+                                        BackgroundColor="#4CAF50"
+                                        Opacity="0.15" />
+                        </StackLayout>
+                        
+                        <!-- Player timer -->
+                        <Label x:Name="PlayerTimerLabel"
+                            TextColor="{StaticResource LightText}"
+                            FontSize="22"
+                            HorizontalOptions="Center" 
+                            IsVisible="False"/>
+                    </VerticalStackLayout>
                 </Frame>
             </StackLayout>
         </Grid>

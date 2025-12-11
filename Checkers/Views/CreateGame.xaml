@@ -8,28 +8,6 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="25" VerticalOptions="Center">
 
-            <!-- Game Name -->
-            <!--
-            <Label 
-                Text="Game Name"
-                FontSize="28"
-                HorizontalOptions="Center" />
-
-            <Entry 
-                x:Name="GameNameEntry"
-                Placeholder="Enter game name"
-                HorizontalOptions="Fill" 
-                BackgroundColor="Transparent"
-                PlaceholderColor="{StaticResource LightText}"/>
-            
-            
-            <Label 
-                Text="Game Type"
-                FontSize="24"
-                HorizontalOptions="Center" />
-
-            -->
-            
             <!-- Choose Colors -->
             <Label 
                 Text="Choose Colors"
@@ -76,6 +54,28 @@
 
             </HorizontalStackLayout>
 
+            <!-- Timer Picker -->
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="Game Time"
+                       TextColor="White"
+                       FontSize="22"
+                       HorizontalOptions="Center"/>
+                <Picker x:Name="TimerPicker"
+                        Title="Select time"
+                        TitleColor="Gray"
+                        TextColor="White"
+                        WidthRequest="200"
+                        SelectedIndex="1">
+                    <!-- ברירת מחדל 10 דקות -->
+                    <Picker.Items>
+                        <x:String>30 minutes</x:String>
+                        <x:String>10 minutes</x:String>
+                        <x:String>5 minutes</x:String>
+                        <x:String>1 minute</x:String>
+                    </Picker.Items>
+                </Picker>
+            </VerticalStackLayout>
+            
             <!-- Create Button -->
             <Button 
                 Text="CREATE GAME"
