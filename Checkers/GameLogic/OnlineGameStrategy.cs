@@ -88,7 +88,7 @@ namespace Checkers.GameLogic
             try
             {
                 if (gameModel == null) return;
-
+                GameMove? originalMove = gameModel.Move;
                 GameMove? lastMove = gameModel.Move;
                 lastMove = MoveHelper.ConvertMoveByPerspective(lastMove, isLocalPlayerWhite);
                 if (lastMove == null) return;
@@ -159,9 +159,10 @@ namespace Checkers.GameLogic
                         // בדיקת קידום ל־King
                         if (movingPiece is Man)
                         {
-                            if (toSquare.Row == Board.Size - 1)
+                            if ((originalMove.ToRow == Board.Size - 1 && movingPiece.Color == PieceColor.Black)
+                                || (originalMove.ToRow == 0 && movingPiece.Color == PieceColor.White))
                             {
-                                currentSquare.Piece = new King(movingPiece.Color);
+                                toSquare.Piece = new King(movingPiece.Color);
                                 _musicService.Play(SfxEnum.promote.ToString(), false);
 
                                 currentSquare.UpdateProperty(nameof(currentSquare.Piece));
@@ -236,7 +237,6 @@ namespace Checkers.GameLogic
 
                 boardVM.SelectedSquare = null;
 
-                // כאן במקום להזיז את החיילים, רק שלח את המהלך לפיירבייס
                 await PlayerMovedAsync(move);
 
                 // אל תזיז את ה־UI כאן
