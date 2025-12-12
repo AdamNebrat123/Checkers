@@ -23,6 +23,7 @@ namespace Checkers.Views
         {
             // Navigate to authenticated page
             Application.Current.MainPage = new AuthenticatedShell();
+            Preferences.Set("UserName", "Guest1234");
             await Shell.Current.GoToAsync("///HomePage");
         }
     }

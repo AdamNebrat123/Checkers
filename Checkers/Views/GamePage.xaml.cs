@@ -156,8 +156,13 @@ namespace Checkers.Views
         }
         private async void OnWinnerCloseClicked(object sender, EventArgs e)
         {
-            // ניתוב אם אתה צריך
-            await Shell.Current.GoToAsync("///HomePage");
+            string username = Preferences.Get("UserName", "");
+            bool isLoggedIn = !string.IsNullOrEmpty(username);
+            if (isLoggedIn) 
+                await Shell.Current.GoToAsync("///HomePage");
+            else
+                await Shell.Current.GoToAsync("///MainPage");
+
         }
         protected override void OnDisappearing()
         {

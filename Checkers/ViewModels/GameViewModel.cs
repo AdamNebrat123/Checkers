@@ -25,6 +25,13 @@ namespace Checkers.ViewModel
         {
             
         }
+        public GameViewModel(GameManagerViewModel gameManager)
+        {
+            GameManager = gameManager;
+
+            gameManager.TurnSwitched += UpdateCapturedCounts;
+            
+        }
 
         private string _playerName = "";
         public string PlayerName
@@ -150,12 +157,7 @@ namespace Checkers.ViewModel
         private string? _subscribedGameId;
 
         // Inject only the GameManager via DI
-        public GameViewModel(GameManagerViewModel gameManager)
-        {
-            GameManager = gameManager;
 
-            gameManager.TurnSwitched += UpdateCapturedCounts;
-        }
 
         public void UnubFromGame()
         {
@@ -186,6 +188,9 @@ namespace Checkers.ViewModel
             _strategy = strategy;
             if (BoardVM != null)
                 _strategy.SetBoardViewModel(BoardVM);
+
+            if (_strategy is AiGameStrategy)
+                GameManager.TurnSwitched += CheckWinnerAiMode;
         }
 
         public async Task InitializeAsync()
@@ -261,6 +266,7 @@ namespace Checkers.ViewModel
             if (string.IsNullOrEmpty(winner))
             return;
 
+            await GameService.GetInstance().DeleteGameAsync(game.GameId);
             ShowWinner(winner);
 
         }
@@ -289,9 +295,9 @@ namespace Checkers.ViewModel
 
             return string.Empty;
         }
-        public async void ShowWinner(string name)
+        public async void ShowWinner(string winner)
         {
-            WinnerName = name;
+            WinnerName = winner;
 
             await Task.Delay(1000);
             _musicService.Play(SfxEnum.game_end.ToString(), false);
@@ -389,7 +395,7 @@ namespace Checkers.ViewModel
             else
                 StartBlackTimer();
         }
-        private void HandleTimerExpired(bool isWhite)
+        private async Task HandleTimerExpired(bool isWhite)
         {
             if (isWhite)
                 WhiteTimeLeft = TimeSpan.Zero;
@@ -413,8 +419,47 @@ namespace Checkers.ViewModel
                     winner = OpponentName;
             }
 
-
+            await GameService.GetInstance().DeleteGameAsync(_subscribedGameId!);
             ShowWinner(winner);
+        }
+        private void CheckWinnerAiMode()
+        {
+            if (!(_strategy is AiGameStrategy))
+                return;
+
+            AiGameStrategy strategy = (AiGameStrategy)_strategy;
+
+            int totalWhites = 0;
+            int totalBlacks = 0;
+
+            foreach (var square in BoardVM.Squares)
+            {
+                if (square.Piece == null) continue;
+                if (square.Piece.Color == PieceColor.White)
+                    totalWhites++;
+                else
+                    totalBlacks++;
+            }
+
+            string winner = string.Empty;
+            
+            if (totalWhites == 0)
+            {
+                if (strategy.AiManager.AIColor == PieceColor.Black)
+                    winner = "BOT";
+                else
+                    winner = Preferences.Get("UserName", "Guest");
+            }
+            if (totalBlacks == 0)
+            {
+                if (strategy.AiManager.AIColor == PieceColor.White)
+                    winner = "BOT";
+                else
+                    winner = Preferences.Get("UserName", "Guest");
+            }
+
+            if(!string.IsNullOrEmpty(winner))
+                ShowWinner(winner);
         }
     }
 }

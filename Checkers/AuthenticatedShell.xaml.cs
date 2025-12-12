@@ -12,5 +12,6 @@ public partial class AuthenticatedShell : Shell
         Routing.RegisterRoute("CreateGame", typeof(CreateGame));
         Routing.RegisterRoute("WaitingRoom", typeof(WaitingRoom)); 
         Routing.RegisterRoute("MainPage", typeof(MainPage));
+        Routing.RegisterRoute("GamePage", typeof(GamePage));
     }
 }

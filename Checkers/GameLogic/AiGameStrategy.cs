@@ -18,6 +18,8 @@ namespace Checkers.GameLogic
         private readonly GameManagerViewModel gameManager;
         private readonly AIManager aiManager;
 
+        public AIManager AiManager => aiManager;
+
         public AiGameStrategy(GameManagerViewModel gameManager, int depth, bool whitePerspective)
         {
             this.gameManager = gameManager;
@@ -32,7 +34,7 @@ namespace Checkers.GameLogic
         public async Task InitializeAsync(BoardViewModel boardVM)
         {
             // אם ה-AI מתחיל ראשון
-            if (aiManager.AIColor == PieceColor.White && gameManager.IsWhiteTurn)
+            if (AiManager.AIColor == PieceColor.White && gameManager.IsWhiteTurn)
                 await MakeAIMoveAsync(boardVM);
         }
 
@@ -119,7 +121,7 @@ namespace Checkers.GameLogic
         private async Task MakeAIMoveAsync(BoardViewModel boardVM)
         {
             if (boardVM == null) return;
-            var bestMove = await aiManager.FindBestMoveAsync(boardVM.Board);
+            var bestMove = await AiManager.FindBestMoveAsync(boardVM.Board);
             if (bestMove == null) return;
             await ExecuteMoveAsync(boardVM, bestMove);
             gameManager.SwitchTurn();
@@ -169,7 +171,7 @@ namespace Checkers.GameLogic
             if (boardVM == null) return;
 
             // אם עכשיו תור ה-AI לפי הצבע שלו
-            if (gameManager.IsWhiteTurn == (aiManager.AIColor == PieceColor.White))
+            if (gameManager.IsWhiteTurn == (AiManager.AIColor == PieceColor.White))
             {
                 await MakeAIMoveAsync(boardVM);
             }
@@ -219,7 +221,6 @@ namespace Checkers.GameLogic
                 square.Piece = piece;
             }
         }
-
     }
 
 }

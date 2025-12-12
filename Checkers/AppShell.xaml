@@ -23,6 +23,7 @@
     Title="Register"
     ContentTemplate="{DataTemplate local:RegisterPage}"
     Route="RegisterPage" />
-
+    
+    
 
 </Shell>
