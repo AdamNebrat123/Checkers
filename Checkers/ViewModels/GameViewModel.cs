@@ -5,6 +5,10 @@ using System;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Checkers.Model;
+using Checkers.Models;
+using Checkers.Views;
+using Checkers.Services;
+using System.Reflection;
 
 namespace Checkers.ViewModel
 {
@@ -13,6 +17,9 @@ namespace Checkers.ViewModel
         public BoardViewModel BoardVM { get; private set; }
         public GameManagerViewModel GameManager { get; }
         private IGameStrategy _strategy;
+
+        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+
 
         public GameViewModel()
         {
@@ -112,7 +119,27 @@ namespace Checkers.ViewModel
             get => _blackTimeLeft;
             set { _blackTimeLeft = value; OnPropertyChanged(); }
         }
+        private bool _isWinnerVisible = false;
+        public bool IsWinnerVisible
+        {
+            get => _isWinnerVisible;
+            set
+            {
+                _isWinnerVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
+        private string _winnerName;
+        public string WinnerName
+        {
+            get => _winnerName;
+            set
+            {
+                _winnerName = "Winner is: " + value;
+                OnPropertyChanged();
+            }
+        }
 
         public string PlayerPieceImage => LocalPlayerIsWhite ? "black_piece.png" : "white_piece.png";
         public string OpponentPieceImage => LocalPlayerIsWhite ? "white_piece.png" : "black_piece.png";
@@ -206,6 +233,8 @@ namespace Checkers.ViewModel
 
                     UpdateTimer(isWhiteTurn);
 
+                    await HandleWinnerCheck(gameModel);
+
                 }
                 catch (Exception ex)
                 {
@@ -225,7 +254,53 @@ namespace Checkers.ViewModel
                 _subscribedGameId = null;
             }
         }
+        private async Task HandleWinnerCheck(GameModel game)
+        {
+            string winner = CheckWinner(game);
 
+            if (string.IsNullOrEmpty(winner))
+            return;
+
+            ShowWinner(winner);
+
+        }
+        private string CheckWinner(GameModel game)
+        {
+            int totalWhites = 0;
+            int totalBlacks = 0;
+
+            foreach (var square in BoardVM.Squares)
+            {
+                if (square.Piece == null) continue;
+                if (square.Piece.Color == PieceColor.White)
+                    totalWhites++;
+                else
+                    totalBlacks++;
+            }
+
+            if (totalWhites == 0)
+            {
+                return game.GuestColor == PieceColor.White.ToString() ? game.Guest : game.Host;
+            }
+            if (totalBlacks == 0)
+            {
+                return game.GuestColor == PieceColor.Black.ToString() ? game.Guest : game.Host;
+            }
+
+            return string.Empty;
+        }
+        public async void ShowWinner(string name)
+        {
+            WinnerName = name;
+
+            await Task.Delay(1000);
+            _musicService.Play(SfxEnum.game_end.ToString(), false);
+
+            await Task.Delay(1000);
+            IsWinnerVisible = true;
+        }
+
+        
 
         public void UpdateCapturedCounts()
         {
@@ -271,7 +346,7 @@ namespace Checkers.ViewModel
                     if (WhiteTimeLeft <= TimeSpan.Zero)
                     {
                         WhiteTimeLeft = TimeSpan.Zero;
-                        // כאן תוכל לסמן הפסד או משהו
+                        HandleTimerExpired(isWhite);
                         return;
                     }
                 }
@@ -281,6 +356,7 @@ namespace Checkers.ViewModel
                     if (BlackTimeLeft <= TimeSpan.Zero)
                     {
                         BlackTimeLeft = TimeSpan.Zero;
+                        HandleTimerExpired(isWhite);
                         return;
                     }
                 }
@@ -312,6 +388,33 @@ namespace Checkers.ViewModel
                 StartWhiteTimer();
             else
                 StartBlackTimer();
+        }
+        private void HandleTimerExpired(bool isWhite)
+        {
+            if (isWhite)
+                WhiteTimeLeft = TimeSpan.Zero;
+            else
+                BlackTimeLeft = TimeSpan.Zero;
+
+            string winner = "";
+            if (isWhite)
+            {
+                if (!LocalPlayerIsWhite)
+                    winner = PlayerName;
+                else
+                    winner = OpponentName;
+
+            }
+            else
+            {
+                if (LocalPlayerIsWhite)
+                    winner = PlayerName;
+                else
+                    winner = OpponentName;
+            }
+
+
+            ShowWinner(winner);
         }
     }
 }

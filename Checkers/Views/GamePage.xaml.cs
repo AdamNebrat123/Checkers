@@ -30,7 +30,10 @@ namespace Checkers.Views
         protected override async void OnNavigatedTo(NavigatedToEventArgs args)
         {
             base.OnNavigatedTo(args);
-
+            WinnerContentView.SetBinding(ContentView.IsVisibleProperty,
+                    new Binding(nameof(GameViewModel.IsWinnerVisible),
+                                mode: BindingMode.OneWay,
+                                stringFormat: "{0:mm\\:ss}"));
             if (_initialized) return;
 
             if (Wrapper == null)
@@ -151,7 +154,11 @@ namespace Checkers.Views
                 });
             }
         }
-
+        private async void OnWinnerCloseClicked(object sender, EventArgs e)
+        {
+            // ניתוב אם אתה צריך
+            await Shell.Current.GoToAsync("///HomePage");
+        }
         protected override void OnDisappearing()
         {
             base.OnDisappearing();

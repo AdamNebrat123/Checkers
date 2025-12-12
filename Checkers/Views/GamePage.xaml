@@ -194,5 +194,35 @@
                    VerticalOptions="Center"/>
         </StackLayout>
 
+
+
+        <ContentView 
+            x:Name="WinnerContentView"
+            IsVisible="False"
+            BackgroundColor="#80000000"
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill"
+            Opacity="{Binding WinnerOpacity}">
+
+            <Frame Padding="20"
+                   BackgroundColor="{StaticResource SecondaryDark}"
+                   CornerRadius="20"
+                   WidthRequest="260"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   x:Name="PopupFrame">
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="{Binding WinnerName}"
+                           TextColor="{StaticResource LightText}"
+                           FontSize="20"
+                           HorizontalOptions="Center"/>
+
+                    <Button Text="Close"
+                            Clicked="OnWinnerCloseClicked"/>
+                </VerticalStackLayout>
+            </Frame>
+        </ContentView>
+
     </Grid>
 </ContentPage>
