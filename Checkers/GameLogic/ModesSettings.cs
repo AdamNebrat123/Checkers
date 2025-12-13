@@ -18,4 +18,9 @@ namespace Checkers.GameLogic
         public bool IsLocalPlayerWhite { get; set; }
         public int TimerTimeInMinutes {  get; set; }
     }
+    public class SpectatorSettings
+    {
+        public string GameId { get; set; }
+        public bool IsWhitePerspective { get; set; }
+    }
 }

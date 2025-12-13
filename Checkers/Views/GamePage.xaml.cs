@@ -1,5 +1,6 @@
 ﻿using Checkers.Data;
 using Checkers.GameLogic;
+using Checkers.Model;
 using Checkers.Models;
 using Checkers.Services;
 using Checkers.ViewModel;
@@ -46,6 +47,8 @@ namespace Checkers.Views
             {
                 GameMode.AI => JsonSerializer.Deserialize<AiSettings>(Wrapper.Parameters.GetRawText())!,
                 GameMode.Online => JsonSerializer.Deserialize<OnlineSettings>(Wrapper.Parameters.GetRawText())!,
+                GameMode.Spectator => JsonSerializer.Deserialize<SpectatorSettings>(Wrapper.Parameters.GetRawText())!,
+
                 _ => throw new NotSupportedException($"Unsupported mode: {mode}")
             };
 
@@ -53,11 +56,12 @@ namespace Checkers.Views
             {
                 AiSettings ai => ai.IsWhite,
                 OnlineSettings online => online.IsLocalPlayerWhite,
+                SpectatorSettings spectator => spectator.IsWhitePerspective,
                 _ => true
             };
 
             // אתחול לוח + שמירת פרספקטיבה
-            _gameViewModel.InitializeBoard(isWhite, false);
+            _gameViewModel.InitializeBoard(isWhite);
 
             // צור strategy
             var strategy = _strategyFactory.Create(mode, _gameViewModel.GameManager, settings);
@@ -70,27 +74,30 @@ namespace Checkers.Views
             BindingContext = _gameViewModel;
 
             // אם זה מצב Online — נרשום גם למצב התור דרך GameViewModel
+            string gameId = string.Empty;
             if (settings is OnlineSettings onlineSettings)
             {
-                // אם יש gameId ב-settings, הירשם לעדכוני התור
-                if (!string.IsNullOrEmpty(onlineSettings.GameId))
-                {
-                    GameModel? existingModel = null;
-                    existingModel = await GameRealtimeService.GetInstance().GetGameAsync(onlineSettings.GameId);
-                    string userName = Preferences.Get("UserName", "Guest");
-                    if (existingModel != null) {
-                        _gameViewModel.PlayerName = userName;
-                        _gameViewModel.OpponentName = userName != existingModel.Guest ? existingModel.Guest : existingModel.Host;
-                    }
+                gameId = onlineSettings.GameId;
 
-                    // TIMERS
-                    _gameViewModel.InitTimers(onlineSettings.TimerTimeInMinutes);
-                    SetupTimersUI();
-
-                    // Sub To Turn Updates
-                    _gameViewModel.SubscribeToTurnUpdates(onlineSettings.GameId);
-
+                // TIMERS
+                _gameViewModel.InitTimers(onlineSettings.TimerTimeInMinutes);
+                SetupTimersUI();
+            }
+            if (settings is SpectatorSettings spectatorSettings)
+            {
+                gameId = spectatorSettings.GameId;
+            }
+            
+            if (!string.IsNullOrEmpty(gameId))
+            {
+                GameModel? existingModel = null;
+                existingModel = await GameRealtimeService.GetInstance().GetGameAsync(gameId);
+                if (existingModel != null) {
+                    SetNames(existingModel, isWhite);
                 }
+                // Sub To Turn Updates
+                _gameViewModel.SubscribeToTurnUpdates(gameId);
+
             }
             else
             {
@@ -214,6 +221,35 @@ namespace Checkers.Views
                     new Binding(nameof(GameViewModel.WhiteTimeLeft),
                                 mode: BindingMode.OneWay,
                                 stringFormat: "{0:mm\\:ss}"));
+            }
+        }
+        private void SetNames(GameModel existingModel, bool isWhite)
+        {
+            if (isWhite)
+            {
+                if (existingModel.GuestColor == PieceColor.White.ToString())
+                {
+                    _gameViewModel.PlayerName = existingModel.Guest;
+                    _gameViewModel.OpponentName = existingModel.Host;
+                }
+                else
+                {
+                    _gameViewModel.PlayerName = existingModel.Host;
+                    _gameViewModel.OpponentName = existingModel.Guest;
+                }
+            }
+            else
+            {
+                if (existingModel.GuestColor == PieceColor.Black.ToString())
+                {
+                    _gameViewModel.PlayerName = existingModel.Guest;
+                    _gameViewModel.OpponentName = existingModel.Host;
+                }
+                else
+                {
+                    _gameViewModel.PlayerName = existingModel.Host;
+                    _gameViewModel.OpponentName = existingModel.Guest;
+                }
             }
         }
     }

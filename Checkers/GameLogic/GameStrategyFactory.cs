@@ -17,6 +17,7 @@ namespace Checkers.GameLogic
             {
                 GameMode.AI => CreateAiStrategy(manager, parameters),
                 GameMode.Online => CreateOnlineStrategy(manager, parameters),
+                GameMode.Spectator => CreateSpectatorStrategy(manager, parameters),
                 _ => throw new NotSupportedException($"Unsupported game mode: {mode}")
             };
         }
@@ -34,6 +35,12 @@ namespace Checkers.GameLogic
             if (parameters is not OnlineSettings online)
                 throw new ArgumentException("Expected OnlineSettings for Online mode");
             return new OnlineGameStrategy(manager, online.GameId, online.IsLocalPlayerWhite);
+        }
+        private static IGameStrategy CreateSpectatorStrategy(GameManagerViewModel manager, object? parameters)
+        {
+            if (parameters is not SpectatorSettings spectator)
+                throw new ArgumentException("Expected OnlineSettings for Online mode");
+            return new SpectatorGameStrategy(manager, spectator.GameId, spectator.IsWhitePerspective);
         }
     }
 }

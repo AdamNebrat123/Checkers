@@ -175,7 +175,7 @@ namespace Checkers.ViewModel
         }
 
         // Create the board internally with the given perspective
-        public void InitializeBoard(bool whitePerspective, bool buttonsInverted)
+        public void InitializeBoard(bool whitePerspective)
         {
             var boardVM = new BoardViewModel(whitePerspective);
             SetBoardViewModel(boardVM);
@@ -236,7 +236,8 @@ namespace Checkers.ViewModel
                         IsLocalTurn = isLocalTurnNow;
                     });
 
-                    UpdateTimer(isWhiteTurn);
+                    if(_strategy is OnlineGameStrategy) 
+                        UpdateTimer(isWhiteTurn);
 
                     await HandleWinnerCheck(gameModel);
 

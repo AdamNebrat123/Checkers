@@ -1,43 +1,43 @@
 ﻿using Checkers.Data;
 using Checkers.Model;
 using Checkers.Models;
+using Checkers.Services;
 using Checkers.Utils;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Maui.Media;
-using Checkers.Services;
 
 namespace Checkers.GameLogic
 {
-    public class OnlineGameStrategy : IGameStrategy
+    public class SpectatorGameStrategy : IGameStrategy
     {
         private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private readonly GameEventDispatcher gameEventDispatcher;
         private readonly GameManagerViewModel gameManager;
-        private readonly GameService gameService = GameService.GetInstance();
         private readonly GameRealtimeService realtimeService = GameRealtimeService.GetInstance();
         private readonly string gameId;
         private BoardViewModel boardVM;
+
         private bool _subscribed = false;
-        private bool isLocalPlayerWhite;
+        private bool isWhitePerspective;
 
-        private string? lastSentMoveId = "";
-
-        public OnlineGameStrategy(GameManagerViewModel gameManager, string gameId, bool isLocalPlayerWhite)
+        public SpectatorGameStrategy(GameManagerViewModel gameManager, string gameId, bool isLocalPlayerWhite)
         {
             this.gameManager = gameManager;
             this.gameId = gameId;
-            this.isLocalPlayerWhite = isLocalPlayerWhite;
+            this.isWhitePerspective = isLocalPlayerWhite;
 
             gameEventDispatcher = GameEventDispatcher.GetInstance();
         }
-
+        public Task HandleSquareSelectedAsync(BoardViewModel boardVM, SquareViewModel squareVM)
+        {
+            _musicService.Play(SfxEnum.illegal.ToString(), false);
+            return Task.CompletedTask;
+        }
         public void SetBoardViewModel(BoardViewModel boardVM)
         {
             this.boardVM = boardVM;
@@ -90,7 +90,7 @@ namespace Checkers.GameLogic
                 if (gameModel == null) return;
                 GameMove? originalMove = gameModel.Move;
                 GameMove? lastMove = gameModel.Move;
-                lastMove = MoveHelper.ConvertMoveByPerspective(lastMove, isLocalPlayerWhite);
+                lastMove = MoveHelper.ConvertMoveByPerspective(lastMove, isWhitePerspective);
                 if (lastMove == null) return;
 
                 // שליפת הריבועים המעורבים
@@ -185,145 +185,6 @@ namespace Checkers.GameLogic
             }
         }
 
-        public async Task HandleSquareSelectedAsync(BoardViewModel boardVM, SquareViewModel squareVM)
-        {
-            try
-            {
-                if (!CanLocalPlayerMove())
-                {
-                    _musicService.Play(SfxEnum.illegal.ToString(), false);
-                    return;
-                }
-
-                if (squareVM.HasMoveMarker)
-                    await MovePieceAsync(squareVM);
-                else
-                    boardVM.SelectedSquare = squareVM;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error handling square selection: {ex.Message}");
-            }
-        }
-
-        private bool CanLocalPlayerMove()
-        {
-            return gameManager.IsWhiteTurn == isLocalPlayerWhite;
-        }
-
-        private async Task MovePieceAsync(SquareViewModel targetSquare)
-        {
-            try
-            {
-                if (boardVM == null) return;
-                if (boardVM.SelectedSquare?.Piece == null) return;
-
-                var piece = boardVM.SelectedSquare.Piece;
-
-                if (!gameManager.CanMove(piece))
-                {
-                    //_musicService.Play(SfxEnum.illegal.ToString(), false);
-                    _musicService.Play(SfxEnum.what.ToString(), false);
-                    return;
-                }
-
-                var moves = piece.GetPossibleMoves(boardVM.Board,
-                    boardVM.Board.Squares[boardVM.SelectedSquare.Row, boardVM.SelectedSquare.Column]);
-
-                var move = moves.FirstOrDefault(m => m.To.Row == targetSquare.Row && m.To.Column == targetSquare.Column);
-                if (move == null) return;
-
-                boardVM.SelectedSquare = null;
-
-                await PlayerMovedAsync(move);
-
-                // אל תזיז את ה־UI כאן
-                foreach (var sq in boardVM.Squares)
-                    sq.HasMoveMarker = false;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error moving piece: {ex.Message}");
-            }
-        }
-
-
-        private async Task PlayerMovedAsync(Move move)
-        {
-            try
-            {
-
-                // יצירת אובייקט המהלך לשמירה
-                var gameMove = new GameMove
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    FromRow = move.From.Row,
-                    FromCol = move.From.Column,
-                    ToRow = move.To.Row,
-                    ToCol = move.To.Column,
-                    WasWhite = isLocalPlayerWhite,
-                    Timestamp = DateTime.UtcNow
-                };
-
-                // העתקת כל שלבי האכילה (אם יש)
-                foreach (var cap in move.Captures)
-                {
-                    gameMove.Captures.Add(new CaptureStep
-                    {
-                        CapturedRow = cap.Captured.Row,
-                        CapturedCol = cap.Captured.Column,
-                        LandingRow = cap.Landing.Row,
-                        LandingCol = cap.Landing.Column
-                    });
-                }
-
-                // שמירה של הפרספקטיבה (כדי ששני הצדדים יראו נכון)
-                gameMove = MoveHelper.ConvertMoveByPerspective(gameMove, isLocalPlayerWhite);
-
-                // שמירה של מזהה המהלך שנשלח, כדי לא לטפל בו פעמיים
-                lastSentMoveId = gameMove.Id;
-
-                // המרת מצב הלוח הנוכחי לשמירה במסד הנתונים
-                //var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, IsWhitePerspective);
-
-                // שליפה של המשחק הקיים
-                GameModel? existingModel = null;
-                try
-                {
-                    existingModel = await realtimeService.GetGameAsync(gameId);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error fetching game from Firebase: {ex.Message}");
-                    return;
-                }
-
-                if (existingModel == null)
-                    return;
-
-                // הוספת המהלך החדש
-                existingModel.Move = gameMove;
-
-                // עדכון מצב הלוח והתור
-                //existingModel.BoardState = boardState;
-                existingModel.IsWhiteTurn = !existingModel.IsWhiteTurn;
-
-                // שמירת הנתונים המעודכנים
-                try
-                {
-                    await gameService.UpdateGameAsync(existingModel);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error updating game in Firebase: {ex.Message}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in PlayerMovedAsync: {ex.Message}");
-            }
-        }
 
     }
 }

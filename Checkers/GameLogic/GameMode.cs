@@ -9,6 +9,7 @@ namespace Checkers.GameLogic
     public enum GameMode
     {
         AI,
-        Online
+        Online,
+        Spectator,
     }
 }
