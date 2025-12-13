@@ -34,6 +34,7 @@ namespace Checkers.Views
                     new Binding(nameof(GameViewModel.IsWinnerVisible),
                                 mode: BindingMode.OneWay,
                                 stringFormat: "{0:mm\\:ss}"));
+
             if (_initialized) return;
 
             if (Wrapper == null)

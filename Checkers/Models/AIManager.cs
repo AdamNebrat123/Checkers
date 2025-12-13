@@ -42,7 +42,7 @@ namespace Checkers.Models
 
                 foreach (var move in GetAllMoves(board, AIColor))
                 {
-                    var undo = AiGameStrategy.MakeMove(board, move);
+                    var undo = AiGameStrategy.MakeMove(board, move, AIColor);
                     int moveValue = Minimax(board, depth - 1, false, int.MinValue, int.MaxValue, AIColor);
                     AiGameStrategy.UndoMove(board, undo);
 
@@ -67,7 +67,7 @@ namespace Checkers.Models
                 int maxEval = int.MinValue;
                 foreach (var move in GetAllMoves(board, aiColor))
                 {
-                    var undo = AiGameStrategy.MakeMove(board, move);
+                    var undo = AiGameStrategy.MakeMove(board, move, AIColor);
                     int eval = Minimax(board, depth - 1, false, alpha, beta, aiColor);
                     AiGameStrategy.UndoMove(board, undo);
 
@@ -85,7 +85,7 @@ namespace Checkers.Models
 
                 foreach (var move in GetAllMoves(board, humanColor))
                 {
-                    var undo = AiGameStrategy.MakeMove(board, move);
+                    var undo = AiGameStrategy.MakeMove(board, move, AIColor);
                     int eval = Minimax(board, depth - 1, true, alpha, beta, aiColor);
                     AiGameStrategy.UndoMove(board, undo);
 

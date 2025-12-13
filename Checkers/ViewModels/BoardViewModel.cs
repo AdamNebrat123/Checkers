@@ -29,7 +29,7 @@ namespace Checkers.ViewModel
         // Event raised when a square is clicked
         public event Action<SquareViewModel>? SquareClicked;
 
-        public BoardViewModel(bool whitePerspective = true, bool buttonsInverted = true)
+        public BoardViewModel(bool whitePerspective = true)
         {
             this.whitePerspective = whitePerspective;
             Board = new Board(whitePerspective);
@@ -38,8 +38,8 @@ namespace Checkers.ViewModel
             {
                 for (int col = 0; col < Board.Size; col++)
                 {
-                    int displayRow = !buttonsInverted ? row : Board.Size - 1 - row;
-                    int displayCol = !buttonsInverted ? col : Board.Size - 1 - col;
+                    int displayRow =   row;
+                    int displayCol =   col;
                     // Pass a callback so SquareViewModel can notify when clicked
                     var squareVM = new SquareViewModel(Board.Squares[displayRow, displayCol], sv => SquareClicked?.Invoke(sv));
                     temp.Add(squareVM);

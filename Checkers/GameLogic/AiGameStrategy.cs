@@ -13,7 +13,7 @@ namespace Checkers.GameLogic
 {
     public class AiGameStrategy : IGameStrategy
     {
-        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+        private static readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private BoardViewModel boardVM;
         private readonly GameManagerViewModel gameManager;
         private readonly AIManager aiManager;
@@ -106,12 +106,10 @@ namespace Checkers.GameLogic
             // קידום למלכה
             if (piece is Man)
             {
-                if ((piece.Color == PieceColor.White && currentVM.Row == 0) ||
-                    (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
+                if (IsPromotingNeeded(piece.Color, currentVM.Row, aiManager.AIColor))
                 {
                     currentVM.Piece = new King(piece.Color);
                     _musicService.Play(SfxEnum.promote.ToString(), false);
-
                 }
             }
 
@@ -148,17 +146,24 @@ namespace Checkers.GameLogic
                 nextVM.RaisePieceImageChanged();
                 currentVM = nextVM;
 
+                if (move.SquaresPath.Count == 1)
+                {
+                    _musicService.Play(SfxEnum.move_self.ToString(), false);
+                }
+                else
+                {
+                    _musicService.Play(SfxEnum.capture.ToString(), false);
+                }
                 await Task.Delay(700);
             }
 
             // קידום למלכה
             if (piece is Man)
             {
-                if ((piece.Color == PieceColor.White && currentVM.Row == 0) ||
-                    (piece.Color == PieceColor.Black && currentVM.Row == Board.Size - 1))
+                if (IsPromotingNeeded(piece.Color, currentVM.Row, aiManager.AIColor))
                 {
-                    _musicService.Play(SfxEnum.promote.ToString(), false);
                     currentVM.Piece = new King(piece.Color);
+                    _musicService.Play(SfxEnum.promote.ToString(), false);
                 }
             }
         }
@@ -177,7 +182,7 @@ namespace Checkers.GameLogic
             }
         }
 
-        public static UndoInfo MakeMove(Board board, Move move)
+        public static UndoInfo MakeMove(Board board, Move move, PieceColor color)
         {
             var fromSquare = move.From;
             var toSquare = move.To;
@@ -199,8 +204,7 @@ namespace Checkers.GameLogic
             // קידום למלך אם צריך
             if (piece is Man)
             {
-                if ((piece.Color == PieceColor.White && toSquare.Row == 0) ||
-                    (piece.Color == PieceColor.Black && toSquare.Row == Board.Size - 1))
+                if (IsPromotingNeeded(piece.Color, toSquare.Row, color))
                 {
                     toSquare.Piece = new King(piece.Color);
                 }
@@ -220,6 +224,27 @@ namespace Checkers.GameLogic
             {
                 square.Piece = piece;
             }
+        }
+
+        public static bool IsPromotingNeeded(PieceColor pieceColor, int toRow, PieceColor aiColor)
+        {
+            if (aiColor == PieceColor.Black)
+            {
+                if ((pieceColor == PieceColor.White && toRow == 0) ||
+                    (pieceColor == PieceColor.Black && toRow == Board.Size - 1))
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if ((pieceColor == PieceColor.Black && toRow == 0) ||
+                    (pieceColor == PieceColor.White && toRow == Board.Size - 1))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
