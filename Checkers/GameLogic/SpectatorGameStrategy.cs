@@ -43,9 +43,9 @@ namespace Checkers.GameLogic
             this.boardVM = boardVM;
         }
 
-        public async Task InitializeAsync(BoardViewModel boardVM)
+        public async Task InitializeAsync(BoardViewModel VM)
         {
-            this.boardVM = boardVM;
+            this.boardVM = VM;
 
 
             // שליפה של המשחק הקיים
@@ -64,7 +64,22 @@ namespace Checkers.GameLogic
                 return;
 
             // צריך לאתחל את מצב הלוח כמו שצריך, שיהיה זהה למצב בו השחקנים נמצאים כרגע
-            BoardHelper.ConvertStateToBoard(existingModel.BoardState, boardVM.Board, isWhitePerspective);
+            // update the squares in the UI
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                BoardHelper.ConvertStateToBoard(
+                    existingModel.BoardState,
+                    boardVM.Board,
+                    isWhitePerspective);
+
+                foreach (var square in boardVM.Squares)
+                {
+                    square.UpdateProperty(nameof(square.Piece));
+                    square.UpdateProperty(nameof(square.PieceImage));
+                }
+                
+
+            });
 
             if (!_subscribed)
             {

@@ -90,5 +90,10 @@ namespace Checkers.ViewModel
             base.OnPropertyChanged(nameof(propertyName));
         }
 
+        public override string ToString()
+        {
+            return $"Row: {Row} Column:{Column} IsDark:{IsDark} PieceImage: {PieceImage}";
+        }
+
     }
 }

@@ -199,6 +199,7 @@ namespace Checkers.ViewModel
             {
                 await _strategy.InitializeAsync(BoardVM);
             }
+
         }
 
         public async Task HandleSquareSelectedAsync(SquareViewModel square)

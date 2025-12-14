@@ -30,21 +30,26 @@ public partial class SpectateLobby : ContentPage
         // מנוי לשינויים עתידיים
         _subscription = _realtimeService.SubscribeToAvailableGames(games =>
         {
+            var openGames = games
+                .Where(g => !string.IsNullOrEmpty(g.Guest))
+                .OrderByDescending(g => g.CreatedAt)
+                .ToList();
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                var openGames = games.Where(g => !(string.IsNullOrEmpty(g.Guest))).OrderByDescending(g => g.CreatedAt);
+                if (openGames.Count == 0 && AvailableGames.Count > 0)
+                    return;
 
-                bool same = games.Count == AvailableGames.Count &&
-                            !games.Except(AvailableGames).Any();
+                bool same =
+                    openGames.Count == AvailableGames.Count &&
+                    !openGames.Any(g => !AvailableGames.Any(a => a.GameId == g.GameId));
+
                 if (same)
                     return;
 
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    AvailableGames.Clear();
-                    foreach (var game in openGames)
-                        AvailableGames.Add(game);
-                });
+                AvailableGames.Clear();
+                foreach (var game in openGames)
+                    AvailableGames.Add(game);
             });
         });
 
@@ -82,7 +87,7 @@ public partial class SpectateLobby : ContentPage
 
             var wrapper = new ModeParametersWrapper
             {
-                Mode = GameMode.Online.ToString(),
+                Mode = GameMode.Spectator.ToString(),
                 Parameters = JsonSerializer.SerializeToElement(spectatorSettings)
             };
 

@@ -19,5 +19,7 @@ namespace Checkers.Model
             Column = col;
             IsDark = isDark;
         }
+
+        
     }
 }

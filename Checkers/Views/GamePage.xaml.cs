@@ -110,7 +110,6 @@ namespace Checkers.Views
 
             await _gameViewModel.InitializeAsync();
 
-
             // הגדרה ראשונית של ה-highlights (sync UI)
             if (!(settings is AiSettings))
             {
@@ -127,6 +126,14 @@ namespace Checkers.Views
 
             var musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
             musicService.Play(SfxEnum.game_start.ToString(), false);
+
+            Console.WriteLine("=================================================");
+            Console.WriteLine("=================================================");
+            Console.WriteLine("=================================================");
+            Console.WriteLine($"{string.Join("\n",_gameViewModel.BoardVM.Squares)}");
+            Console.WriteLine("=================================================");
+            Console.WriteLine("=================================================");
+            Console.WriteLine("=================================================");
         }
 
         private void UpdateHighlightsInitial()

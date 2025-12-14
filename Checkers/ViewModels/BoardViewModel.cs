@@ -72,6 +72,5 @@ namespace Checkers.ViewModel
             }
         }
 
-
     }
 }
