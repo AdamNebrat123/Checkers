@@ -39,7 +39,7 @@ public partial class CreateGame : ContentPage
                 Guest = "",
                 GuestColor = opponentColor,
                 IsWhiteTurn = true,
-                //BoardState = BoardHelper.InitialBoardState(),
+                BoardState = BoardHelper.InitialBoardState(),
                 Move = new GameMove(),
                 CreatedAt = DateTime.UtcNow,
                 TimerTimeInMinutes = GetSelectedTimerMinutes()

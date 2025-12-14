@@ -12,7 +12,7 @@ namespace Checkers.ViewModel
     public class BoardViewModel : ViewModelBase
     {
         public ObservableCollection<SquareViewModel> Squares { get; }
-        public readonly Board Board;
+        public Board Board;
         private readonly bool whitePerspective;
         private SquareViewModel? selectedSquare;
         public SquareViewModel? SelectedSquare

@@ -5,8 +5,10 @@ using Checkers.Services;
 using Checkers.Utils;
 using Checkers.ViewModel;
 using Checkers.ViewModels;
+using Microsoft.Maui.ApplicationModel.DataTransfer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +49,6 @@ namespace Checkers.GameLogic
         {
             this.boardVM = VM;
 
-
             // שליפה של המשחק הקיים
             GameModel? existingModel = null;
             try
@@ -65,19 +66,28 @@ namespace Checkers.GameLogic
 
             // צריך לאתחל את מצב הלוח כמו שצריך, שיהיה זהה למצב בו השחקנים נמצאים כרגע
             // update the squares in the UI
-            await MainThread.InvokeOnMainThreadAsync(() =>
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
-                BoardHelper.ConvertStateToBoard(
+                boardVM.Board = BoardHelper.ConvertStateToBoard(
                     existingModel.BoardState,
-                    boardVM.Board,
                     isWhitePerspective);
 
-                foreach (var square in boardVM.Squares)
+
+                for (int row = 0; row < Board.Size; row++)
                 {
-                    square.UpdateProperty(nameof(square.Piece));
-                    square.UpdateProperty(nameof(square.PieceImage));
+                    for (int col = 0; col < Board.Size; col++)
+                    {
+                        int index = row * Board.Size + col;
+                        var squareVM = boardVM.Squares[index];
+
+                        squareVM.Piece = boardVM.Board.Squares[row, col].Piece;
+                        // ה-Piece כבר עודכן דרך BoardHelper
+                        squareVM.UpdateProperty(nameof(SquareViewModel.Piece));
+                        squareVM.UpdateProperty(nameof(SquareViewModel.PieceImage));
+                    }
                 }
-                
+                // becuase the current state is one step behind
+                HandleOnUpdatedBoard(existingModel);
 
             });
 

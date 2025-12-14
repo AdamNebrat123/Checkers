@@ -11,7 +11,10 @@ namespace Checkers.Model
     {
         public const int Size = 8;
         public Square[,] Squares { get; }
-
+        public Board()
+        {
+            
+        }
         public Board(bool isWhitePerspective = true)
         {
             Squares = new Square[Size, Size];

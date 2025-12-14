@@ -67,8 +67,9 @@ namespace Checkers.Utils
             return state;
         }
 
-        public static void ConvertStateToBoard(int[][] state, Board board, bool isWhitePerspective)
+        public static Board ConvertStateToBoard(int[][] state, bool isWhitePerspective)
         {
+            var board = new Board(isWhitePerspective);
             bool invert = !isWhitePerspective;
 
             for (int row = 0; row < Board.Size; row++)
@@ -89,7 +90,10 @@ namespace Checkers.Utils
                     };
                 }
             }
+
+            return board;
         }
+
 
         public static int[][] InitialBoardState()
         {

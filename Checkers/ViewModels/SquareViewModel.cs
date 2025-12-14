@@ -27,12 +27,9 @@ namespace Checkers.ViewModel
             get => square.Piece;
             set
             {
-                if (square.Piece != value)
-                {
-                    square.Piece = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(PieceImage));
-                }
+                square.Piece = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(PieceImage));
             }
         }
 
