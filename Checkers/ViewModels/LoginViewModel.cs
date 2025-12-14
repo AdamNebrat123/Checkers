@@ -241,6 +241,10 @@ namespace Checkers.ViewModels
                         await SecureStorage.SetAsync("Password", Password);
 
                         Preferences.Set("UserName", user.UserName);
+                        Preferences.Set("Email", user.Email);
+                        Preferences.Set("FullName", user.FullName);
+                        Preferences.Set("MobileNo", user.MobileNo);
+                        Preferences.Set("BirthDate", user.BirthDate.ToString("dd MMM yyyy"));
 
 
                         // Navigate to authenticated page

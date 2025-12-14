@@ -40,7 +40,8 @@
                                FontAttributes="Bold"
                                TextColor="{StaticResource LightText}" />
 
-                        <Label Text="{Binding FullName}"
+                        <Label Text=""
+                               x:Name="FullName"
                                Grid.Column="1"
                                TextColor="{StaticResource LightText}" />
                     </Grid>
@@ -56,7 +57,8 @@
                                FontAttributes="Bold"
                                TextColor="{StaticResource LightText}" />
 
-                        <Label Text="{Binding UserName}"
+                        <Label Text=""
+                               x:Name="UserName"
                                Grid.Column="1"
                                TextColor="{StaticResource LightText}" />
                     </Grid>
@@ -72,7 +74,8 @@
                                FontAttributes="Bold"
                                TextColor="{StaticResource LightText}" />
 
-                        <Label Text="{Binding Email}"
+                        <Label Text=""
+                               x:Name="Email"
                                Grid.Column="1"
                                TextColor="{StaticResource LightText}" />
                     </Grid>
@@ -88,7 +91,8 @@
                                FontAttributes="Bold"
                                TextColor="{StaticResource LightText}" />
 
-                        <Label Text="{Binding MobileNo}"
+                        <Label Text=""
+                               x:Name="MobileNo"
                                Grid.Column="1"
                                TextColor="{StaticResource LightText}" />
                     </Grid>
@@ -120,7 +124,8 @@
                                FontAttributes="Bold"
                                TextColor="{StaticResource LightText}" />
 
-                        <Label Text="{Binding BirthDate, StringFormat='{0:dd MMM yyyy}'}"
+                        <Label Text=""
+                               x:Name="BirthDate"
                                Grid.Column="1"
                                TextColor="{StaticResource LightText}" />
                     </Grid>
