@@ -170,7 +170,7 @@ namespace Checkers.GameLogic
                         }
 
                         // עדכון מצב הלוח לפי ה-state מהפיירבייס
-                        //BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, IsWhitePerspective);
+                        //BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, isLocalPlayerWhite);
                         gameManager.SwitchTurn();
                     }
                     catch (Exception ex)
@@ -222,8 +222,7 @@ namespace Checkers.GameLogic
 
                 if (!gameManager.CanMove(piece))
                 {
-                    //_musicService.Play(SfxEnum.illegal.ToString(), false);
-                    _musicService.Play(SfxEnum.what.ToString(), false);
+                    _musicService.Play(SfxEnum.illegal.ToString(), false);
                     return;
                 }
 
@@ -285,7 +284,7 @@ namespace Checkers.GameLogic
                 lastSentMoveId = gameMove.Id;
 
                 // המרת מצב הלוח הנוכחי לשמירה במסד הנתונים
-                //var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, IsWhitePerspective);
+                var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
 
                 // שליפה של המשחק הקיים
                 GameModel? existingModel = null;
@@ -306,7 +305,7 @@ namespace Checkers.GameLogic
                 existingModel.Move = gameMove;
 
                 // עדכון מצב הלוח והתור
-                //existingModel.BoardState = boardState;
+                existingModel.BoardState = boardState;
                 existingModel.IsWhiteTurn = !existingModel.IsWhiteTurn;
 
                 // שמירת הנתונים המעודכנים

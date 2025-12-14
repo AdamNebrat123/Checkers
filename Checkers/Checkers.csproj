@@ -137,6 +137,9 @@
 	  <MauiXaml Update="Views\SettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\SpectateLobby.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\WaitingRoom.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

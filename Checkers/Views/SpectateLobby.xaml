@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Checkers.Views.SpectateLobby"
+             x:Name="Page"
+             BackgroundColor="#1E201E"
+             Title="SpectateLobby">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Header -->
+        <Label 
+            Text="Available Games"
+            FontSize="28"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            TextColor="#ECDFCC" />
+
+        <!-- List of Games -->
+        <CollectionView 
+            ItemsSource="{Binding AvailableGames}"
+            SelectionMode="None"
+            HeightRequest="500">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Frame 
+                        CornerRadius="12"
+                        Padding="15"
+                        Margin="0,5"
+                        HasShadow="False"
+                        BackgroundColor="#4F4D46">
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label 
+                                Text="{Binding GameId}"
+                                FontSize="20"
+                                FontAttributes="Bold"
+/>
+
+                            <Label 
+                                Text="{Binding Host, StringFormat='Created by: {0}'}"
+                                FontSize="14"
+/>
+
+                            <Button 
+                                Text="Spectate White"
+                                Style="{StaticResource SecondaryButton}"
+                                HorizontalOptions="End"
+                                TextColor="#4F4D46"
+                                BackgroundColor="#C9C5B1"
+                                Command="{Binding Source={x:Reference Page}, Path=SpectateWhiteGameCommand}"
+                                CommandParameter="{Binding .}" />
+
+                            <Button 
+                                Text="Spectate Black"
+                                Style="{StaticResource SecondaryButton}"
+                                HorizontalOptions="End"
+                                TextColor="#4F4D46"
+                                BackgroundColor="#C9C5B1"
+                                Command="{Binding Source={x:Reference Page}, Path=SpectateBlackGameCommand}"
+                                CommandParameter="{Binding .}" />
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

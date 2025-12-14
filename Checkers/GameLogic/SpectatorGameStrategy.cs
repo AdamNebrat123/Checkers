@@ -47,6 +47,25 @@ namespace Checkers.GameLogic
         {
             this.boardVM = boardVM;
 
+
+            // שליפה של המשחק הקיים
+            GameModel? existingModel = null;
+            try
+            {
+                existingModel = await realtimeService.GetGameAsync(gameId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching game from Firebase: {ex.Message}");
+                return;
+            }
+
+            if (existingModel == null)
+                return;
+
+            // צריך לאתחל את מצב הלוח כמו שצריך, שיהיה זהה למצב בו השחקנים נמצאים כרגע
+            BoardHelper.ConvertStateToBoard(existingModel.BoardState, boardVM.Board, isWhitePerspective);
+
             if (!_subscribed)
             {
                 try
@@ -59,6 +78,9 @@ namespace Checkers.GameLogic
                     Console.WriteLine($"Error subscribing to game updates: {ex.Message}");
                 }
             }
+
+           
+
         }
 
         private void SubscribeToGameUpdates()
