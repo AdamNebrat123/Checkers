@@ -1,6 +1,7 @@
 ﻿using Checkers.Data;
 using Checkers.Model;
 using Checkers.Models;
+using Checkers.MoveHistory;
 using Checkers.Services;
 using Checkers.Utils;
 using Checkers.ViewModel;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Checkers.GameLogic
 {
-    public class SpectatorGameStrategy : IGameStrategy
+    public class SpectatorGameStrategy : IGameStrategy, IBoardSnapshotHistory
     {
         private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private readonly GameEventDispatcher gameEventDispatcher;
@@ -26,6 +27,9 @@ namespace Checkers.GameLogic
 
         private bool _subscribed = false;
         private bool isWhitePerspective;
+
+        public BoardSnapshotHistory BoardSnapshotHistory { get; private set; }
+
 
         public SpectatorGameStrategy(GameManagerViewModel gameManager, string gameId, bool isLocalPlayerWhite)
         {
@@ -48,6 +52,8 @@ namespace Checkers.GameLogic
         public async Task InitializeAsync(BoardViewModel VM)
         {
             this.boardVM = VM;
+
+            BoardSnapshotHistory = new BoardSnapshotHistory(boardVM, this.isWhitePerspective);
 
             // שליפה של המשחק הקיים
             GameModel? existingModel = null;

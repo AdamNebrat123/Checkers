@@ -9,6 +9,8 @@ using Checkers.Models;
 using Checkers.Views;
 using Checkers.Services;
 using System.Reflection;
+using Checkers.MoveHistory;
+using System.Windows.Input;
 
 namespace Checkers.ViewModel
 {
@@ -19,20 +21,33 @@ namespace Checkers.ViewModel
         private IGameStrategy _strategy;
 
         private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+        private IBoardSnapshotHistory? historyProvider;
+        public bool HasBoardSnapshotHistory => historyProvider != null;
 
+
+        // --- event dispatcher subscription ---
+        private readonly GameEventDispatcher _dispatcher = GameEventDispatcher.GetInstance();
+        private Func<Checkers.Models.GameModel, Task>? _dispatcherCallback;
+        private string? _subscribedGameId;
 
         public GameViewModel()
         {
-            
+            // Temporary command, beacuse it will throw null exception if i dont give them an instance
+            GoBackCommand = new Command(() => { }, () => false);
+            GoForwardCommand = new Command(() => { }, () => false);
         }
         public GameViewModel(GameManagerViewModel gameManager)
         {
             GameManager = gameManager;
 
             gameManager.TurnSwitched += UpdateCapturedCounts;
-            
-        }
 
+            // Temporary command, beacuse it will throw null exception if i dont give them an instance
+            GoBackCommand = new Command(() => { }, () => false);
+            GoForwardCommand = new Command(() => { }, () => false);
+
+        }
+        #region Field And Properties
         private string _playerName = "";
         public string PlayerName
         {
@@ -151,14 +166,10 @@ namespace Checkers.ViewModel
         public string PlayerPieceImage => LocalPlayerIsWhite ? "black_piece.png" : "white_piece.png";
         public string OpponentPieceImage => LocalPlayerIsWhite ? "white_piece.png" : "black_piece.png";
 
-        // --- event dispatcher subscription ---
-        private readonly GameEventDispatcher _dispatcher = GameEventDispatcher.GetInstance();
-        private Func<Checkers.Models.GameModel, Task>? _dispatcherCallback;
-        private string? _subscribedGameId;
+        #endregion
 
-        // Inject only the GameManager via DI
-
-
+        public ICommand GoBackCommand { get; private set; }
+        public ICommand GoForwardCommand { get; private set; }
         public void UnubFromGame()
         {
             if (_strategy is OnlineGameStrategy online)
@@ -191,6 +202,21 @@ namespace Checkers.ViewModel
 
             if (_strategy is AiGameStrategy)
                 GameManager.TurnSwitched += CheckWinnerAiMode;
+
+            historyProvider = strategy as IBoardSnapshotHistory;
+
+            if (HasBoardSnapshotHistory)
+            {
+                GoBackCommand = new Command(
+                    execute: () => historyProvider!.BoardSnapshotHistory.GoBack(),
+                    canExecute: () => historyProvider!.BoardSnapshotHistory.CanGoBack
+                );
+
+                GoForwardCommand = new Command(
+                    execute: () => historyProvider!.BoardSnapshotHistory.GoForward(),
+                    canExecute: () => historyProvider!.BoardSnapshotHistory.CanGoForward
+                );
+            }
         }
 
         public async Task InitializeAsync()

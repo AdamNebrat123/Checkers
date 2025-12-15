@@ -12,10 +12,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui.Media;
 using Checkers.Services;
+using Checkers.MoveHistory;
 
 namespace Checkers.GameLogic
 {
-    public class OnlineGameStrategy : IGameStrategy
+    public class OnlineGameStrategy : IGameStrategy, IBoardSnapshotHistory
     {
         private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private readonly GameEventDispatcher gameEventDispatcher;
@@ -29,6 +30,8 @@ namespace Checkers.GameLogic
 
         private string? lastSentMoveId = "";
 
+        public BoardSnapshotHistory BoardSnapshotHistory { get; private set; }
+
         public OnlineGameStrategy(GameManagerViewModel gameManager, string gameId, bool isLocalPlayerWhite)
         {
             this.gameManager = gameManager;
@@ -36,6 +39,7 @@ namespace Checkers.GameLogic
             this.isLocalPlayerWhite = isLocalPlayerWhite;
 
             gameEventDispatcher = GameEventDispatcher.GetInstance();
+
         }
 
         public void SetBoardViewModel(BoardViewModel boardVM)
@@ -46,6 +50,8 @@ namespace Checkers.GameLogic
         public async Task InitializeAsync(BoardViewModel boardVM)
         {
             this.boardVM = boardVM;
+
+            BoardSnapshotHistory = new BoardSnapshotHistory(boardVM, this.isLocalPlayerWhite);
 
             if (!_subscribed)
             {
@@ -59,6 +65,9 @@ namespace Checkers.GameLogic
                     Console.WriteLine($"Error subscribing to game updates: {ex.Message}");
                 }
             }
+
+            
+
         }
 
         private void SubscribeToGameUpdates()
@@ -87,6 +96,10 @@ namespace Checkers.GameLogic
         {
             try
             {
+                // Reset Board To Most Updated Snapshot
+                BoardSnapshotHistory.ResetBoardToMostUpdatedSnapshot();
+
+
                 if (gameModel == null) return;
                 GameMove? originalMove = gameModel.Move;
                 GameMove? lastMove = gameModel.Move;
@@ -170,7 +183,9 @@ namespace Checkers.GameLogic
                         }
 
                         // עדכון מצב הלוח לפי ה-state מהפיירבייס
-                        //BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, isLocalPlayerWhite);
+                        int[][] boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
+                        BoardSnapshotHistory.AddState(boardState);
+
                         gameManager.SwitchTurn();
                     }
                     catch (Exception ex)
