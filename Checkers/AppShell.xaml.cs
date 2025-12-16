@@ -15,6 +15,8 @@ namespace Checkers
             Routing.RegisterRoute(nameof(GamePage), typeof(GamePage));
             Routing.RegisterRoute(nameof(AIGameSetupPage), typeof(AIGameSetupPage));
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
 
             TryAutoLogin();
         }
