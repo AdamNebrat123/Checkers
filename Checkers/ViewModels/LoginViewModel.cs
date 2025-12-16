@@ -236,15 +236,20 @@ namespace Checkers.ViewModels
                     User user = await usrService.LoginUserAsync(Email, Password);
                     if (user != null)
                     {
+
                         // Store username securely for future sessions
                         await SecureStorage.SetAsync("Email", user.Email);
                         await SecureStorage.SetAsync("Password", Password);
 
+                        var authUser = await usrService.LoginAsync(user.Email, Password);
+                        var userId = authUser.User.Uid;
+
+                        Preferences.Set("UserId", userId);
                         Preferences.Set("UserName", user.UserName);
                         Preferences.Set("Email", user.Email);
                         Preferences.Set("FullName", user.FullName);
                         Preferences.Set("MobileNo", user.MobileNo);
-                        Preferences.Set("BirthDate", user.BirthDate.ToString("dd MMM yyyy"));
+                        Preferences.Set("BirthDate", user.BirthDate.ToString("dd MMM yyyy")); 
 
 
                         // Navigate to authenticated page

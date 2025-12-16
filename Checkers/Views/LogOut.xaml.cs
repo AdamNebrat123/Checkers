@@ -29,7 +29,14 @@ public partial class LogOut : ContentPage
         {
             SecureStorage.Remove("Email");
             SecureStorage.Remove("Password");
+
+            
+            Preferences.Remove("UserId");
             Preferences.Remove("UserName");
+            Preferences.Remove("Email");
+            Preferences.Remove("FullName");
+            Preferences.Remove("MobileNo");
+            Preferences.Remove("BirthDate");
 
             await Task.Delay(50);
             // îòáø ìîñê ääúçáøåú
