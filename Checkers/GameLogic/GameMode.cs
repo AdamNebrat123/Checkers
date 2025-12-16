@@ -11,5 +11,6 @@ namespace Checkers.GameLogic
         AI,
         Online,
         Spectator,
+        Replay,
     }
 }

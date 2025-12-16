@@ -14,6 +14,7 @@
             <ShellContent Title="Home" ContentTemplate="{DataTemplate local:HomePage}" Route="HomePage"/>
             <ShellContent Title="Lobby" ContentTemplate="{DataTemplate local:CheckersLobby}" Route="CheckersLobby"/>
             <ShellContent Title="Spectate" ContentTemplate="{DataTemplate local:SpectateLobby}" Route="SpectateLobby"/>
+            <ShellContent Title="Replays" ContentTemplate="{DataTemplate local:ReplaysPage}" Route="ReplaysPage"/>
         </Tab>
     </FlyoutItem>
 

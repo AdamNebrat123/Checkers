@@ -48,6 +48,7 @@ namespace Checkers.Views
                 GameMode.AI => JsonSerializer.Deserialize<AiSettings>(Wrapper.Parameters.GetRawText())!,
                 GameMode.Online => JsonSerializer.Deserialize<OnlineSettings>(Wrapper.Parameters.GetRawText())!,
                 GameMode.Spectator => JsonSerializer.Deserialize<SpectatorSettings>(Wrapper.Parameters.GetRawText())!,
+                GameMode.Replay => JsonSerializer.Deserialize<ReplaySettings>(Wrapper.Parameters.GetRawText())!,
 
                 _ => throw new NotSupportedException($"Unsupported mode: {mode}")
             };
@@ -57,6 +58,7 @@ namespace Checkers.Views
                 AiSettings ai => ai.IsWhite,
                 OnlineSettings online => online.IsLocalPlayerWhite,
                 SpectatorSettings spectator => spectator.IsWhitePerspective,
+                ReplaySettings replay => replay.IsWhitePerspective,
                 _ => true
             };
 
@@ -87,7 +89,12 @@ namespace Checkers.Views
             {
                 gameId = spectatorSettings.GameId;
             }
-            
+            if (settings is ReplaySettings replaySettings)
+            {
+                gameId = replaySettings.GameId;
+            }
+
+
             if (!string.IsNullOrEmpty(gameId))
             {
                 GameModel? existingModel = null;
@@ -111,9 +118,9 @@ namespace Checkers.Views
             await _gameViewModel.InitializeAsync();
 
             // הגדרה ראשונית של ה-highlights (sync UI)
-            if (!(settings is AiSettings))
+            if (!(settings is AiSettings) && !(settings is ReplaySettings))
             {
-                UpdateHighlightsInitial(); // אם אני נגד הרובוט, לא תהיה אינדיקציה.
+                UpdateHighlightsInitial(); 
             }
 
             // הרשמה לשינויים ב־ViewModel כדי לאנימט
@@ -133,7 +140,7 @@ namespace Checkers.Views
         {
 
             // בהתאם ל־IsLocalTurn, נשנה את ה־Opacity הראשוני
-            var localPlayerIsWhite = _gameViewModel.LocalPlayerIsWhite;
+            var localPlayerIsWhite = _gameViewModel.IsLocalPlayerIsWhite;
             // local means bottom highlight active
             // אנימציית מצב מתחלף קצרה
             MainThread.BeginInvokeOnMainThread(async () =>
@@ -186,7 +193,7 @@ namespace Checkers.Views
 
         private void SetupTimersUI()
         {
-            bool iAmWhite = _gameViewModel.LocalPlayerIsWhite;
+            bool iAmWhite = _gameViewModel.IsLocalPlayerIsWhite;
 
 
             PlayerTimerLabel.IsVisible = true;

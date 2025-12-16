@@ -97,15 +97,15 @@ namespace Checkers.ViewModel
         public bool IsOpponentTurn => !_isLocalTurn;
 
         // פרספקטיבה מקומית (מגדירים כשאתה יודע אם המשתמש הוא לבן)
-        private bool _localPlayerIsWhite;
-        public bool LocalPlayerIsWhite
+        private bool _isLocalPlayerIsWhite;
+        public bool IsLocalPlayerIsWhite
         {
-            get => _localPlayerIsWhite;
+            get => _isLocalPlayerIsWhite;
             private set
             {
-                if (_localPlayerIsWhite != value)
+                if (_isLocalPlayerIsWhite != value)
                 {
-                    _localPlayerIsWhite = value;
+                    _isLocalPlayerIsWhite = value;
                     OnPropertyChanged();
                 }
             }
@@ -165,8 +165,8 @@ namespace Checkers.ViewModel
             }
         }
 
-        public string PlayerPieceImage => LocalPlayerIsWhite ? "black_piece.png" : "white_piece.png";
-        public string OpponentPieceImage => LocalPlayerIsWhite ? "white_piece.png" : "black_piece.png";
+        public string PlayerPieceImage => IsLocalPlayerIsWhite ? "black_piece.png" : "white_piece.png";
+        public string OpponentPieceImage => IsLocalPlayerIsWhite ? "white_piece.png" : "black_piece.png";
 
         #endregion
 
@@ -193,7 +193,7 @@ namespace Checkers.ViewModel
             var boardVM = new BoardViewModel(whitePerspective);
             SetBoardViewModel(boardVM);
             // שמירה של הפרספקטיבה המקומית
-            LocalPlayerIsWhite = whitePerspective;
+            IsLocalPlayerIsWhite = whitePerspective;
         }
 
         public void SetStrategy(IGameStrategy strategy)
@@ -254,7 +254,7 @@ namespace Checkers.ViewModel
 
         /// <summary>
         /// הירשם לעדכונים של משחק ספציפי כדי לעדכן את מצב התור.
-        /// call with the gameId and the local player's color (LocalPlayerIsWhite already set by InitializeBoard)
+        /// call with the gameId and the local player's color (IsLocalPlayerIsWhite already set by InitializeBoard)
         /// </summary>
         public void SubscribeToTurnUpdates(string gameId)
         {
@@ -271,7 +271,7 @@ namespace Checkers.ViewModel
                     bool isWhiteTurn = gameModel.IsWhiteTurn;
 
                     // אם הפרספקטיבה המקומית היא לבן => תורי אם isWhiteTurn == true
-                    bool isLocalTurnNow = (isWhiteTurn == LocalPlayerIsWhite);
+                    bool isLocalTurnNow = (isWhiteTurn == IsLocalPlayerIsWhite);
 
                     // עדכון ב־UI thread
                     MainThread.BeginInvokeOnMainThread(() =>
@@ -309,6 +309,24 @@ namespace Checkers.ViewModel
 
             if (string.IsNullOrEmpty(winner))
             return;
+
+            var replay = new GameReplay
+            {
+                GameId = game.GameId,
+                IsWhitePerspective = IsLocalPlayerIsWhite,
+                Host = game.Host,
+                HostColor = game.HostColor,
+                Guest = game.Guest,
+                GuestColor = game.GuestColor,
+                CreatedAt = DateTime.UtcNow,
+                BoardStates = historyProvider!.BoardSnapshotHistory!.GetAllStates()
+            };
+
+            string userId = Preferences.Get("UserId", "");
+            if (!string.IsNullOrEmpty(userId))
+            {
+                await ReplayService.GetInstance().SaveReplayAsync(userId, replay);
+            }
 
             await GameService.GetInstance().DeleteGameAsync(game.GameId);
             ShowWinner(winner);
@@ -373,7 +391,7 @@ namespace Checkers.ViewModel
             int blackEaten = 12 - totalBlacks;
 
             // אם אני לבן, למטה זה כמה שחורים נאכלו
-            if (LocalPlayerIsWhite)
+            if (IsLocalPlayerIsWhite)
             {
                 PlayerCapturedCount = blackEaten;
                 OpponentCapturedCount = whiteEaten;
@@ -449,7 +467,7 @@ namespace Checkers.ViewModel
             string winner = "";
             if (isWhite)
             {
-                if (!LocalPlayerIsWhite)
+                if (!IsLocalPlayerIsWhite)
                     winner = PlayerName;
                 else
                     winner = OpponentName;
@@ -457,10 +475,42 @@ namespace Checkers.ViewModel
             }
             else
             {
-                if (LocalPlayerIsWhite)
+                if (IsLocalPlayerIsWhite)
                     winner = PlayerName;
                 else
                     winner = OpponentName;
+            }
+
+            GameModel? game = null;
+            try
+            {
+                game = await GameRealtimeService.GetInstance().GetGameAsync(_subscribedGameId!);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching game from Firebase: {ex.Message}");
+                return;
+            }
+
+            if (game == null)
+                return;
+
+            var replay = new GameReplay
+            {
+                GameId = game.GameId,
+                IsWhitePerspective = IsLocalPlayerIsWhite,
+                Host = game.Host,
+                HostColor = game.HostColor,
+                Guest = game.Guest,
+                GuestColor = game.GuestColor,
+                CreatedAt = DateTime.UtcNow,
+                BoardStates = historyProvider!.BoardSnapshotHistory!.GetAllStates()
+            };
+
+            string userId = Preferences.Get("UserId", "");
+            if (!string.IsNullOrEmpty(userId))
+            {
+                await ReplayService.GetInstance().SaveReplayAsync(userId, replay);
             }
 
             await GameService.GetInstance().DeleteGameAsync(_subscribedGameId!);

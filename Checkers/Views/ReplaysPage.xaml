@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Checkers.Views.ReplaysPage"
+             x:Name="Page"
+             BackgroundColor="#1E201E"
+             Title="Replays">
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Header -->
+        <Label 
+            Text="Game Replays"
+            FontSize="28"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            TextColor="#ECDFCC" />
+
+        <!-- Replays list -->
+        <CollectionView 
+            ItemsSource="{Binding Replays}"
+            SelectionMode="None"
+            HeightRequest="500">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame 
+                        CornerRadius="12"
+                        Padding="15"
+                        Margin="0,5"
+                        HasShadow="False"
+                        BackgroundColor="#4F4D46">
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label 
+                                Text="{Binding GameId}"
+                                FontSize="18"
+                                FontAttributes="Bold" />
+
+                            <Label 
+                                Text="{Binding Host, StringFormat='Host: {0}'}"
+                                FontSize="14" />
+
+                            <Label 
+                                Text="{Binding Guest, StringFormat='Guest: {0}'}"
+                                FontSize="14" />
+
+                            <Label 
+                                Text="{Binding CreatedAt, StringFormat='Played at: {0:dd/MM/yyyy HH:mm}'}"
+                                FontSize="12" />
+
+                            <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+
+                                <Button 
+                                    Text="Replay"
+                                    BackgroundColor="#C9C5B1"
+                                    TextColor="#4F4D46"
+                                    Command="{Binding Source={x:Reference Page}, Path=ReplayCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                                <Button 
+                                    Text="Delete"
+                                    BackgroundColor="#8B0000"
+                                    TextColor="White"
+                                    Command="{Binding Source={x:Reference Page}, Path=DeleteReplayCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- Clear history -->
+        <Button 
+            Text="CLEAR HISTORY"
+            BackgroundColor="#8B0000"
+            TextColor="White"
+            HorizontalOptions="Fill"
+            Command="{Binding ClearHistoryCommand}" />
+
+    </VerticalStackLayout>
+</ContentPage>

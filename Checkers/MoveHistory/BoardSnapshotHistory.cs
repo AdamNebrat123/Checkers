@@ -97,6 +97,19 @@ namespace Checkers.MoveHistory
             CurrentIndex = states.Count - 1;
             ApplyCurrentState();
         }
+        public void ResetBoardToFirstSnapshot()
+        {
+            if (!states.Any())
+                return;
+
+            // Reset Board To The fisrt Snapshot
+            CurrentIndex = 0;
+            ApplyCurrentState();
+        }
+        public List<int[][]> GetAllStates()
+        {
+            return states.Select(state => Clone(state)).ToList();
+        }
     }
 
 }
