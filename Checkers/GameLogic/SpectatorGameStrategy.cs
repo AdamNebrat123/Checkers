@@ -38,6 +38,8 @@ namespace Checkers.GameLogic
             this.isWhitePerspective = isLocalPlayerWhite;
 
             gameEventDispatcher = GameEventDispatcher.GetInstance();
+
+
         }
         public Task HandleSquareSelectedAsync(BoardViewModel boardVM, SquareViewModel squareVM)
         {
@@ -92,8 +94,11 @@ namespace Checkers.GameLogic
                         squareVM.UpdateProperty(nameof(SquareViewModel.PieceImage));
                     }
                 }
+                await AddInitialBoardSnapshot();
+
                 // becuase the current state is one step behind
-                HandleOnUpdatedBoard(existingModel);
+                await HandleOnUpdatedBoard(existingModel);
+
 
             });
 
@@ -140,6 +145,10 @@ namespace Checkers.GameLogic
         {
             try
             {
+                // Reset Board To Most Updated Snapshot
+                BoardSnapshotHistory.ResetBoardToMostUpdatedSnapshot();
+
+
                 if (gameModel == null) return;
                 GameMove? originalMove = gameModel.Move;
                 GameMove? lastMove = gameModel.Move;
@@ -159,6 +168,9 @@ namespace Checkers.GameLogic
                         // איפוס סימנים
                         foreach (var sq in boardVM.Squares)
                             sq.HasMoveMarker = false;
+
+                        gameManager.SwitchTurn();
+
 
                         // ריקון ריבוע המקור
                         fromSquare.Piece = null;
@@ -223,8 +235,9 @@ namespace Checkers.GameLogic
                         }
 
                         // עדכון מצב הלוח לפי ה-state מהפיירבייס
-                        //BoardHelper.ConvertStateToBoard(gameModel.BoardState, boardVM.Board, IsWhitePerspective);
-                        gameManager.SwitchTurn();
+                        UpdateBoard();
+                        int[][] boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isWhitePerspective);
+                        BoardSnapshotHistory.AddState(boardState);
                     }
                     catch (Exception ex)
                     {
@@ -238,6 +251,25 @@ namespace Checkers.GameLogic
             }
         }
 
+        private async Task AddInitialBoardSnapshot()
+        {
+            var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isWhitePerspective);
+            BoardSnapshotHistory.AddState(boardState);
+
+        }
+        private void UpdateBoard()
+        {
+            for (int row = 0; row < Board.Size; row++)
+            {
+                for (int col = 0; col < Board.Size; col++)
+                {
+                    int index = row * Board.Size + col;
+                    var squareVM = boardVM.Squares[index];
+
+                    boardVM.Board.Squares[row, col].Piece = squareVM.Piece;
+                }
+            }
+        }
 
     }
 }

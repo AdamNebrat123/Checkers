@@ -40,6 +40,8 @@ namespace Checkers.GameLogic
 
             gameEventDispatcher = GameEventDispatcher.GetInstance();
 
+
+
         }
 
         public void SetBoardViewModel(BoardViewModel boardVM)
@@ -52,6 +54,7 @@ namespace Checkers.GameLogic
             this.boardVM = boardVM;
 
             BoardSnapshotHistory = new BoardSnapshotHistory(boardVM, this.isLocalPlayerWhite);
+            AddInitialBoardSnapshot();
 
             if (!_subscribed)
             {
@@ -120,6 +123,10 @@ namespace Checkers.GameLogic
                         foreach (var sq in boardVM.Squares)
                             sq.HasMoveMarker = false;
 
+
+                        gameManager.SwitchTurn();
+
+
                         // ריקון ריבוע המקור
                         fromSquare.Piece = null;
                         fromSquare.UpdateProperty(nameof(fromSquare.Piece));
@@ -182,11 +189,12 @@ namespace Checkers.GameLogic
                             }
                         }
 
+
                         // עדכון מצב הלוח לפי ה-state מהפיירבייס
+                        UpdateBoard();
                         int[][] boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
                         BoardSnapshotHistory.AddState(boardState);
 
-                        gameManager.SwitchTurn();
                     }
                     catch (Exception ex)
                     {
@@ -339,5 +347,26 @@ namespace Checkers.GameLogic
             }
         }
 
+        private async Task AddInitialBoardSnapshot()
+        {
+
+            var boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
+            BoardSnapshotHistory.AddState(boardState);
+
+        }
+
+        private void UpdateBoard()
+        {
+            for (int row = 0; row < Board.Size; row++)
+            {
+                for (int col = 0; col < Board.Size; col++)
+                {
+                    int index = row * Board.Size + col;
+                    var squareVM = boardVM.Squares[index];
+
+                    boardVM.Board.Squares[row, col].Piece = squareVM.Piece;
+                }
+            }
+        }
     }
 }

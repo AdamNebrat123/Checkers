@@ -72,5 +72,19 @@ namespace Checkers.ViewModel
             }
         }
 
+        public override string ToString()
+        {
+            string s = string.Empty;
+            for (int i = 0; i < Board.Size; i++)
+            {
+                for (int j = 0; j < Board.Size; j++)
+                {
+                    s += (Board.Squares[i,j].Piece == null) + " ";
+                }
+                s += "\n";
+            }
+            return s;
+        }
+
     }
 }

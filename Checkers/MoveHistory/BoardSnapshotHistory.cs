@@ -1,4 +1,6 @@
 ﻿using Checkers.Model;
+using Checkers.Models;
+using Checkers.Services;
 using Checkers.Utils;
 using Checkers.ViewModel;
 using System;
@@ -11,6 +13,7 @@ namespace Checkers.MoveHistory
 {
     public class BoardSnapshotHistory
     {
+        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private readonly BoardViewModel boardVM;
         private readonly bool isWhitePerspective;
 
@@ -34,7 +37,6 @@ namespace Checkers.MoveHistory
             this.boardVM = boardVM;
             this.isWhitePerspective = isWhitePerspective;
 
-            this.states.Add(BoardHelper.InitialBoardState());
         }
 
         public void AddState(int[][] boardState)
@@ -48,6 +50,7 @@ namespace Checkers.MoveHistory
             if (!CanGoBack) return;
             CurrentIndex--;
             ApplyCurrentState();
+            _musicService.Play(SfxEnum.move_self.ToString(), false);
         }
 
         public void GoForward()
@@ -55,6 +58,7 @@ namespace Checkers.MoveHistory
             if (!CanGoForward) return;
             CurrentIndex++;
             ApplyCurrentState();
+            _musicService.Play(SfxEnum.move_self.ToString(), false);
         }
 
         private void ApplyCurrentState()

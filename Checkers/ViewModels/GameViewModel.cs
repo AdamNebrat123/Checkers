@@ -21,7 +21,7 @@ namespace Checkers.ViewModel
         private IGameStrategy _strategy;
 
         private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
-        private IBoardSnapshotHistory? historyProvider;
+        private IBoardSnapshotHistory? historyProvider = null;
         public bool HasBoardSnapshotHistory => historyProvider != null;
 
 
@@ -32,9 +32,7 @@ namespace Checkers.ViewModel
 
         public GameViewModel()
         {
-            // Temporary command, beacuse it will throw null exception if i dont give them an instance
-            GoBackCommand = new Command(() => { }, () => false);
-            GoForwardCommand = new Command(() => { }, () => false);
+            
         }
         public GameViewModel(GameManagerViewModel gameManager)
         {
@@ -42,9 +40,13 @@ namespace Checkers.ViewModel
 
             gameManager.TurnSwitched += UpdateCapturedCounts;
 
-            // Temporary command, beacuse it will throw null exception if i dont give them an instance
-            GoBackCommand = new Command(() => { }, () => false);
-            GoForwardCommand = new Command(() => { }, () => false);
+            GoBackCommand = new Command(
+                    execute: GoBack
+                );
+
+            GoForwardCommand = new Command(
+                execute: GoForward
+            );
 
         }
         #region Field And Properties
@@ -204,18 +206,32 @@ namespace Checkers.ViewModel
                 GameManager.TurnSwitched += CheckWinnerAiMode;
 
             historyProvider = strategy as IBoardSnapshotHistory;
-
-            if (HasBoardSnapshotHistory)
+        }
+        private void GoBack()
+        {
+            try
             {
-                GoBackCommand = new Command(
-                    execute: () => historyProvider!.BoardSnapshotHistory.GoBack(),
-                    canExecute: () => historyProvider!.BoardSnapshotHistory.CanGoBack
-                );
-
-                GoForwardCommand = new Command(
-                    execute: () => historyProvider!.BoardSnapshotHistory.GoForward(),
-                    canExecute: () => historyProvider!.BoardSnapshotHistory.CanGoForward
-                );
+                if (HasBoardSnapshotHistory)
+                {
+                    historyProvider!.BoardSnapshotHistory.GoBack();
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        private void GoForward()
+        {
+            try
+            {
+                if (HasBoardSnapshotHistory)
+                {
+                    historyProvider!.BoardSnapshotHistory.GoForward();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

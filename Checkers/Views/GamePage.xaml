@@ -188,16 +188,16 @@
                 IsVisible="{Binding HasBoardSnapshotHistory}">
 
                 <Button
-                    Text="⇨"
+                    Text="back"
                     FontSize="24"
                     TextColor="{StaticResource LightText}"
-                    />
+                    Command="{Binding GoBackCommand}"/>
 
                 <Button
-                    Text="⇦"
+                    Text="forward"
                     FontSize="24"
                     TextColor="{StaticResource LightText}"
-                    />
+                    Command="{Binding GoForwardCommand}"/>
 
 
             </StackLayout>
