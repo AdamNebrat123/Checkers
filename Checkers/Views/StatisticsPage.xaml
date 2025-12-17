@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Checkers.Views.StatisticsPage"
+             Title="StatisticsPage">
+
+    <VerticalStackLayout Padding="24" Spacing="20">
+
+        <Label
+            Text="Your Statistics"
+            FontSize="30"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            TextColor="#ECDFCC"/>
+
+        <!-- Games Played -->
+        <Frame BackgroundColor="#4F4D46"
+               CornerRadius="16"
+               Padding="20">
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Games Played"
+                       FontSize="18"
+                       TextColor="#ECDFCC"/>
+                <Label Text="{Binding TotalGames}"
+                       FontSize="36"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- White / Black stats -->
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+
+            <!-- White -->
+            <Frame Grid.Column="0"
+                   BackgroundColor="#ECECEC"
+                   CornerRadius="16"
+                   Padding="16">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="White"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#222"/>
+                    <Label Text="{Binding WhiteGames}"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="#222"/>
+                    <Label Text="{Binding WhitePercentage}"
+                           FontSize="14"
+                           TextColor="#444"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Black -->
+            <Frame Grid.Column="1"
+                   BackgroundColor="#2B2B2B"
+                   CornerRadius="16"
+                   Padding="16">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Black"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#ECDFCC"/>
+                    <Label Text="{Binding BlackGames}"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="White"/>
+                    <Label Text="{Binding BlackPercentage}"
+                           FontSize="14"
+                           TextColor="#CCC"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </Grid>
+
+    </VerticalStackLayout>
+
+</ContentPage>

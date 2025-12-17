@@ -13,10 +13,11 @@ using System.Threading.Tasks;
 using Microsoft.Maui.Media;
 using Checkers.Services;
 using Checkers.MoveHistory;
+using System.ComponentModel;
 
 namespace Checkers.GameLogic
 {
-    public class OnlineGameStrategy : IGameStrategy, IBoardSnapshotHistory
+    public class OnlineGameStrategy : IGameStrategy, IBoardSnapshotHistory, IGameNames
     {
         private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private readonly GameEventDispatcher gameEventDispatcher;
@@ -367,6 +368,48 @@ namespace Checkers.GameLogic
                     boardVM.Board.Squares[row, col].Piece = squareVM.Piece;
                 }
             }
+        }
+
+        public async Task<(string playerName, string opponentName)> GetGameNames()
+        {
+            string playerName = string.Empty;
+            string opponentName = string.Empty;
+
+            if (!string.IsNullOrEmpty(gameId))
+            {
+                GameModel? existingModel = null;
+                existingModel = await GameRealtimeService.GetInstance().GetGameAsync(gameId);
+                if (existingModel != null)
+                {
+                    if (isLocalPlayerWhite)
+                    {
+                        if (existingModel.GuestColor == PieceColor.White.ToString())
+                        {
+                            playerName = existingModel.Guest;
+                            opponentName = existingModel.Host;
+                        }
+                        else
+                        {
+                            playerName = existingModel.Host;
+                            opponentName = existingModel.Guest;
+                        }
+                    }
+                    else
+                    {
+                        if (existingModel.GuestColor == PieceColor.Black.ToString())
+                        {
+                            playerName = existingModel.Guest;
+                            opponentName = existingModel.Host;
+                        }
+                        else
+                        {
+                            playerName = existingModel.Host;
+                            opponentName = existingModel.Guest;
+                        }
+                    }
+                }
+            }
+            return (playerName, opponentName);
         }
     }
 }

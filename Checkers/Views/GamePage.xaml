@@ -174,58 +174,59 @@
                    TextColor="#CCC"
                    VerticalOptions="Center"/>
         </StackLayout>
-        
-        
-        <VerticalStackLayout VerticalOptions="End">
-            <!-- Move history controls (bottom center) -->
 
-            <StackLayout
-                Orientation="Horizontal"
-                Spacing="10"
-                Padding="1"
+
+        <Grid Grid.Row="2" Padding="12,0,0,18">
+            <VerticalStackLayout
+                HorizontalOptions="Start"
                 VerticalOptions="End"
-                Margin="0,0,0,20"
-                IsVisible="{Binding HasBoardSnapshotHistory}">
+                Spacing="20">
 
-                <Button
-                    Text="back"
-                    FontSize="24"
-                    TextColor="{StaticResource LightText}"
-                    Command="{Binding GoBackCommand}"/>
+                <!-- Move history -->
+                <StackLayout
+                    Orientation="Horizontal"
+                    Spacing="10"
+                    IsVisible="{Binding HasBoardSnapshotHistory}">
 
-                <Button
-                    Text="forward"
-                    FontSize="24"
-                    TextColor="{StaticResource LightText}"
-                    Command="{Binding GoForwardCommand}"/>
+                    <Button
+                        Text="back"
+                        FontSize="24"
+                        TextColor="{StaticResource LightText}"
+                        Command="{Binding GoBackCommand}" />
+
+                    <Button
+                        Text="forward"
+                        FontSize="24"
+                        TextColor="{StaticResource LightText}"
+                        Command="{Binding GoForwardCommand}" />
+                </StackLayout>
+
+                <!-- Player captured count -->
+                <StackLayout
+                    Orientation="Horizontal"
+                    Spacing="4">
+
+                    <Image Source="{Binding PlayerPieceImage}"
+                        HeightRequest="40"
+                        WidthRequest="40" />
+
+                    <Label Text="x"
+                        FontSize="24"
+                        TextColor="#CCC"
+                        VerticalOptions="Center" />
+
+                    <Label Text="{Binding PlayerCapturedCount}"
+                        FontSize="24"
+                        TextColor="#CCC"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+            </VerticalStackLayout>
+        </Grid>
 
 
-            </StackLayout>
 
-            <!-- PlayerCapturedCount -->
-            <StackLayout Orientation="Horizontal"
-                 Spacing="4"
-                 Padding="10"
-                 HorizontalOptions="Start"
-                 VerticalOptions="End"
-                 Margin="12,0,0,18">
 
-                <Image Source="{Binding PlayerPieceImage}"
-                   HeightRequest="40"
-                   WidthRequest="40"/>
-                <Label Text="x"
-                    FontSize="24"
-                    TextColor="#CCC"
-                    VerticalOptions="Center"/>
-                <Label Text="{Binding PlayerCapturedCount}"
-                    FontSize="24"
-                    TextColor="#CCC"
-                    VerticalOptions="Center"/>
-            </StackLayout>
-        </VerticalStackLayout>
-        
-        
-        
 
         <ContentView 
             x:Name="WinnerContentView"

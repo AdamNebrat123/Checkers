@@ -31,9 +31,15 @@
         </Tab>
     </FlyoutItem>
 
+    <FlyoutItem Title="Statistics">
+        <Tab Title="Statistics">
+            <ShellContent Title="Statistics" ContentTemplate="{DataTemplate local:StatisticsPage}" Route="StatisticsPage"/>
+        </Tab>
+    </FlyoutItem>
+
     <FlyoutItem Title="LogOut">
         <Tab Title="LogOut">
-            <ShellContent Title="Settings" ContentTemplate="{DataTemplate local:LogOut}" Route="LogOut"/>
+            <ShellContent Title="LogOut" ContentTemplate="{DataTemplate local:LogOut}" Route="LogOut"/>
         </Tab>
     </FlyoutItem>
 

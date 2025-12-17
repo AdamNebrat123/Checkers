@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Checkers.GameLogic
 {
-    public class SpectatorGameStrategy : IGameStrategy, IBoardSnapshotHistory
+    public class SpectatorGameStrategy : IGameStrategy, IBoardSnapshotHistory, IGameNames
     {
         private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private readonly GameEventDispatcher gameEventDispatcher;
@@ -271,5 +271,46 @@ namespace Checkers.GameLogic
             }
         }
 
+        public async Task<(string playerName, string opponentName)> GetGameNames()
+        {
+            string playerName = string.Empty;
+            string opponentName = string.Empty;
+
+            if (!string.IsNullOrEmpty(gameId))
+            {
+                GameModel? existingModel = null;
+                existingModel = await GameRealtimeService.GetInstance().GetGameAsync(gameId);
+                if (existingModel != null)
+                {
+                    if (isWhitePerspective)
+                    {
+                        if (existingModel.GuestColor == PieceColor.White.ToString())
+                        {
+                            playerName = existingModel.Guest;
+                            opponentName = existingModel.Host;
+                        }
+                        else
+                        {
+                            playerName = existingModel.Host;
+                            opponentName = existingModel.Guest;
+                        }
+                    }
+                    else
+                    {
+                        if (existingModel.GuestColor == PieceColor.Black.ToString())
+                        {
+                            playerName = existingModel.Guest;
+                            opponentName = existingModel.Host;
+                        }
+                        else
+                        {
+                            playerName = existingModel.Host;
+                            opponentName = existingModel.Guest;
+                        }
+                    }
+                }
+            }
+            return (playerName, opponentName);
+        }
     }
 }

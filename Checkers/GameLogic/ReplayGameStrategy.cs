@@ -1,4 +1,5 @@
-﻿using Checkers.Models;
+﻿using Checkers.Model;
+using Checkers.Models;
 using Checkers.MoveHistory;
 using Checkers.ViewModel;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Checkers.GameLogic
 {
-    public class ReplayGameStrategy : IGameStrategy, IBoardSnapshotHistory
+    public class ReplayGameStrategy : IGameStrategy, IBoardSnapshotHistory, IGameNames
     {
 
         private bool IsWhitePerspective;
@@ -45,6 +46,40 @@ namespace Checkers.GameLogic
         public void SetBoardViewModel(BoardViewModel boardVM)
         {
             this.boardVM = boardVM;
+        }
+
+        public async Task<(string playerName, string opponentName)> GetGameNames()
+        {
+            string playerName = string.Empty;
+            string opponentName = string.Empty;
+            if (IsWhitePerspective)
+            {
+                if (Replay.GuestColor == PieceColor.White.ToString())
+                {
+                    playerName = Replay.Guest;
+                    opponentName = Replay.Host;
+                }
+                else
+                {
+                    playerName = Replay.Host;
+                    opponentName = Replay.Guest;
+                }
+            }
+            else
+            {
+                if (Replay.GuestColor == PieceColor.Black.ToString())
+                {
+                    playerName = Replay.Guest;
+                    opponentName = Replay.Host;
+                }
+                else
+                {
+                    playerName = Replay.Host;
+                    opponentName = Replay.Guest;
+                }
+            }
+
+            return (playerName, opponentName);
         }
     }
 }

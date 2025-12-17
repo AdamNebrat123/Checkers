@@ -172,9 +172,11 @@ namespace Checkers.ViewModel
 
         public ICommand GoBackCommand { get; private set; }
         public ICommand GoForwardCommand { get; private set; }
+        public IGameStrategy Strategy { get => _strategy; set => _strategy = value; }
+
         public void UnubFromGame()
         {
-            if (_strategy is OnlineGameStrategy online)
+            if (Strategy is OnlineGameStrategy online)
                 online.UnsubscribeFromGameUpdates();
 
             // גם נבטל את המנוי ל־GameEventDispatcher אם קיים
@@ -184,7 +186,7 @@ namespace Checkers.ViewModel
         public void SetBoardViewModel(BoardViewModel boardVM)
         {
             BoardVM = boardVM;
-            _strategy?.SetBoardViewModel(boardVM);
+            Strategy?.SetBoardViewModel(boardVM);
         }
 
         // Create the board internally with the given perspective
@@ -198,11 +200,11 @@ namespace Checkers.ViewModel
 
         public void SetStrategy(IGameStrategy strategy)
         {
-            _strategy = strategy;
+            Strategy = strategy;
             if (BoardVM != null)
-                _strategy.SetBoardViewModel(BoardVM);
+                Strategy.SetBoardViewModel(BoardVM);
 
-            if (_strategy is AiGameStrategy)
+            if (Strategy is AiGameStrategy)
                 GameManager.TurnSwitched += CheckWinnerAiMode;
 
             historyProvider = strategy as IBoardSnapshotHistory;
@@ -237,17 +239,17 @@ namespace Checkers.ViewModel
 
         public async Task InitializeAsync()
         {
-            if (_strategy != null && BoardVM != null)
+            if (Strategy != null && BoardVM != null)
             {
-                await _strategy.InitializeAsync(BoardVM);
+                await Strategy.InitializeAsync(BoardVM);
             }
 
         }
 
         public async Task HandleSquareSelectedAsync(SquareViewModel square)
         {
-            if (_strategy == null) return;
-            await _strategy.HandleSquareSelectedAsync(BoardVM, square);
+            if (Strategy == null) return;
+            await Strategy.HandleSquareSelectedAsync(BoardVM, square);
         }
 
         // --------- Turn subscription helpers ---------
@@ -279,7 +281,7 @@ namespace Checkers.ViewModel
                         IsLocalTurn = isLocalTurnNow;
                     });
 
-                    if(_strategy is OnlineGameStrategy) 
+                    if(Strategy is OnlineGameStrategy) 
                         UpdateTimer(isWhiteTurn);
 
                     await HandleWinnerCheck(gameModel);
@@ -518,10 +520,10 @@ namespace Checkers.ViewModel
         }
         private void CheckWinnerAiMode()
         {
-            if (!(_strategy is AiGameStrategy))
+            if (!(Strategy is AiGameStrategy))
                 return;
 
-            AiGameStrategy strategy = (AiGameStrategy)_strategy;
+            AiGameStrategy strategy = (AiGameStrategy)Strategy;
 
             int totalWhites = 0;
             int totalBlacks = 0;

@@ -95,23 +95,8 @@ namespace Checkers.Views
             }
 
 
-            if (!string.IsNullOrEmpty(gameId))
-            {
-                GameModel? existingModel = null;
-                existingModel = await GameRealtimeService.GetInstance().GetGameAsync(gameId);
-                if (existingModel != null) {
-                    SetNames(existingModel, isWhite);
-                }
-                // Sub To Turn Updates
-                _gameViewModel.SubscribeToTurnUpdates(gameId);
+            SetGameNames();
 
-            }
-            else
-            {
-                _gameViewModel.PlayerName = Preferences.Get("UserName", "Guest");
-                _gameViewModel.OpponentName = "BOT";
-            }
-            
 
 
 
@@ -230,34 +215,14 @@ namespace Checkers.Views
                                 stringFormat: "{0:mm\\:ss}"));
             }
         }
-        private void SetNames(GameModel existingModel, bool isWhite)
+        private async void SetGameNames()
         {
-            if (isWhite)
-            {
-                if (existingModel.GuestColor == PieceColor.White.ToString())
-                {
-                    _gameViewModel.PlayerName = existingModel.Guest;
-                    _gameViewModel.OpponentName = existingModel.Host;
-                }
-                else
-                {
-                    _gameViewModel.PlayerName = existingModel.Host;
-                    _gameViewModel.OpponentName = existingModel.Guest;
-                }
-            }
-            else
-            {
-                if (existingModel.GuestColor == PieceColor.Black.ToString())
-                {
-                    _gameViewModel.PlayerName = existingModel.Guest;
-                    _gameViewModel.OpponentName = existingModel.Host;
-                }
-                else
-                {
-                    _gameViewModel.PlayerName = existingModel.Host;
-                    _gameViewModel.OpponentName = existingModel.Guest;
-                }
-            }
+            IGameNames strategy = _gameViewModel.Strategy as IGameNames;
+
+            var (playerName, opponentName) = await strategy.GetGameNames();
+
+            _gameViewModel.PlayerName = playerName;
+            _gameViewModel.OpponentName = opponentName;
         }
     }
 }

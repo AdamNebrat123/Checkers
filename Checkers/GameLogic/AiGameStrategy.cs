@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Checkers.GameLogic
 {
-    public class AiGameStrategy : IGameStrategy
+    public class AiGameStrategy : IGameStrategy, IGameNames
     {
         private static readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
         private BoardViewModel boardVM;
@@ -245,6 +245,14 @@ namespace Checkers.GameLogic
                 }
             }
             return false;
+        }
+
+        public async Task<(string playerName, string opponentName)> GetGameNames()
+        {
+            string playerName = Preferences.Get("UserName", "Guest");
+            string opponentName = "BOT";
+
+            return (playerName, opponentName);
         }
     }
 
