@@ -125,7 +125,6 @@ namespace Checkers.GameLogic
                             sq.HasMoveMarker = false;
 
 
-                        gameManager.SwitchTurn();
 
 
                         // ריקון ריבוע המקור
@@ -190,11 +189,14 @@ namespace Checkers.GameLogic
                             }
                         }
 
+                        gameManager.SwitchTurn();
 
                         // עדכון מצב הלוח לפי ה-state מהפיירבייס
                         UpdateBoard();
                         int[][] boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isLocalPlayerWhite);
                         BoardSnapshotHistory.AddState(boardState);
+
+
 
                     }
                     catch (Exception ex)
@@ -213,11 +215,17 @@ namespace Checkers.GameLogic
         {
             try
             {
-                if (!CanLocalPlayerMove())
+                if (!CanLocalPlayerMove() )
                 {
                     _musicService.Play(SfxEnum.illegal.ToString(), false);
                     return;
                 }
+                if(!BoardSnapshotHistory.IsInMostUpdatedState)
+                {
+                    _musicService.Play(SfxEnum.illegal.ToString(), false);
+                    return;
+                }
+
 
                 if (squareVM.HasMoveMarker)
                     await MovePieceAsync(squareVM);

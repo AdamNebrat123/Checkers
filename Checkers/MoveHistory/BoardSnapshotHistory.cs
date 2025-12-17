@@ -22,6 +22,7 @@ namespace Checkers.MoveHistory
 
         public bool CanGoBack => CurrentIndex > 0;
         public bool CanGoForward => CurrentIndex < states.Count - 1;
+        public bool IsInMostUpdatedState => currentIndex == states.Count - 1;
 
         public int CurrentIndex { 
             get => currentIndex;

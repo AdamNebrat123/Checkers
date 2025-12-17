@@ -169,7 +169,6 @@ namespace Checkers.GameLogic
                         foreach (var sq in boardVM.Squares)
                             sq.HasMoveMarker = false;
 
-                        gameManager.SwitchTurn();
 
 
                         // ריקון ריבוע המקור
@@ -234,20 +233,24 @@ namespace Checkers.GameLogic
                             }
                         }
 
+                        gameManager.SwitchTurn();
+
                         // עדכון מצב הלוח לפי ה-state מהפיירבייס
                         UpdateBoard();
                         int[][] boardState = BoardHelper.ConvertBoardToState(boardVM.Board, isWhitePerspective);
                         BoardSnapshotHistory.AddState(boardState);
+
+
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error animating opponent Move: {ex.Message}");
+                        Debug.WriteLine($"Error animating opponent Move: {ex.Message}");
                     }
                 });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in game update handler: {ex.Message}");
+                Debug.WriteLine($"Error in game update handler: {ex.Message}");
             }
         }
 

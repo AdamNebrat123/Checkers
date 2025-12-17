@@ -96,6 +96,7 @@ namespace Checkers.Views
 
 
             SetGameNames();
+            _gameViewModel.SubscribeToTurnUpdates(gameId);
 
 
 
