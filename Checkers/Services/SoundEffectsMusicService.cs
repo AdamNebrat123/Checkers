@@ -14,7 +14,7 @@ namespace Checkers.Services
     using Foundation;
     #endif
 
-    public class MusicService : IMusicService
+    public class SoundEffectsMusicService : ISoundEffectService
     {
         #if ANDROID
                 private MediaPlayer _player;
@@ -37,8 +37,6 @@ namespace Checkers.Services
 
         public void Play(string musicName, bool isLooping = true)
         {
-            // קודם עצור כל ניגון קודם
-            Stop();
 
             if (string.IsNullOrEmpty(musicName) || musicName.ToUpper() == "OFF")
             {
@@ -48,7 +46,7 @@ namespace Checkers.Services
 
             CurrentMusic = musicName;
 
-#if ANDROID
+            #if ANDROID
             var context = Android.App.Application.Context;
             int resId = context.Resources.GetIdentifier(musicName, "raw", context.PackageName);
             if (resId == 0) return; // הקובץ לא נמצא
@@ -58,19 +56,19 @@ namespace Checkers.Services
             _player.SetVolume(1.0f, 1.0f);       // לוודא שהווליום מקסימלי
             _player.Start();                      // התחלת השמעה
 
-#elif IOS
-    // הכנת AudioSession כדי שהשמע יושמע
-    var audioSession = AVFoundation.AVAudioSession.SharedInstance();
-    audioSession.SetCategory(AVFoundation.AVAudioSessionCategory.Playback);
-    audioSession.SetActive(true);
+            #elif IOS
+                // הכנת AudioSession כדי שהשמע יושמע
+                var audioSession = AVFoundation.AVAudioSession.SharedInstance();
+                audioSession.SetCategory(AVFoundation.AVAudioSessionCategory.Playback);
+                audioSession.SetActive(true);
 
-    // טעינת הקובץ
-    var url = NSUrl.FromFilename(musicName + ".mp3"); // חייב להיות ב-Resources עם Build Action=BundleResource
-    _player = AVAudioPlayer.FromUrl(url);
-    _player.NumberOfLoops = isLooping ? -1 : 0;  // לולאה אינסופית
-    _player.PrepareToPlay();
-    _player.Play();
-#endif
+                // טעינת הקובץ
+                var url = NSUrl.FromFilename(musicName + ".mp3"); // חייב להיות ב-Resources עם Build Action=BundleResource
+                _player = AVAudioPlayer.FromUrl(url);
+                _player.NumberOfLoops = isLooping ? -1 : 0;  // לולאה אינסופית
+                _player.PrepareToPlay();
+                _player.Play();
+            #endif
         }
 
 
@@ -82,6 +80,20 @@ namespace Checkers.Services
 #elif IOS
         if (_player?.Playing ?? false)
             _player.Pause();
+#endif
+        }
+        public void Unpause()
+        {
+#if ANDROID
+    if (_player != null && !_player.IsPlaying)
+    {
+        _player.Start();
+    }
+#elif IOS
+    if (_player != null && !_player.Playing)
+    {
+        _player.Play();
+    }
 #endif
         }
 

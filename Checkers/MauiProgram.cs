@@ -25,7 +25,8 @@ namespace Checkers
 #if DEBUG
     		builder.Logging.AddDebug();
 
-            builder.Services.AddSingleton<IMusicService, MusicService>();
+            builder.Services.AddSingleton<ISoundEffectService, SoundEffectsMusicService>();
+            builder.Services.AddSingleton<IBackgroundMusicService, BackgroundMusicService>();
             // Register Services, ViewModels, Pages
             RegisterServices(builder);
             RegisterViewModels(builder);

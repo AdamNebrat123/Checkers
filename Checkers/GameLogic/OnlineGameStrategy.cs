@@ -19,7 +19,7 @@ namespace Checkers.GameLogic
 {
     public class OnlineGameStrategy : IGameStrategy, IBoardSnapshotHistory, IGameNames
     {
-        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+        private readonly ISoundEffectService _musicService = IPlatformApplication.Current.Services.GetRequiredService<ISoundEffectService>();
         private readonly GameEventDispatcher gameEventDispatcher;
         private readonly GameManagerViewModel gameManager;
         private readonly GameService gameService = GameService.GetInstance();

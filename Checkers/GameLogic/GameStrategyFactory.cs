@@ -27,7 +27,7 @@ namespace Checkers.GameLogic
         {
             if (parameters is not AiSettings ai)
                 throw new ArgumentException("Expected AiSettings for AI mode");
-            var musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+            var musicService = IPlatformApplication.Current.Services.GetRequiredService<ISoundEffectService>();
             return new AiGameStrategy(manager, ai.Depth, ai.IsWhite);
         }
 

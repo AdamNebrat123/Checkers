@@ -61,8 +61,8 @@
                             HeightRequest="45" />
 
                         <Button 
-                            Text="Pause"
-                            Clicked="OnPauseClicked"
+                            Text="Stop"
+                            Clicked="OnStopClicked"
                             BackgroundColor="{StaticResource SecondaryDark}"
                             TextColor="{StaticResource LightText}"
                             CornerRadius="12"

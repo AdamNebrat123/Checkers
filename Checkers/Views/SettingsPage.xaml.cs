@@ -8,7 +8,8 @@ namespace Checkers.Views
 {
     public partial class SettingsPage : ContentPage
     {
-        private readonly IMusicService _musicService;
+        private readonly IBackgroundMusicService _backgroundMusicService = IPlatformApplication.Current.Services.GetRequiredService<IBackgroundMusicService>();
+        private readonly ISoundEffectService _SFX = IPlatformApplication.Current.Services.GetRequiredService<ISoundEffectService>();
 
         private readonly Dictionary<string, string> _musicOptions = new Dictionary<string, string>
         {
@@ -17,18 +18,17 @@ namespace Checkers.Views
             { "Music2", "bibi" },
         };
 
-        public SettingsPage(IMusicService musicService)
+        public SettingsPage()
         {
             InitializeComponent();
-            _musicService = musicService;
 
             // מילוי ה-Picker עם השמות הידידותיים
             MusicPicker.ItemsSource = _musicOptions.Keys.ToList();
 
             // קביעת הבחירה הנוכחית לפי המוזיקה הנוכחית
-            if (_musicService.CurrentMusic != null)
+            if (_backgroundMusicService.CurrentMusic != null)
             {
-                var selected = _musicOptions.FirstOrDefault(x => x.Value == _musicService.CurrentMusic).Key;
+                var selected = _musicOptions.FirstOrDefault(x => x.Value == _backgroundMusicService.CurrentMusic).Key;
                 if (selected != null)
                     MusicPicker.SelectedItem = selected;
             }
@@ -40,26 +40,32 @@ namespace Checkers.Views
 
         private void OnMusicChanged(object sender, EventArgs e)
         {
-            if (MusicPicker.SelectedItem is string displayName && !string.IsNullOrEmpty(displayName))
-            {
+            //if (MusicPicker.SelectedItem is string displayName && !string.IsNullOrEmpty(displayName))
+            //{
 
-                // לנגן את המוזיקה
-                if (_musicOptions.TryGetValue(displayName, out var fileName))
-                {
-
-                    _musicService.Play(fileName);
-                }
-            }
+            //    // לנגן את המוזיקה
+            //    if (_musicOptions.TryGetValue(displayName, out var fileName))
+            //    {
+            //        _backgroundMusicService.Stop();
+            //        _backgroundMusicService.Play(fileName);
+            //    }
+            //}
         }
-        private void OnPauseClicked(object sender, EventArgs e)
+        private void OnStopClicked(object sender, EventArgs e)
         {
-            _musicService.Pause();
+            _backgroundMusicService.Stop();
         }
 
         private void OnPlayClicked(object sender, EventArgs e)
         {
-            if (_musicService.CurrentMusic != null)
-                _musicService.Play(_musicService.CurrentMusic);
+            if (MusicPicker.SelectedItem is string displayName && !string.IsNullOrEmpty(displayName))
+            {
+                if (_musicOptions.TryGetValue(displayName, out var fileName))
+                {
+                    _backgroundMusicService.Stop();
+                    _backgroundMusicService.Play(fileName);
+                }
+            }
         }
     }
 }

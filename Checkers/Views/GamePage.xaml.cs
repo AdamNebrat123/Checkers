@@ -117,7 +117,7 @@ namespace Checkers.Views
 
             _initialized = true;
 
-            var musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+            var musicService = IPlatformApplication.Current.Services.GetRequiredService<ISoundEffectService>();
             musicService.Play(SfxEnum.game_start.ToString(), false);
 
         }

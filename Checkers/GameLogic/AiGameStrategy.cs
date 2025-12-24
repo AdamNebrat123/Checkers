@@ -13,7 +13,7 @@ namespace Checkers.GameLogic
 {
     public class AiGameStrategy : IGameStrategy, IGameNames
     {
-        private static readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+        private static readonly ISoundEffectService _musicService = IPlatformApplication.Current.Services.GetRequiredService<ISoundEffectService>();
         private BoardViewModel boardVM;
         private readonly GameManagerViewModel gameManager;
         private readonly AIManager aiManager;

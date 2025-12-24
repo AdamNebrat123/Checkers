@@ -20,7 +20,7 @@ namespace Checkers.ViewModel
         public GameManagerViewModel GameManager { get; }
         private IGameStrategy _strategy;
 
-        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+        private readonly ISoundEffectService _musicService = IPlatformApplication.Current.Services.GetRequiredService<ISoundEffectService>();
         private IBoardSnapshotHistory? historyProvider = null;
         public bool HasBoardSnapshotHistory => historyProvider != null;
 

@@ -13,7 +13,7 @@ namespace Checkers.MoveHistory
 {
     public class BoardSnapshotHistory
     {
-        private readonly IMusicService _musicService = IPlatformApplication.Current.Services.GetRequiredService<IMusicService>();
+        private readonly ISoundEffectService _musicService = IPlatformApplication.Current.Services.GetRequiredService<ISoundEffectService>();
         private readonly BoardViewModel boardVM;
         private readonly bool isWhitePerspective;
 
