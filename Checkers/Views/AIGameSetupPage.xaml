@@ -14,9 +14,9 @@
 
         <!-- Difficulty Buttons -->
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-            <RadioButton Content="EASY"   GroupName="Difficulty" Value="Easy"/>
-            <RadioButton Content="MEDIUM" GroupName="Difficulty" Value="Medium" IsChecked="True"/>
-            <RadioButton Content="HARD"   GroupName="Difficulty" Value="Hard"/>
+            <RadioButton Content="EASY"   GroupName="Difficulty" Value="Easy" TextColor="White"/>
+            <RadioButton Content="MEDIUM" GroupName="Difficulty" Value="Medium" IsChecked="True" TextColor="White"/>
+            <RadioButton Content="HARD"   GroupName="Difficulty" Value="Hard" TextColor="White"/>
         </HorizontalStackLayout>
 
         <!-- Colors Title -->

@@ -61,9 +61,10 @@
                        FontSize="22"
                        HorizontalOptions="Center"/>
                 <Picker x:Name="TimerPicker"
+                        BackgroundColor="Gray"
                         Title="Select time"
                         TitleColor="Gray"
-                        TextColor="White"
+                        TextColor="Black"
                         WidthRequest="200"
                         SelectedIndex="1">
                     <!-- ברירת מחדל 10 דקות -->

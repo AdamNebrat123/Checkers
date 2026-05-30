@@ -88,7 +88,7 @@ namespace Checkers.Views
                 if (!_joined && !string.IsNullOrEmpty(GameId))
                     await _gameService.DeleteGameAsync(GameId);
 
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("///HomePage");
             }
             catch (Exception ex)
             {

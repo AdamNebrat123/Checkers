@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Checkers.Data.FirebaseService" Collapsed="true">
+    <Position X="7.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAACAAAAAgAAAAQAAAAAQAAAgAAQAAgEAAAAAAAAAA=</HashCode>
+      <FileName>Data\FirebaseService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Data.GameEventDispatcher" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAAACAgAAAAAAQCBAACAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Data\GameEventDispatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Data.GameRealtimeService" Collapsed="true">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAACRAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\GameRealtimeService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Data.GameService" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAAAAAIEAAAAAAgAAACBAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Data\GameService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Data.ReplayService" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEIAAQAAAAAgAAAAAAAAAQBAAAAAAAAAgAAAAAAAI=</HashCode>
+      <FileName>Data\ReplayService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Data.UserService" Collapsed="true">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\UserService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.GameLogic.AiGameStrategy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>mEEAAAAAAAAAAQAAIAAACSAEIEAAAkAAAAAAAAAAAIA=</HashCode>
+      <FileName>GameLogic\AiGameStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.GameLogic.GameStrategyFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEAAAAAQAAMAAA=</HashCode>
+      <FileName>GameLogic\GameStrategyFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.GameLogic.ModeParametersWrapper" Collapsed="true">
+    <Position X="9.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\ModeParametersWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.GameLogic.AiSettings" Collapsed="true">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\ModesSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.GameLogic.OnlineSettings" Collapsed="true">
+    <Position X="5.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAEAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\ModesSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.GameLogic.SpectatorSettings" Collapsed="true">
+    <Position X="5.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\ModesSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.GameLogic.ReplaySettings" Collapsed="true">
+    <Position X="9.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAEAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\ModesSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.GameLogic.OnlineGameStrategy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EGUAAAAAgAAAAQIAgDABAABBgEAAAEAEAEAAAAABQIA=</HashCode>
+      <FileName>GameLogic\OnlineGameStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.GameLogic.ReplayGameStrategy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAAAAAEAAAAQAAgAAAAAAAAEAAAAAAAQAAAAAAAIA=</HashCode>
+      <FileName>GameLogic\ReplayGameStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.GameLogic.SpectatorGameStrategy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EGEQAAAAgAAAAQIAgCAAAABBAEAAAEAEAEAAAAABAIA=</HashCode>
+      <FileName>GameLogic\SpectatorGameStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Models.AIManager" Collapsed="true">
+    <Position X="6.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAggQAAAABAAAAAAAAIAAAAAAAAAAAIAAAIAAAAAA=</HashCode>
+      <FileName>Models\AIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.CaptureStep" Collapsed="true">
+    <Position X="10.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAEAAAAAAAAAEAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Models\CaptureStep.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.GameModel" Collapsed="true">
+    <Position X="6.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAgAIAAggAAACEAAAAAAAAACAAAAAAAAAAQAAg=</HashCode>
+      <FileName>Models\GameModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.GameMove" Collapsed="true">
+    <Position X="8.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAAAAAEAAAAAAACAAAAAAAAAAAQQIAAAAIAAAA=</HashCode>
+      <FileName>Models\GameMove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.GameReplay" Collapsed="true">
+    <Position X="10.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAgEAAAAAAAACEAAAAAAQAACAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\GameReplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.King" Collapsed="true">
+    <Position X="2" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\King.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.Man" Collapsed="true">
+    <Position X="4.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Man.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.Move" Collapsed="true">
+    <Position X="6.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\Move.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.User" Collapsed="true">
+    <Position X="10.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAKAAAAAAAAQAAAAAAAASAQAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Model.Board" Collapsed="true">
+    <Position X="8.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQABAAIAAAAAAA=</HashCode>
+      <FileName>Models\Board.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Model.Piece" Collapsed="true">
+    <Position X="3.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Piece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Model.Square" Collapsed="true">
+    <Position X="8.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Square.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModel.BoardViewModel" Collapsed="true">
+    <Position X="3.75" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAEAQAAAAAAAAAAAAEBBAAAASABAAA=</HashCode>
+      <FileName>ViewModels\BoardViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModel.GameViewModel" Collapsed="true">
+    <Position X="8.25" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UoMhAIAUFABQMyDQDACAQAMCIRQKCEEABAAMEBBQAgI=</HashCode>
+      <FileName>ViewModels\GameViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModel.SquareViewModel" Collapsed="true">
+    <Position X="15" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAEAABAAMAAAACAAgAAAAABJMIAIAA=</HashCode>
+      <FileName>ViewModels\SquareViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModels.HomePageViewModel" Collapsed="true">
+    <Position X="10.5" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAIAAAgAAAAAIEAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\HomePageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModels.LoginViewModel" Collapsed="true">
+    <Position X="17.25" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAACiAIAiAoAAAgAAAAAgAgABAAIgAKQEIAAsDBgAY=</HashCode>
+      <FileName>ViewModels\LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModels.MainViewModel" Collapsed="true">
+    <Position X="6" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModels.RegisterViewModel" Collapsed="true">
+    <Position X="12.75" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAGAIgSBAAAA0BMBAJQShAAAAYwCeAUJAC4EAAAg=</HashCode>
+      <FileName>ViewModels\RegisterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="10.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Views.AIGameSetupPage" Collapsed="true">
+    <Position X="7.5" Y="26.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAEAgAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Views\AIGameSetupPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.CheckersLobby" Collapsed="true">
+    <Position X="9.25" Y="26.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAAABACAgAAIAAAAAAAgAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Views\CheckersLobby.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.CreateGame" Collapsed="true">
+    <Position X="11" Y="26.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAgAAAQAAAAAgAAAAAAAAAAAAAAAIAAAAAAAg=</HashCode>
+      <FileName>Views\CreateGame.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.GamePage" Collapsed="true">
+    <Position X="12.75" Y="26.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAQAiCAAAAAQAAACAAQoAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\GamePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.HomePage" Collapsed="true">
+    <Position X="7.5" Y="27.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\HomePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.LoginPage" Collapsed="true">
+    <Position X="9.25" Y="27.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.LogOut" Collapsed="true">
+    <Position X="11" Y="27.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Views\LogOut.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.MainPage" Collapsed="true">
+    <Position X="12.75" Y="27.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAADAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.ProfilePage" Collapsed="true">
+    <Position X="7.5" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ProfilePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.RegisterPage" Collapsed="true">
+    <Position X="9.25" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\RegisterPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.ReplaysPage" Collapsed="true">
+    <Position X="11" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAgAQAAAEAQAAAAAAAAABAAAAAAQBAACAgA=</HashCode>
+      <FileName>Views\ReplaysPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.SettingsPage" Collapsed="true">
+    <Position X="12.75" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAEAAACAAAAAAgAAAABAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SettingsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.SpectateLobby" Collapsed="true">
+    <Position X="7.5" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAAABAKAgAAIAAAAAAAAAAAACAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Views\SpectateLobby.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Views.StatisticsPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAMAAAIAAAACAIAAAAAQAgAAAAAAAAAAIQAACCAA=</HashCode>
+      <FileName>Views\StatisticsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Views.WaitingRoom" Collapsed="true">
+    <Position X="11" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAiAgAACAAAAEAAAABAAgAAAAAAEICAAAAABA=</HashCode>
+      <FileName>Views\WaitingRoom.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Converters.CellSizeConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CellSizeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Converters.MarkerSizeConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\MarkerSizeConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Converters.PieceToColorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="32.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\PieceToColorConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Converters.SquareToColorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="32.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\SquareToColorConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Helpers.Constants" Collapsed="true">
+    <Position X="10.5" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACACAAAIAggAQAAAQAACAAQQAYAQCAAQCAAAQ=</HashCode>
+      <FileName>Helpers\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Services.BackgroundMusicService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAQAAAAAAAAAAAAAACAAAAAQAAAAAoAAAAAAEAAA=</HashCode>
+      <FileName>Services\BackgroundMusicService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Services.SoundEffectsMusicService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAQAAAAAAAAAAAAAACAAAAAQAAAAAoAAAAAAEAAA=</HashCode>
+      <FileName>Services\SoundEffectsMusicService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Checkers.Utils.BoardHelper" Collapsed="true">
+    <Position X="5.5" Y="34.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAIAAAAAAAAAAAAAAAABAAQAAAAAAAAAACAAIAA=</HashCode>
+      <FileName>Utils\BoardHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Utils.MoveHelper" Collapsed="true">
+    <Position X="7.25" Y="34.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAQAAAAAAAAAABAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Utils\MoveHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Checkers.Models.UndoInfo" Collapsed="true">
+    <Position X="6.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAABAAAAAAAAIAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Models\UndoInfo.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Checkers.GameLogic.IGameNames" Collapsed="true">
+    <Position X="4" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>GameLogic\IGameNames.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Checkers.GameLogic.IGameStrategy" Collapsed="true">
+    <Position X="5.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\IGameStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Checkers.GameLogic.IGameStrategyFactory" Collapsed="true">
+    <Position X="7.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\IGameStrategyFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Checkers.Services.IBackgroundMusicService" Collapsed="true">
+    <Position X="5.5" Y="33" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAQAAAAAAAAAAAAAAAAAAAAQAAAAAoAAAAAAEAAA=</HashCode>
+      <FileName>Services\IBackgroundMusicService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Checkers.Services.ISoundEffectService" Collapsed="true">
+    <Position X="7.25" Y="33" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAQAAAAAAAAAAAAAAAAAAAAQAAAAAoAAAAAAEAAA=</HashCode>
+      <FileName>Services\ISoundEffectService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Checkers.GameLogic.GameMode" Collapsed="true">
+    <Position X="4" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgQAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\GameMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Checkers.Models.SfxEnum" Collapsed="true">
+    <Position X="8.5" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAIAACAAAAAEAAAACAAAAAAECAAAACAAAAAAAA=</HashCode>
+      <FileName>Models\SfxEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Checkers.Model.PieceColor">
+    <Position X="6.75" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Piece.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
